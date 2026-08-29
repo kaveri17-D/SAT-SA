@@ -84,7 +84,11 @@ class Alert(Base, TimestampMixin):
     __table_args__ = (
         Index("idx_alert_cse_severity_status", "cse_id", "severity", "status"),
         Index("idx_alert_created_at", "created_at"),
+        Index("idx_alert_asset_created", "asset_id", "created_at"),
+        Index("idx_alert_asset_category_created", "asset_id", "category", "created_at"),
+        Index("idx_alert_cse_asset_created", "cse_id", "asset_id", "created_at"),
     )
+
 
 
 class Investigation(Base, TimestampMixin):

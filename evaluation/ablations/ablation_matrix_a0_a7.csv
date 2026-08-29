@@ -1,0 +1,9 @@
+Configuration,Config Name,Detection F1,FPR,Top-10 Recall,Explainability (%),Review Reduction (%),Diversity (Unique CSEs),Diversity (HHI),Findings Count
+A0,Operational Baseline,0.2222,0.0,0.125,0.0,0.0,1,1.0,1
+A1,Baseline + Execution Gap,0.2222,0.0,0.125,0.0,0.0,1,1.0,1
+A2,Baseline + Negative Space,0.0134,1.0,0.0,0.0,98.0,1,1.0,502
+A3,Baseline + Peer Analysis,0.2,0.0025,0.375,0.0,0.0,2,0.625,4
+A4,Baseline + Evidence Engine,0.0177,1.0,0.125,100.0,98.0,2,0.82,507
+A5,Baseline + Risk Engine,0.0177,1.0,0.625,100.0,98.0,4,0.28,507
+A6,Baseline + Risk + Diversity,0.0177,1.0,0.625,100.0,98.0,3,0.42,507
+A7,Full SAT-SA Architecture,0.0177,1.0,0.625,100.0,98.0,3,0.42,507

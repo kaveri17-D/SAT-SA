@@ -24,7 +24,7 @@ class ExecutionGapEngine:
     def __init__(self, db: Session = None):
         self.db = db or SessionLocal()
 
-    def run_analysis(self, dataset_import_id: uuid.UUID, rule_version: str = "1.0.0") -> AnalysisRun:
+    def run_analysis(self, dataset_import_id: uuid.UUID, rule_version: str = "1.0.0", analysis_run_id: Optional[uuid.UUID] = None) -> AnalysisRun:
         """Run execution gap detection over canonical database records for a DatasetImport."""
         start_time = time.time()
 
@@ -32,20 +32,26 @@ class ExecutionGapEngine:
         ds_import = self.db.query(DatasetImport).filter(DatasetImport.id == dataset_import_id).first()
         completeness_score = ds_import.completeness_score if ds_import else 100.0
 
-        # 2. Create AnalysisRun Provenance Record
-        analysis_run = AnalysisRun(
-            id=uuid.uuid4(),
-            dataset_import_id=dataset_import_id,
-            started_at=datetime.now(timezone.utc),
-            status=AnalysisRunStatus.RUNNING,
-            rule_version=rule_version,
-            model_version="1.0.0",
-            records_processed=0,
-            findings_generated=0,
-            configuration={"engine": "ExecutionGapEngine", "rule_version": rule_version}
-        )
-        self.db.add(analysis_run)
-        self.db.commit()
+        # 2. Create or Fetch AnalysisRun Provenance Record
+        if analysis_run_id:
+            analysis_run = self.db.query(AnalysisRun).filter(AnalysisRun.id == analysis_run_id).first()
+        else:
+            analysis_run = None
+
+        if not analysis_run:
+            analysis_run = AnalysisRun(
+                id=analysis_run_id or uuid.uuid4(),
+                dataset_import_id=dataset_import_id,
+                started_at=datetime.now(timezone.utc),
+                status=AnalysisRunStatus.RUNNING,
+                rule_version=rule_version,
+                model_version="1.0.0",
+                records_processed=0,
+                findings_generated=0,
+                configuration={"engine": "ExecutionGapEngine", "rule_version": rule_version}
+            )
+            self.db.add(analysis_run)
+            self.db.commit()
 
         try:
             # 3. Fetch Canonical Alerts using joinedload to eliminate N+1 queries
@@ -128,7 +134,7 @@ class NegativeSpaceEngine:
         self.db = db or SessionLocal()
         self.matrix = matrix or ExpectedEvidenceMatrix()
 
-    def run_analysis(self, dataset_import_id: uuid.UUID, rule_version: str = "1.0.0") -> AnalysisRun:
+    def run_analysis(self, dataset_import_id: uuid.UUID, rule_version: str = "1.0.0", analysis_run_id: Optional[uuid.UUID] = None) -> AnalysisRun:
         """Run negative space evaluation rules (NEG-01 through NEG-05) against canonical database records."""
         start_time = time.time()
 
@@ -136,20 +142,26 @@ class NegativeSpaceEngine:
         ds_import = self.db.query(DatasetImport).filter(DatasetImport.id == dataset_import_id).first()
         completeness_score = ds_import.completeness_score if ds_import else 100.0
 
-        # 2. Create AnalysisRun Provenance Record
-        analysis_run = AnalysisRun(
-            id=uuid.uuid4(),
-            dataset_import_id=dataset_import_id,
-            started_at=datetime.now(timezone.utc),
-            status=AnalysisRunStatus.RUNNING,
-            rule_version=rule_version,
-            model_version="1.0.0",
-            records_processed=0,
-            findings_generated=0,
-            configuration={"engine": "NegativeSpaceEngine", "rule_version": rule_version}
-        )
-        self.db.add(analysis_run)
-        self.db.commit()
+        # 2. Create or Fetch AnalysisRun Provenance Record
+        if analysis_run_id:
+            analysis_run = self.db.query(AnalysisRun).filter(AnalysisRun.id == analysis_run_id).first()
+        else:
+            analysis_run = None
+
+        if not analysis_run:
+            analysis_run = AnalysisRun(
+                id=analysis_run_id or uuid.uuid4(),
+                dataset_import_id=dataset_import_id,
+                started_at=datetime.now(timezone.utc),
+                status=AnalysisRunStatus.RUNNING,
+                rule_version=rule_version,
+                model_version="1.0.0",
+                records_processed=0,
+                findings_generated=0,
+                configuration={"engine": "NegativeSpaceEngine", "rule_version": rule_version}
+            )
+            self.db.add(analysis_run)
+            self.db.commit()
 
         try:
             # 3. Fetch Canonical Entities from DB

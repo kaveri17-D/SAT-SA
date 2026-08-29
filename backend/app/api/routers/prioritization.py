@@ -5,10 +5,8 @@ from typing import List, Dict, Any
 from pydantic import BaseModel
 
 from app.core.database import get_db
-from app.models import ReviewQueueItem, AuditLog, QueueItemStatus, AnalysisRun
-from app.analytics.prioritization_engine import ReviewPrioritizationEngine
-
 from app.models import ReviewQueueItem, AuditLog, QueueItemStatus, AnalysisRun, CSE, Finding, Asset, RiskScore, Case, FindingSeverity
+from app.analytics.prioritization_engine import ReviewPrioritizationEngine
 
 router = APIRouter()
 
@@ -24,18 +22,18 @@ def get_dashboard_metrics(db: Session = Depends(get_db)):
     """Calculate executive dashboard metrics dynamically across canonical database records."""
     total_cses = db.query(CSE).count()
     risk_scores = db.query(RiskScore).all()
-    critical_cses = len([r for r in risk_scores if r.risk_band in ("CRITICAL", "HIGH") or r.normalized_score >= 50.0])
+    critical_cses = len([r for r in risk_scores if (r.risk_band in ("CRITICAL", "HIGH")) or (r.normalized_score is not None and r.normalized_score >= 50.0)])
 
     total_findings = db.query(Finding).count()
     critical_findings = db.query(Finding).filter(Finding.severity == FindingSeverity.CRITICAL).count()
 
     findings = db.query(Finding).all()
-    avg_completeness = round(sum(f.evidence_completeness for f in findings) / len(findings), 1) if findings else 100.0
+    avg_completeness = round(sum(f.evidence_completeness for f in findings if f.evidence_completeness is not None) / len(findings), 1) if findings else 100.0
 
     open_cases = db.query(Case).filter(Case.status == "OPEN").count()
 
     queue_items = db.query(ReviewQueueItem).all()
-    high_priority_reviews = len([q for q in queue_items if q.priority_score >= 50.0 or q.priority_band in ("CRITICAL", "HIGH")])
+    high_priority_reviews = len([q for q in queue_items if (q.priority_score is not None and q.priority_score >= 50.0) or q.priority_band in ("CRITICAL", "HIGH")])
 
     return {
         "total_cses": total_cses,
@@ -55,7 +53,7 @@ def get_cse_profiles(db: Session = Depends(get_db)):
     cses = db.query(CSE).all()
     result = []
     for c in cses:
-        rs = db.query(RiskScore).filter(RiskScore.cse_id == c.id).first()
+        rs = db.query(RiskScore).filter(RiskScore.cse_id == c.id).order_by(RiskScore.computed_at.desc()).first()
         f_count = db.query(Finding).filter(Finding.cse_id == c.id).count()
         a_count = db.query(Asset).filter(Asset.cse_id == c.id).count()
 
@@ -67,8 +65,8 @@ def get_cse_profiles(db: Session = Depends(get_db)):
             "size_tier": c.size_tier,
             "asset_count": a_count,
             "finding_count": f_count,
-            "risk_score": rs.normalized_score if rs else 0.0,
-            "risk_band": rs.risk_band if rs else "LOW"
+            "risk_score": rs.normalized_score if rs and rs.normalized_score is not None else 0.0,
+            "risk_band": rs.risk_band if rs and rs.risk_band is not None else "LOW"
         })
     return result
 

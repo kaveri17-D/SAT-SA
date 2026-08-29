@@ -81,11 +81,16 @@ export interface QueueItem {
 export interface EvidenceRecord {
   evidence_id: string;
   evidence_type: string;
-  source_table: string;
+  source_table?: string;
+  source_entity_type?: string;
   source_record_id: string;
-  completeness_score: number;
-  confidence_modifier: number;
+  evidence_timestamp?: string;
+  description?: string;
+  relevance?: string;
+  completeness_score?: number;
+  confidence_modifier?: number;
   payload: Record<string, any>;
+  provenance?: Record<string, any>;
 }
 
 export interface EvidencePackage {
@@ -93,15 +98,24 @@ export interface EvidencePackage {
   cse_id: string;
   asset_id?: string;
   rule_id: string;
-  finding_type: string;
+  rule_version?: string;
+  engine?: string;
+  finding_type?: string;
   severity: string;
-  status: string;
+  status?: string;
   evidence_completeness: number;
-  confidence: number;
+  is_evidence_complete?: boolean;
+  confidence?: number;
   expected_behaviour: string;
   observed_behaviour: string;
-  deviation: string;
+  deviation?: string;
   records: EvidenceRecord[];
+  supporting_records?: EvidenceRecord[];
+  workflow_difference?: any;
+  baseline_stats?: any;
+  peer_stats?: any;
+  data_quality?: any;
+  recommendation?: string;
   provenance: Record<string, any>;
 }
 

@@ -32,6 +32,7 @@ class EvidenceRecordItem:
             "evidence_id": self.evidence_id,
             "evidence_type": self.evidence_type,
             "source_entity_type": self.source_entity_type,
+            "source_table": self.source_entity_type.lower(),
             "source_record_id": self.source_record_id,
             "evidence_timestamp": self.evidence_timestamp,
             "description": self.description,
@@ -83,11 +84,13 @@ class EvidencePackage:
     assembled_at: str
 
     def to_dict(self) -> Dict[str, Any]:
+        rec_list = [r.to_dict() for r in self.supporting_records]
         return {
             "finding_id": self.finding_id,
             "rule_id": self.rule_id,
             "rule_version": self.rule_version,
             "engine": self.engine,
+            "finding_type": self.engine,
             "cse_id": self.cse_id,
             "asset_id": self.asset_id,
             "severity": self.severity,
@@ -99,8 +102,10 @@ class EvidencePackage:
             "detection_source": self.detection_source,
             "expected_behaviour": self.expected_behaviour,
             "observed_behaviour": self.observed_behaviour,
+            "deviation": f"Expected: {self.expected_behaviour} | Observed: {self.observed_behaviour}",
             "context": self.context,
-            "supporting_records": [r.to_dict() for r in self.supporting_records],
+            "supporting_records": rec_list,
+            "records": rec_list,
             "workflow_difference": self.workflow_difference.to_dict() if self.workflow_difference else None,
             "baseline_stats": self.baseline_stats,
             "peer_stats": self.peer_stats,
