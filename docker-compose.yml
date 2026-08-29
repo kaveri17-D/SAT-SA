@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: satsa-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-satsa_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-satsa_secure_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-satsa_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-satsa_user} -d ${POSTGRES_DB:-satsa_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: satsa-backend
+    restart: unless-stopped
+    environment:
+      - POSTGRES_SERVER=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${POSTGRES_USER:-satsa_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-satsa_secure_pass}
+      - POSTGRES_DB=${POSTGRES_DB:-satsa_db}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-satsa_user}:${POSTGRES_PASSWORD:-satsa_secure_pass}@postgres:5432/${POSTGRES_DB:-satsa_db}
+      - SECRET_KEY=${SECRET_KEY:-sat-sa-supervisory-secret-key-change-in-production-airgap}
+      - CORS_ORIGINS=["http://localhost:5173","http://localhost:3000","http://localhost"]
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: satsa-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
