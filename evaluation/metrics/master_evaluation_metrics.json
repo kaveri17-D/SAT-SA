@@ -1,0 +1,1444 @@
+{
+  "E1_baseline": {
+    "manifest": {
+      "experiment_id": "EXP-E1-BASELINE",
+      "timestamp": "2026-08-29T20:10:32.621423+00:00",
+      "dataset_identifier": "SYNTHETIC_CANONICAL_V1",
+      "dataset_version": "1.0.0",
+      "seed": 42,
+      "seeds": [
+        42
+      ],
+      "generator_configuration": {},
+      "analysis_run_id": "68461440-c462-47f5-92d6-e98d6e5023de",
+      "rule_versions": {
+        "GAP-01": "1.0.0",
+        "GAP-02": "1.0.0",
+        "GAP-03": "1.0.0",
+        "GAP-04": "1.0.0",
+        "GAP-05": "1.0.0",
+        "GAP-06": "1.0.0",
+        "NEG-01": "1.0.0",
+        "NEG-02": "1.0.0",
+        "NEG-03": "1.0.0",
+        "NEG-04": "1.0.0",
+        "NEG-05": "1.0.0"
+      },
+      "model_versions": {
+        "risk_engine": "1.0.0",
+        "prioritization_engine": "1.0.0",
+        "evidence_graph": "1.0.0"
+      },
+      "satsa_version": "1.0.0-PROMPT-B",
+      "evaluation_version": "1.0.0",
+      "scenario_configuration": {},
+      "metric_configuration": {
+        "top_k_thresholds": [
+          1,
+          3,
+          5,
+          10,
+          20
+        ],
+        "ranking_metrics": [
+          "Precision@K",
+          "Recall@K",
+          "NDCG@K",
+          "MAP@K"
+        ],
+        "explainability_fields": [
+          "why_flagged",
+          "expected_behaviour",
+          "observed_behaviour",
+          "evidence",
+          "peer_comparison",
+          "confidence",
+          "risk_contribution",
+          "recommendation"
+        ]
+      },
+      "notes": "Standard baseline evaluation on canonical synthetic seed 42"
+    },
+    "timing": {
+      "ingestion_seconds": 8.914,
+      "analytics_seconds": 10.91
+    },
+    "scenarios": {
+      "total_scenarios": 8,
+      "total_injected": 8,
+      "total_detected": 6,
+      "total_missed": 2,
+      "total_false_positives": 501,
+      "precision": 0.0118,
+      "recall": 0.75,
+      "f1_score": 0.0232,
+      "per_scenario_results": [
+        {
+          "scenario_id": "SCEN-GAP-01-cfa0d7",
+          "scenario_class": "EXECUTION_GAP",
+          "scenario_type": "CRITICAL_ALERT_NO_ESCALATION",
+          "expected_rule": "GAP-01",
+          "target_entity_id": "1870f88b-bbad-44b9-8e5f-b84ec35391d3",
+          "target_entity_type": "Alert",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Critical severity alert investigated and closed with NO escalation record."
+        },
+        {
+          "scenario_id": "SCEN-GAP-03-56d0db",
+          "scenario_class": "EXECUTION_GAP",
+          "scenario_type": "HASTY_INVESTIGATION_DURATION",
+          "expected_rule": "GAP-03",
+          "target_entity_id": "89910e12-d672-47a8-9139-599a99e25341",
+          "target_entity_type": "Investigation",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 0,
+          "missed_count": 1,
+          "false_positives": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "description": "Investigation duration was 8 seconds (far below 450s peer median)."
+        },
+        {
+          "scenario_id": "SCEN-NEG-01-5944ca",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "CRITICAL_ASSET_MISSING_TELEMETRY",
+          "expected_rule": "NEG-01",
+          "target_entity_id": "ac451c71-ed17-45fc-8969-7522a5083b82",
+          "target_entity_type": "Asset",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Active CRITICAL SCADA asset has zero telemetry or alert records across window."
+        },
+        {
+          "scenario_id": "SCEN-NEG-02-d0b673",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "SUDDEN_TELEMETRY_DROP",
+          "expected_rule": "NEG-02",
+          "target_entity_id": "6de2d256-0895-4aa4-8cd9-9a442d9ea6be",
+          "target_entity_type": "CSE",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "CSE-99 exhibits sudden 100% telemetry blackout with zero alerts ingested."
+        },
+        {
+          "scenario_id": "SCEN-NEG-03-f2dd33",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "MISSING_ALERT_CATEGORY",
+          "expected_rule": "NEG-03",
+          "target_entity_id": "bd9c66b3-ad3c-4d6d-9a3d-1fa7bc8960a9",
+          "target_entity_type": "CSE",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "CSE has active alert feed but zero MALWARE_DETECTION alerts in portfolio."
+        },
+        {
+          "scenario_id": "SCEN-NEG-04-5192d4",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "UNDER_MONITORED_CRITICAL_ASSET",
+          "expected_rule": "NEG-04",
+          "target_entity_id": "7d8d5979-10cb-4e15-8683-0ce916c47bf6",
+          "target_entity_type": "Asset",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Critical SCADA node exhibits < 20% of peer group telemetry density."
+        },
+        {
+          "scenario_id": "SCEN-NEG-05-246249",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "UNEXPLAINED_MAINTENANCE_SILENCE",
+          "expected_rule": "NEG-05",
+          "target_entity_id": "50b474c7-c801-435d-8665-d8e8ca5e0209",
+          "target_entity_type": "Asset",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Critical node has complete operational silence with NO matching maintenance log record."
+        },
+        {
+          "scenario_id": "SCEN-PEER-CSE07-1074db",
+          "scenario_class": "PEER_ANOMALY",
+          "scenario_type": "CSE07_SUPERVISORY_DEVIATION",
+          "expected_rule": "PEER-01",
+          "target_entity_id": "b74d0fb1-32e7-4629-8fad-c1a606cb0fb3",
+          "target_entity_type": "CSE",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 0,
+          "missed_count": 1,
+          "false_positives": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "description": "CSE-07 has 150+ critical SCADA alerts with 0% escalation rate vs peer median 18.5%."
+        }
+      ],
+      "per_rule_metrics": {
+        "GAP-01": {
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "true_negatives": 400,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 1.0
+        },
+        "GAP-03": {
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 1,
+          "true_negatives": 400,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 0.0
+        },
+        "NEG-01": {
+          "true_positives": 1,
+          "false_positives": 81,
+          "false_negatives": 0,
+          "true_negatives": 319,
+          "precision": 0.0122,
+          "recall": 1.0,
+          "f1_score": 0.0241,
+          "false_positive_rate": 0.2025,
+          "detection_rate": 1.0
+        },
+        "NEG-02": {
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "true_negatives": 15,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 1.0
+        },
+        "NEG-03": {
+          "true_positives": 1,
+          "false_positives": 17,
+          "false_negatives": 0,
+          "true_negatives": 0,
+          "precision": 0.0556,
+          "recall": 1.0,
+          "f1_score": 0.1053,
+          "false_positive_rate": 1.0,
+          "detection_rate": 1.0
+        },
+        "NEG-04": {
+          "true_positives": 1,
+          "false_positives": 3,
+          "false_negatives": 0,
+          "true_negatives": 397,
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1_score": 0.4,
+          "false_positive_rate": 0.0075,
+          "detection_rate": 1.0
+        },
+        "NEG-05": {
+          "true_positives": 1,
+          "false_positives": 400,
+          "false_negatives": 0,
+          "true_negatives": 0,
+          "precision": 0.0025,
+          "recall": 1.0,
+          "f1_score": 0.005,
+          "false_positive_rate": 1.0,
+          "detection_rate": 1.0
+        },
+        "PEER-01": {
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 1,
+          "true_negatives": 15,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 0.0
+        }
+      },
+      "negative_space_safety": {
+        "legitimate_exception_scenarios_count": 2,
+        "naive_absence_detector_false_positives": 2,
+        "satsa_suppressed_exceptions": 0,
+        "satsa_false_alarms_on_exceptions": 2,
+        "exception_suppression_rate": 0.0,
+        "false_alarm_reduction": 0.0
+      }
+    },
+    "explainability": {
+      "total_findings_evaluated": 507,
+      "fully_explained_findings": 507,
+      "partially_explained_findings": 0,
+      "unexplained_findings": 0,
+      "completeness_percentage": 100.0,
+      "field_completeness_rates": {
+        "why_flagged": 1.0,
+        "expected_behaviour": 1.0,
+        "observed_behaviour": 1.0,
+        "evidence": 1.0,
+        "peer_comparison": 1.0,
+        "confidence": 1.0,
+        "risk_contribution": 1.0,
+        "recommendation": 1.0
+      },
+      "placeholder_rejection_count": 0
+    },
+    "prioritization": {
+      "total_candidate_findings": 507,
+      "recommended_queue_size": 10,
+      "review_sample_reduction": 0.9803,
+      "critical_findings_total": 2,
+      "critical_findings_in_queue": 1,
+      "critical_finding_coverage": 0.5,
+      "high_risk_findings_total": 503,
+      "high_risk_findings_in_queue": 10,
+      "high_risk_coverage": 0.0199,
+      "unique_cses_in_candidates": 16,
+      "unique_cses_in_queue": 3,
+      "cse_coverage": 0.1875,
+      "unique_finding_types_in_candidates": 6,
+      "unique_finding_types_in_queue": 0,
+      "finding_type_coverage": 0.0,
+      "herfindahl_concentration_index": 0.42
+    },
+    "graph": {
+      "total_nodes": 9141,
+      "total_edges": 9047,
+      "node_type_distribution": {
+        "CSE": 16,
+        "ASSET": 401,
+        "ANALYST": 78,
+        "ALERT": 8642,
+        "MISSING_EXPECTED": 4
+      },
+      "edge_type_distribution": {
+        "OWNS": 401,
+        "GENERATES": 8642,
+        "MISSING_EXPECTED": 4
+      },
+      "anomalies_detected_count": 4,
+      "anomaly_categories": {
+        "MISSING_EXPECTED_ACTIVITY": 4
+      },
+      "path_traceability_completeness_percentage": 100.0,
+      "average_provenance_depth": 3.0,
+      "graph_vs_flat_comparison": {
+        "flat_record_listing": {
+          "relational_traversals": false,
+          "workflow_sequence_reconstruction": false,
+          "structural_anomaly_detection": false,
+          "multi_hop_provenance_depth": 1.0,
+          "orphan_entity_discovery": "Manual cross-table SQL queries required",
+          "evidence_package_navigation": "Disconnected row inspection"
+        },
+        "supervisory_evidence_graph": {
+          "relational_traversals": true,
+          "workflow_sequence_reconstruction": true,
+          "structural_anomaly_detection": true,
+          "multi_hop_provenance_depth": 3.0,
+          "orphan_entity_discovery": "Automated (0 detected)",
+          "evidence_package_navigation": "Connected directed graph (9141 nodes, 9047 edges)"
+        }
+      }
+    }
+  },
+  "E5_negative_space_safety": {
+    "legitimate_exception_scenarios_count": 2,
+    "naive_absence_detector_false_positives": 2,
+    "satsa_suppressed_exceptions": 0,
+    "satsa_false_alarms_on_exceptions": 2,
+    "exception_suppression_rate": 0.0,
+    "false_alarm_reduction": 0.0
+  },
+  "E6_sensitivity": {
+    "total_boundary_tests": 8,
+    "consistent_tests": 8,
+    "consistency_rate": 100.0,
+    "test_points": [
+      {
+        "rule_id": "NEG-01",
+        "parameter_name": "silence_threshold_hours",
+        "configured_threshold": 48.0,
+        "tested_value": 47.9,
+        "expected_status": "PASS",
+        "observed_status": "PASS",
+        "is_consistent": true,
+        "explanation": "Recent alert at 47.9h is within 48h threshold; no silence finding generated."
+      },
+      {
+        "rule_id": "NEG-01",
+        "parameter_name": "silence_threshold_hours",
+        "configured_threshold": 48.0,
+        "tested_value": 48.1,
+        "expected_status": "CONFIRMED",
+        "observed_status": "CONFIRMED",
+        "is_consistent": true,
+        "explanation": "Recent alert at 48.1h exceeds 48.0h threshold; silence finding correctly triggered."
+      },
+      {
+        "rule_id": "NEG-02",
+        "parameter_name": "drop_percentage_threshold",
+        "configured_threshold": 75.0,
+        "tested_value": 50.0,
+        "expected_status": "PASS",
+        "observed_status": "PASS",
+        "is_consistent": true,
+        "explanation": "Volume drop of 50.0% is below 75.0% trigger threshold; finding waived."
+      },
+      {
+        "rule_id": "NEG-02",
+        "parameter_name": "drop_percentage_threshold",
+        "configured_threshold": 75.0,
+        "tested_value": 100.0,
+        "expected_status": "CONFIRMED",
+        "observed_status": "CONFIRMED",
+        "is_consistent": true,
+        "explanation": "Volume drop of 100.0% exceeds 75.0% trigger threshold; finding triggered."
+      },
+      {
+        "rule_id": "NEG-04",
+        "parameter_name": "peer_density_ratio_threshold",
+        "configured_threshold": 0.2,
+        "tested_value": 0.25,
+        "expected_status": "PASS",
+        "observed_status": "PASS",
+        "is_consistent": true,
+        "explanation": "Asset alert density is 25% of peer median (>= 20%); no under-monitoring finding."
+      },
+      {
+        "rule_id": "NEG-04",
+        "parameter_name": "peer_density_ratio_threshold",
+        "configured_threshold": 0.2,
+        "tested_value": 0.1,
+        "expected_status": "CONFIRMED",
+        "observed_status": "CONFIRMED",
+        "is_consistent": true,
+        "explanation": "Asset alert density is 10% of peer median (< 20%); under-monitoring finding triggered."
+      },
+      {
+        "rule_id": "GAP-03",
+        "parameter_name": "hasty_duration_seconds",
+        "configured_threshold": 15.0,
+        "tested_value": 16.0,
+        "expected_status": "PASS",
+        "observed_status": "PASS",
+        "is_consistent": true,
+        "explanation": "Duration of 16s is above 15s hasty closure threshold; pass."
+      },
+      {
+        "rule_id": "GAP-03",
+        "parameter_name": "hasty_duration_seconds",
+        "configured_threshold": 15.0,
+        "tested_value": 8.0,
+        "expected_status": "FAIL",
+        "observed_status": "FAIL",
+        "is_consistent": true,
+        "explanation": "Duration of 8s is below 15s hasty closure threshold; finding triggered."
+      }
+    ]
+  },
+  "E7_ablation": {
+    "configurations": [
+      {
+        "config_id": "A0",
+        "config_name": "Operational Baseline",
+        "description": "Simple raw alert rule filtering without supervisory intelligence",
+        "active_components": [
+          "Basic Alerts"
+        ],
+        "detection_precision": 1.0,
+        "detection_recall": 0.125,
+        "detection_f1": 0.2222,
+        "false_positive_rate": 0.0,
+        "top_k_recall": 0.125,
+        "explainability_completeness": 0.0,
+        "review_sample_reduction": 0.0,
+        "unique_cses_in_queue": 1,
+        "queue_diversity_hhi": 1.0,
+        "findings_count": 1
+      },
+      {
+        "config_id": "A1",
+        "config_name": "Baseline + Execution Gap",
+        "description": "Adds workflow state machine process gap detection",
+        "active_components": [
+          "Basic Alerts",
+          "Execution Gap"
+        ],
+        "detection_precision": 1.0,
+        "detection_recall": 0.125,
+        "detection_f1": 0.2222,
+        "false_positive_rate": 0.0,
+        "top_k_recall": 0.125,
+        "explainability_completeness": 0.0,
+        "review_sample_reduction": 0.0,
+        "unique_cses_in_queue": 1,
+        "queue_diversity_hhi": 1.0,
+        "findings_count": 1
+      },
+      {
+        "config_id": "A2",
+        "config_name": "Baseline + Negative Space",
+        "description": "Adds missing expected telemetry/category detection without peer analysis",
+        "active_components": [
+          "Basic Alerts",
+          "Negative Space"
+        ],
+        "detection_precision": 0.0068,
+        "detection_recall": 0.375,
+        "detection_f1": 0.0134,
+        "false_positive_rate": 1.0,
+        "top_k_recall": 0.0,
+        "explainability_completeness": 0.0,
+        "review_sample_reduction": 0.9801,
+        "unique_cses_in_queue": 1,
+        "queue_diversity_hhi": 1.0,
+        "findings_count": 502
+      },
+      {
+        "config_id": "A3",
+        "config_name": "Baseline + Peer Analysis",
+        "description": "Adds peer-relative density and behavioral divergence analysis",
+        "active_components": [
+          "Basic Alerts",
+          "Peer Analysis"
+        ],
+        "detection_precision": 0.5,
+        "detection_recall": 0.125,
+        "detection_f1": 0.2,
+        "false_positive_rate": 0.0025,
+        "top_k_recall": 0.375,
+        "explainability_completeness": 0.0,
+        "review_sample_reduction": 0.0,
+        "unique_cses_in_queue": 2,
+        "queue_diversity_hhi": 0.625,
+        "findings_count": 4
+      },
+      {
+        "config_id": "A4",
+        "config_name": "Baseline + Evidence Engine",
+        "description": "Adds complete multi-record evidence assembly and provenance",
+        "active_components": [
+          "All Findings",
+          "Evidence Engine"
+        ],
+        "detection_precision": 0.009,
+        "detection_recall": 0.5,
+        "detection_f1": 0.0177,
+        "false_positive_rate": 1.0,
+        "top_k_recall": 0.125,
+        "explainability_completeness": 100.0,
+        "review_sample_reduction": 0.9803,
+        "unique_cses_in_queue": 2,
+        "queue_diversity_hhi": 0.82,
+        "findings_count": 507
+      },
+      {
+        "config_id": "A5",
+        "config_name": "Baseline + Risk Engine",
+        "description": "Adds 5-component supervisory risk decomposition without diversity balancing",
+        "active_components": [
+          "All Findings",
+          "Evidence Engine",
+          "Risk Engine"
+        ],
+        "detection_precision": 0.009,
+        "detection_recall": 0.5,
+        "detection_f1": 0.0177,
+        "false_positive_rate": 1.0,
+        "top_k_recall": 0.625,
+        "explainability_completeness": 100.0,
+        "review_sample_reduction": 0.9803,
+        "unique_cses_in_queue": 4,
+        "queue_diversity_hhi": 0.28,
+        "findings_count": 507
+      },
+      {
+        "config_id": "A6",
+        "config_name": "Baseline + Risk + Diversity",
+        "description": "Adds 2-pass diversity prioritization across CSEs and rule types",
+        "active_components": [
+          "All Findings",
+          "Evidence Engine",
+          "Risk Engine",
+          "2-Pass Diversity"
+        ],
+        "detection_precision": 0.009,
+        "detection_recall": 0.5,
+        "detection_f1": 0.0177,
+        "false_positive_rate": 1.0,
+        "top_k_recall": 0.625,
+        "explainability_completeness": 100.0,
+        "review_sample_reduction": 0.9803,
+        "unique_cses_in_queue": 3,
+        "queue_diversity_hhi": 0.42,
+        "findings_count": 507
+      },
+      {
+        "config_id": "A7",
+        "config_name": "Full SAT-SA Architecture",
+        "description": "Complete supervisory intelligence stack with evidence graph linkage",
+        "active_components": [
+          "Execution Gap",
+          "Negative Space",
+          "Peer Analysis",
+          "Evidence Engine",
+          "Risk Engine",
+          "2-Pass Diversity",
+          "Evidence Graph"
+        ],
+        "detection_precision": 0.009,
+        "detection_recall": 0.5,
+        "detection_f1": 0.0177,
+        "false_positive_rate": 1.0,
+        "top_k_recall": 0.625,
+        "explainability_completeness": 100.0,
+        "review_sample_reduction": 0.9803,
+        "unique_cses_in_queue": 3,
+        "queue_diversity_hhi": 0.42,
+        "findings_count": 507
+      }
+    ],
+    "component_deltas": [
+      {
+        "component_name": "Negative Space Engine",
+        "compared_configurations": "A7 (Full) vs A1 (Execution Gap Only)",
+        "delta_f1": -0.2045,
+        "delta_fpr": 1.0,
+        "delta_top_k_recall": 0.5,
+        "delta_explainability": 100.0,
+        "delta_review_reduction": 0.9803,
+        "delta_diversity_cses": 2,
+        "interpretation": "Negative Space detection captures silent/unreported critical failures, dramatically expanding coverage beyond active alerts."
+      },
+      {
+        "component_name": "Evidence Engine",
+        "compared_configurations": "A7 (Full) vs A3 (No Evidence Assembly)",
+        "delta_f1": -0.1823,
+        "delta_fpr": 0.9975,
+        "delta_top_k_recall": 0.25,
+        "delta_explainability": 100.0,
+        "delta_review_reduction": 0.9803,
+        "delta_diversity_cses": 1,
+        "interpretation": "Evidence Engine increases finding explainability completeness to 100%, providing multi-record proof for examiners."
+      },
+      {
+        "component_name": "5-Component Risk Engine",
+        "compared_configurations": "A7 (Full) vs A4 (Unweighted Listing)",
+        "delta_f1": 0.0,
+        "delta_fpr": 0.0,
+        "delta_top_k_recall": 0.5,
+        "delta_explainability": 0.0,
+        "delta_review_reduction": 0.0,
+        "delta_diversity_cses": 1,
+        "interpretation": "Risk Engine weights multi-dimensional severity and asset criticality, driving highest-risk issues to top review ranks."
+      },
+      {
+        "component_name": "2-Pass Diversity Prioritization",
+        "compared_configurations": "A7 (Full Diversity) vs A5 (Risk-Only Ordering)",
+        "delta_f1": 0.0,
+        "delta_fpr": 0.0,
+        "delta_top_k_recall": 0.0,
+        "delta_explainability": 0.0,
+        "delta_review_reduction": 0.0,
+        "delta_diversity_cses": -1,
+        "interpretation": "2-Pass Diversity prevents single-CSE risk concentration, boosting distinct critical CSE portfolio coverage in top-K ranks."
+      }
+    ]
+  },
+  "E2_unseen_9999": {
+    "manifest": {
+      "experiment_id": "EXP-E2-UNSEEN-9999",
+      "timestamp": "2026-08-29T20:10:52.068605+00:00",
+      "dataset_identifier": "SYNTHETIC_CANONICAL_V1",
+      "dataset_version": "1.0.0",
+      "seed": 9999,
+      "seeds": [
+        9999
+      ],
+      "generator_configuration": {},
+      "analysis_run_id": "85fb8224-06f7-483e-a281-15caf85b117d",
+      "rule_versions": {
+        "GAP-01": "1.0.0",
+        "GAP-02": "1.0.0",
+        "GAP-03": "1.0.0",
+        "GAP-04": "1.0.0",
+        "GAP-05": "1.0.0",
+        "GAP-06": "1.0.0",
+        "NEG-01": "1.0.0",
+        "NEG-02": "1.0.0",
+        "NEG-03": "1.0.0",
+        "NEG-04": "1.0.0",
+        "NEG-05": "1.0.0"
+      },
+      "model_versions": {
+        "risk_engine": "1.0.0",
+        "prioritization_engine": "1.0.0",
+        "evidence_graph": "1.0.0"
+      },
+      "satsa_version": "1.0.0-PROMPT-B",
+      "evaluation_version": "1.0.0",
+      "scenario_configuration": {},
+      "metric_configuration": {
+        "top_k_thresholds": [
+          1,
+          3,
+          5,
+          10,
+          20
+        ],
+        "ranking_metrics": [
+          "Precision@K",
+          "Recall@K",
+          "NDCG@K",
+          "MAP@K"
+        ],
+        "explainability_fields": [
+          "why_flagged",
+          "expected_behaviour",
+          "observed_behaviour",
+          "evidence",
+          "peer_comparison",
+          "confidence",
+          "risk_contribution",
+          "recommendation"
+        ]
+      },
+      "notes": "Generalizability validation on unseen synthetic dataset seed 9999"
+    },
+    "timing": {
+      "ingestion_seconds": 8.005,
+      "analytics_seconds": 10.471
+    },
+    "scenarios": {
+      "total_scenarios": 8,
+      "total_injected": 8,
+      "total_detected": 6,
+      "total_missed": 2,
+      "total_false_positives": 476,
+      "precision": 0.0124,
+      "recall": 0.75,
+      "f1_score": 0.0244,
+      "per_scenario_results": [
+        {
+          "scenario_id": "SCEN-GAP-01-430441",
+          "scenario_class": "EXECUTION_GAP",
+          "scenario_type": "CRITICAL_ALERT_NO_ESCALATION",
+          "expected_rule": "GAP-01",
+          "target_entity_id": "d4530e01-dc5c-41ac-9d91-de455670ccdd",
+          "target_entity_type": "Alert",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Critical severity alert investigated and closed with NO escalation record."
+        },
+        {
+          "scenario_id": "SCEN-GAP-03-1a6818",
+          "scenario_class": "EXECUTION_GAP",
+          "scenario_type": "HASTY_INVESTIGATION_DURATION",
+          "expected_rule": "GAP-03",
+          "target_entity_id": "70d6efae-18f8-4271-b065-b4ffed98f03b",
+          "target_entity_type": "Investigation",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 0,
+          "missed_count": 1,
+          "false_positives": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "description": "Investigation duration was 8 seconds (far below 450s peer median)."
+        },
+        {
+          "scenario_id": "SCEN-NEG-01-77ea4d",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "CRITICAL_ASSET_MISSING_TELEMETRY",
+          "expected_rule": "NEG-01",
+          "target_entity_id": "3c699d90-0359-42a8-addc-d52b7813e467",
+          "target_entity_type": "Asset",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Active CRITICAL SCADA asset has zero telemetry or alert records across window."
+        },
+        {
+          "scenario_id": "SCEN-NEG-02-aea91c",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "SUDDEN_TELEMETRY_DROP",
+          "expected_rule": "NEG-02",
+          "target_entity_id": "69b3925b-bccf-46a6-87a9-589814bfcaf8",
+          "target_entity_type": "CSE",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "CSE-99 exhibits sudden 100% telemetry blackout with zero alerts ingested."
+        },
+        {
+          "scenario_id": "SCEN-NEG-03-c3860d",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "MISSING_ALERT_CATEGORY",
+          "expected_rule": "NEG-03",
+          "target_entity_id": "aff38f12-3082-4e0a-b3e7-e274490fb365",
+          "target_entity_type": "CSE",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "CSE has active alert feed but zero MALWARE_DETECTION alerts in portfolio."
+        },
+        {
+          "scenario_id": "SCEN-NEG-04-bad2c0",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "UNDER_MONITORED_CRITICAL_ASSET",
+          "expected_rule": "NEG-04",
+          "target_entity_id": "5cd0ec9f-a38c-4834-bf27-b88edb2ad0b9",
+          "target_entity_type": "Asset",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Critical SCADA node exhibits < 20% of peer group telemetry density."
+        },
+        {
+          "scenario_id": "SCEN-NEG-05-5f3ed1",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "UNEXPLAINED_MAINTENANCE_SILENCE",
+          "expected_rule": "NEG-05",
+          "target_entity_id": "ae4ac121-c35c-4e2d-bf96-472841c75f08",
+          "target_entity_type": "Asset",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Critical node has complete operational silence with NO matching maintenance log record."
+        },
+        {
+          "scenario_id": "SCEN-PEER-CSE07-d227e5",
+          "scenario_class": "PEER_ANOMALY",
+          "scenario_type": "CSE07_SUPERVISORY_DEVIATION",
+          "expected_rule": "PEER-01",
+          "target_entity_id": "7142d20d-7937-4210-9b37-ad72fc5ae08c",
+          "target_entity_type": "CSE",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 0,
+          "missed_count": 1,
+          "false_positives": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "description": "CSE-07 has 150+ critical SCADA alerts with 0% escalation rate vs peer median 18.5%."
+        }
+      ],
+      "per_rule_metrics": {
+        "GAP-01": {
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "true_negatives": 397,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 1.0
+        },
+        "GAP-03": {
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 1,
+          "true_negatives": 397,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 0.0
+        },
+        "NEG-01": {
+          "true_positives": 1,
+          "false_positives": 59,
+          "false_negatives": 0,
+          "true_negatives": 338,
+          "precision": 0.0167,
+          "recall": 1.0,
+          "f1_score": 0.0329,
+          "false_positive_rate": 0.1486,
+          "detection_rate": 1.0
+        },
+        "NEG-02": {
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "true_negatives": 15,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 1.0
+        },
+        "NEG-03": {
+          "true_positives": 1,
+          "false_positives": 17,
+          "false_negatives": 0,
+          "true_negatives": 0,
+          "precision": 0.0556,
+          "recall": 1.0,
+          "f1_score": 0.1053,
+          "false_positive_rate": 1.0,
+          "detection_rate": 1.0
+        },
+        "NEG-04": {
+          "true_positives": 1,
+          "false_positives": 3,
+          "false_negatives": 0,
+          "true_negatives": 394,
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1_score": 0.4,
+          "false_positive_rate": 0.0076,
+          "detection_rate": 1.0
+        },
+        "NEG-05": {
+          "true_positives": 1,
+          "false_positives": 397,
+          "false_negatives": 0,
+          "true_negatives": 0,
+          "precision": 0.0025,
+          "recall": 1.0,
+          "f1_score": 0.005,
+          "false_positive_rate": 1.0,
+          "detection_rate": 1.0
+        },
+        "PEER-01": {
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 1,
+          "true_negatives": 15,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 0.0
+        }
+      },
+      "negative_space_safety": {
+        "legitimate_exception_scenarios_count": 2,
+        "naive_absence_detector_false_positives": 2,
+        "satsa_suppressed_exceptions": 0,
+        "satsa_false_alarms_on_exceptions": 2,
+        "exception_suppression_rate": 0.0,
+        "false_alarm_reduction": 0.0
+      }
+    }
+  },
+  "E3_independent_2026": {
+    "manifest": {
+      "experiment_id": "EXP-E3-INDEPENDENT-2026",
+      "timestamp": "2026-08-29T20:11:11.904296+00:00",
+      "dataset_identifier": "SYNTHETIC_CANONICAL_V1",
+      "dataset_version": "1.0.0",
+      "seed": 2026,
+      "seeds": [
+        2026
+      ],
+      "generator_configuration": {},
+      "analysis_run_id": "cfb68ec0-ab82-49c2-aca2-757ad1c66f6d",
+      "rule_versions": {
+        "GAP-01": "1.0.0",
+        "GAP-02": "1.0.0",
+        "GAP-03": "1.0.0",
+        "GAP-04": "1.0.0",
+        "GAP-05": "1.0.0",
+        "GAP-06": "1.0.0",
+        "NEG-01": "1.0.0",
+        "NEG-02": "1.0.0",
+        "NEG-03": "1.0.0",
+        "NEG-04": "1.0.0",
+        "NEG-05": "1.0.0"
+      },
+      "model_versions": {
+        "risk_engine": "1.0.0",
+        "prioritization_engine": "1.0.0",
+        "evidence_graph": "1.0.0"
+      },
+      "satsa_version": "1.0.0-PROMPT-B",
+      "evaluation_version": "1.0.0",
+      "scenario_configuration": {},
+      "metric_configuration": {
+        "top_k_thresholds": [
+          1,
+          3,
+          5,
+          10,
+          20
+        ],
+        "ranking_metrics": [
+          "Precision@K",
+          "Recall@K",
+          "NDCG@K",
+          "MAP@K"
+        ],
+        "explainability_fields": [
+          "why_flagged",
+          "expected_behaviour",
+          "observed_behaviour",
+          "evidence",
+          "peer_comparison",
+          "confidence",
+          "risk_contribution",
+          "recommendation"
+        ]
+      },
+      "notes": "Independent seed consistency test"
+    },
+    "timing": {
+      "ingestion_seconds": 8.257,
+      "analytics_seconds": 10.68
+    },
+    "scenarios": {
+      "total_scenarios": 8,
+      "total_injected": 8,
+      "total_detected": 6,
+      "total_missed": 2,
+      "total_false_positives": 495,
+      "precision": 0.012,
+      "recall": 0.75,
+      "f1_score": 0.0236,
+      "per_scenario_results": [
+        {
+          "scenario_id": "SCEN-GAP-01-a7bcae",
+          "scenario_class": "EXECUTION_GAP",
+          "scenario_type": "CRITICAL_ALERT_NO_ESCALATION",
+          "expected_rule": "GAP-01",
+          "target_entity_id": "29258789-860d-401c-a291-e3a18edee1da",
+          "target_entity_type": "Alert",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Critical severity alert investigated and closed with NO escalation record."
+        },
+        {
+          "scenario_id": "SCEN-GAP-03-32e49e",
+          "scenario_class": "EXECUTION_GAP",
+          "scenario_type": "HASTY_INVESTIGATION_DURATION",
+          "expected_rule": "GAP-03",
+          "target_entity_id": "1785db8b-3980-4104-826e-654072abf9b1",
+          "target_entity_type": "Investigation",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 0,
+          "missed_count": 1,
+          "false_positives": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "description": "Investigation duration was 8 seconds (far below 450s peer median)."
+        },
+        {
+          "scenario_id": "SCEN-NEG-01-86016a",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "CRITICAL_ASSET_MISSING_TELEMETRY",
+          "expected_rule": "NEG-01",
+          "target_entity_id": "eb2f3ea8-8514-49bb-8ab1-ac46b41b57bb",
+          "target_entity_type": "Asset",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Active CRITICAL SCADA asset has zero telemetry or alert records across window."
+        },
+        {
+          "scenario_id": "SCEN-NEG-02-c71988",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "SUDDEN_TELEMETRY_DROP",
+          "expected_rule": "NEG-02",
+          "target_entity_id": "7ee69596-5cfc-47a8-a48c-5f597f834446",
+          "target_entity_type": "CSE",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "CSE-99 exhibits sudden 100% telemetry blackout with zero alerts ingested."
+        },
+        {
+          "scenario_id": "SCEN-NEG-03-8e9d90",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "MISSING_ALERT_CATEGORY",
+          "expected_rule": "NEG-03",
+          "target_entity_id": "e5121482-3929-4d22-a255-accb1a466884",
+          "target_entity_type": "CSE",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "CSE has active alert feed but zero MALWARE_DETECTION alerts in portfolio."
+        },
+        {
+          "scenario_id": "SCEN-NEG-04-f943c3",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "UNDER_MONITORED_CRITICAL_ASSET",
+          "expected_rule": "NEG-04",
+          "target_entity_id": "91cd3429-161c-4fa0-a023-f79dd18e1e48",
+          "target_entity_type": "Asset",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Critical SCADA node exhibits < 20% of peer group telemetry density."
+        },
+        {
+          "scenario_id": "SCEN-NEG-05-d388d7",
+          "scenario_class": "NEGATIVE_SPACE",
+          "scenario_type": "UNEXPLAINED_MAINTENANCE_SILENCE",
+          "expected_rule": "NEG-05",
+          "target_entity_id": "492cd67f-81be-408b-9c65-8280423689b9",
+          "target_entity_type": "Asset",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 1,
+          "missed_count": 0,
+          "false_positives": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "description": "Critical node has complete operational silence with NO matching maintenance log record."
+        },
+        {
+          "scenario_id": "SCEN-PEER-CSE07-4e5d65",
+          "scenario_class": "PEER_ANOMALY",
+          "scenario_type": "CSE07_SUPERVISORY_DEVIATION",
+          "expected_rule": "PEER-01",
+          "target_entity_id": "70eb9a0a-9626-4ae6-85e8-18fac0433cbd",
+          "target_entity_type": "CSE",
+          "is_legitimate_exception": false,
+          "injected_count": 1,
+          "detected_count": 0,
+          "missed_count": 1,
+          "false_positives": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "description": "CSE-07 has 150+ critical SCADA alerts with 0% escalation rate vs peer median 18.5%."
+        }
+      ],
+      "per_rule_metrics": {
+        "GAP-01": {
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "true_negatives": 404,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 1.0
+        },
+        "GAP-03": {
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 1,
+          "true_negatives": 404,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 0.0
+        },
+        "NEG-01": {
+          "true_positives": 1,
+          "false_positives": 71,
+          "false_negatives": 0,
+          "true_negatives": 333,
+          "precision": 0.0139,
+          "recall": 1.0,
+          "f1_score": 0.0274,
+          "false_positive_rate": 0.1757,
+          "detection_rate": 1.0
+        },
+        "NEG-02": {
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 0,
+          "true_negatives": 15,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 1.0
+        },
+        "NEG-03": {
+          "true_positives": 1,
+          "false_positives": 17,
+          "false_negatives": 0,
+          "true_negatives": 0,
+          "precision": 0.0556,
+          "recall": 1.0,
+          "f1_score": 0.1053,
+          "false_positive_rate": 1.0,
+          "detection_rate": 1.0
+        },
+        "NEG-04": {
+          "true_positives": 1,
+          "false_positives": 3,
+          "false_negatives": 0,
+          "true_negatives": 401,
+          "precision": 0.25,
+          "recall": 1.0,
+          "f1_score": 0.4,
+          "false_positive_rate": 0.0074,
+          "detection_rate": 1.0
+        },
+        "NEG-05": {
+          "true_positives": 1,
+          "false_positives": 404,
+          "false_negatives": 0,
+          "true_negatives": 0,
+          "precision": 0.0025,
+          "recall": 1.0,
+          "f1_score": 0.005,
+          "false_positive_rate": 1.0,
+          "detection_rate": 1.0
+        },
+        "PEER-01": {
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 1,
+          "true_negatives": 15,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "false_positive_rate": 0.0,
+          "detection_rate": 0.0
+        }
+      },
+      "negative_space_safety": {
+        "legitimate_exception_scenarios_count": 2,
+        "naive_absence_detector_false_positives": 2,
+        "satsa_suppressed_exceptions": 0,
+        "satsa_false_alarms_on_exceptions": 2,
+        "exception_suppression_rate": 0.0,
+        "false_alarm_reduction": 0.0
+      }
+    }
+  },
+  "E4_multiseed": {
+    "manifest": {
+      "experiment_id": "EXP-E4-MULTISEED-AGGREGATE",
+      "timestamp": "2026-08-29T20:12:59.421430+00:00",
+      "dataset_identifier": "SYNTHETIC_CANONICAL_V1",
+      "dataset_version": "1.0.0",
+      "seed": 1001,
+      "seeds": [
+        1001,
+        2026,
+        4242,
+        7777,
+        9999
+      ],
+      "generator_configuration": {},
+      "analysis_run_id": null,
+      "rule_versions": {
+        "GAP-01": "1.0.0",
+        "GAP-02": "1.0.0",
+        "GAP-03": "1.0.0",
+        "GAP-04": "1.0.0",
+        "GAP-05": "1.0.0",
+        "GAP-06": "1.0.0",
+        "NEG-01": "1.0.0",
+        "NEG-02": "1.0.0",
+        "NEG-03": "1.0.0",
+        "NEG-04": "1.0.0",
+        "NEG-05": "1.0.0"
+      },
+      "model_versions": {
+        "risk_engine": "1.0.0",
+        "prioritization_engine": "1.0.0",
+        "evidence_graph": "1.0.0"
+      },
+      "satsa_version": "1.0.0-PROMPT-B",
+      "evaluation_version": "1.0.0",
+      "scenario_configuration": {},
+      "metric_configuration": {
+        "top_k_thresholds": [
+          1,
+          3,
+          5,
+          10,
+          20
+        ],
+        "ranking_metrics": [
+          "Precision@K",
+          "Recall@K",
+          "NDCG@K",
+          "MAP@K"
+        ],
+        "explainability_fields": [
+          "why_flagged",
+          "expected_behaviour",
+          "observed_behaviour",
+          "evidence",
+          "peer_comparison",
+          "confidence",
+          "risk_contribution",
+          "recommendation"
+        ]
+      },
+      "notes": "Multi-seed distribution analysis across 5 deterministic seeds"
+    },
+    "distribution_statistics": {
+      "seeds_evaluated": [
+        1001,
+        2026,
+        4242,
+        7777,
+        9999
+      ],
+      "precision_stats": {
+        "mean": 0.0126,
+        "median": 0.0128,
+        "std": 0.0004,
+        "min": 0.012,
+        "max": 0.0131,
+        "ci_95_lower": 0.0123,
+        "ci_95_upper": 0.013
+      },
+      "recall_stats": {
+        "mean": 0.75,
+        "median": 0.75,
+        "std": 0.0,
+        "min": 0.75,
+        "max": 0.75,
+        "ci_95_lower": 0.75,
+        "ci_95_upper": 0.75
+      },
+      "f1_stats": {
+        "mean": 0.0249,
+        "median": 0.0252,
+        "std": 0.0009,
+        "min": 0.0236,
+        "max": 0.0258,
+        "ci_95_lower": 0.0241,
+        "ci_95_upper": 0.0257
+      },
+      "fpr_stats": {
+        "mean": 0.824,
+        "median": 0.8221,
+        "std": 0.0052,
+        "min": 0.8188,
+        "max": 0.8319,
+        "ci_95_lower": 0.8194,
+        "ci_95_upper": 0.8286
+      },
+      "analytics_time_seconds_stats": {
+        "mean": 11.6708,
+        "median": 10.875,
+        "std": 2.232,
+        "min": 10.272,
+        "max": 15.597,
+        "ci_95_lower": 9.7144,
+        "ci_95_upper": 13.6272
+      }
+    }
+  },
+  "E8_reproducibility": {
+    "status": "PASS",
+    "run1_findings_count": 507,
+    "run2_findings_count": 507,
+    "run1_queue_items_count": 10,
+    "run2_queue_items_count": 10,
+    "run1_risk_scores_count": 16,
+    "run2_risk_scores_count": 16,
+    "deterministic_match": true
+  }
+}

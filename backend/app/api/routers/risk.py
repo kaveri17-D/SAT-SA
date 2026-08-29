@@ -27,6 +27,9 @@ def get_cse_risk_score(cse_id: str, db: Session = Depends(get_db)):
             detail=f"No Supervisory Risk Score found for CSE '{cse_id}'."
         )
 
+    explanation = risk_record.explanation_json or {}
+    contributions = explanation.get("contributing_findings", [])
+
     return {
         "risk_score_id": str(risk_record.id),
         "cse_id": str(risk_record.cse_id),
@@ -37,7 +40,8 @@ def get_cse_risk_score(cse_id: str, db: Session = Depends(get_db)):
         "overall_confidence": risk_record.overall_confidence,
         "component_breakdown": risk_record.component_breakdown,
         "contributing_finding_ids": risk_record.contributing_finding_ids or [],
-        "explanation": risk_record.explanation_json or {},
+        "contributions": contributions,
+        "explanation": explanation,
         "provenance": risk_record.provenance_json or {},
         "computed_at": risk_record.computed_at.isoformat()
     }

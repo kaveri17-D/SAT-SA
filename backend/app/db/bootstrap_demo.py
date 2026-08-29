@@ -100,6 +100,30 @@ def bootstrap_demo_dataset(db: Session = None, force_rebuild: bool = False) -> u
                 db.add(cl)
         db.commit()
 
+        # Add Maintenance Logs
+        if "maintenance_logs" in data:
+            for m in data["maintenance_logs"]:
+                if isinstance(m, dict):
+                    m_id = uuid.UUID(m["id"]) if isinstance(m["id"], str) else m["id"]
+                    if not db.query(MaintenanceLog).filter(MaintenanceLog.id == m_id).first():
+                        start_dt = datetime.fromisoformat(m["start_time"]) if isinstance(m["start_time"], str) else m["start_time"]
+                        end_dt = datetime.fromisoformat(m["end_time"]) if isinstance(m["end_time"], str) else m["end_time"]
+                        m_obj = MaintenanceLog(
+                            id=m_id,
+                            cse_id=uuid.UUID(m["cse_id"]) if isinstance(m["cse_id"], str) else m["cse_id"],
+                            asset_id=uuid.UUID(m["asset_id"]) if m.get("asset_id") and isinstance(m["asset_id"], str) else m.get("asset_id"),
+                            maintenance_ref=m["maintenance_ref"],
+                            start_time=start_dt,
+                            end_time=end_dt,
+                            reason=m.get("reason"),
+                            approved_by=m.get("approved_by")
+                        )
+                        db.add(m_obj)
+                else:
+                    if not db.query(MaintenanceLog).filter(MaintenanceLog.id == m.id).first():
+                        db.add(m)
+            db.commit()
+
         # Record DatasetImport Provenance
         ds_import = DatasetImport(
             id=uuid.uuid4(),
@@ -124,12 +148,7 @@ def bootstrap_demo_dataset(db: Session = None, force_rebuild: bool = False) -> u
 
         logger.info(f"Executing NegativeSpaceEngine for DatasetImport '{ds_import.id}'...")
         neg_engine = NegativeSpaceEngine(db)
-        neg_run = neg_engine.run_analysis(ds_import.id)
-
-        # Merge findings into primary analysis_run_id
-        db.query(Finding).filter(Finding.analysis_run_id == neg_run.id).update({"analysis_run_id": analysis_run_id})
-        db.query(AnalysisRun).filter(AnalysisRun.id == neg_run.id).delete()
-        db.commit()
+        neg_run = neg_engine.run_analysis(ds_import.id, analysis_run_id=analysis_run_id)
 
         # 5. Count Assembled Evidence Records
         ev_count = db.query(Evidence).count()

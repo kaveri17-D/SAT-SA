@@ -1,0 +1,59 @@
+{
+  "experiment_id": "EXP-E2-UNSEEN-9999",
+  "timestamp": "2026-08-29T20:10:52.068605+00:00",
+  "dataset_identifier": "SYNTHETIC_CANONICAL_V1",
+  "dataset_version": "1.0.0",
+  "seed": 9999,
+  "seeds": [
+    9999
+  ],
+  "generator_configuration": {},
+  "analysis_run_id": "85fb8224-06f7-483e-a281-15caf85b117d",
+  "rule_versions": {
+    "GAP-01": "1.0.0",
+    "GAP-02": "1.0.0",
+    "GAP-03": "1.0.0",
+    "GAP-04": "1.0.0",
+    "GAP-05": "1.0.0",
+    "GAP-06": "1.0.0",
+    "NEG-01": "1.0.0",
+    "NEG-02": "1.0.0",
+    "NEG-03": "1.0.0",
+    "NEG-04": "1.0.0",
+    "NEG-05": "1.0.0"
+  },
+  "model_versions": {
+    "risk_engine": "1.0.0",
+    "prioritization_engine": "1.0.0",
+    "evidence_graph": "1.0.0"
+  },
+  "satsa_version": "1.0.0-PROMPT-B",
+  "evaluation_version": "1.0.0",
+  "scenario_configuration": {},
+  "metric_configuration": {
+    "top_k_thresholds": [
+      1,
+      3,
+      5,
+      10,
+      20
+    ],
+    "ranking_metrics": [
+      "Precision@K",
+      "Recall@K",
+      "NDCG@K",
+      "MAP@K"
+    ],
+    "explainability_fields": [
+      "why_flagged",
+      "expected_behaviour",
+      "observed_behaviour",
+      "evidence",
+      "peer_comparison",
+      "confidence",
+      "risk_contribution",
+      "recommendation"
+    ]
+  },
+  "notes": "Generalizability validation on unseen synthetic dataset seed 9999"
+}

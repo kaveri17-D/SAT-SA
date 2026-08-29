@@ -85,7 +85,8 @@ export const FindingDetailModal: React.FC<FindingDetailModalProps> = ({
         setCurrentStatus(itemDetail.status);
 
         // Attempt path reconstruction if alert_id present in evidence records
-        const alertRecord = evPkg.records.find(r => r.source_table === 'alerts');
+        const recordsList = evPkg.records || evPkg.supporting_records || [];
+        const alertRecord = recordsList.find(r => r.source_table === 'alerts' || r.source_entity_type === 'Alert' || r.source_entity_type === 'alerts');
         if (alertRecord && alertRecord.source_record_id) {
           try {
             const path = await fetchGraphPath(alertRecord.source_record_id);
@@ -273,18 +274,18 @@ export const FindingDetailModal: React.FC<FindingDetailModalProps> = ({
                       </h3>
                       <div className="flex items-center gap-4 text-xs font-mono">
                         <div>Completeness: <CompletenessGauge score={evidence.evidence_completeness} /></div>
-                        <div>Confidence: <strong className="text-emerald-400">{(evidence.confidence * 100).toFixed(0)}%</strong></div>
+                        <div>Confidence: <strong className="text-emerald-400">{((evidence.confidence ?? 1.0) * 100).toFixed(0)}%</strong></div>
                       </div>
                     </div>
 
                     <div className="space-y-3">
                       <div className="text-xs font-mono text-slate-400 font-semibold uppercase">Supporting Database Source Records</div>
-                      {evidence.records.map((rec, i) => (
+                      {(evidence.records || evidence.supporting_records || []).map((rec, i) => (
                         <div key={i} className="bg-slate-900 border border-slate-800 rounded p-3.5 text-xs font-mono space-y-2">
                           <div className="flex items-center justify-between text-cyan-300 font-bold">
                             <span className="flex items-center gap-1.5">
                               <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
-                              Table: <span className="text-white">{rec.source_table}</span> (ID: {rec.source_record_id})
+                              Table: <span className="text-white">{rec.source_table || rec.source_entity_type || 'Unknown'}</span> (ID: {rec.source_record_id})
                             </span>
                             <span className="text-[10px] text-slate-400">Type: {rec.evidence_type}</span>
                           </div>
@@ -311,22 +312,22 @@ export const FindingDetailModal: React.FC<FindingDetailModalProps> = ({
                         <p className="text-xs text-slate-400">CSE ID: {risk.cse_id}</p>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-mono font-bold text-rose-400">{risk.normalized_score.toFixed(1)} / 100</div>
+                        <div className="text-2xl font-mono font-bold text-rose-400">{(risk.normalized_score ?? 0).toFixed(1)} / 100</div>
                         <PriorityBandBadge band={risk.risk_band} />
                       </div>
                     </div>
 
                     <div className="space-y-3">
                       <div className="text-xs font-mono text-slate-400 font-semibold uppercase">Confirmed Contributing Findings</div>
-                      {risk.contributions.map((c, idx) => (
+                      {(risk.contributions || []).map((c, idx) => (
                         <div key={idx} className="bg-slate-900 border border-slate-800 rounded p-3 text-xs font-mono flex items-center justify-between">
                           <div>
                             <span className="font-bold text-white block">{c.rule_id} ({c.category})</span>
                             <span className="text-slate-400 text-[11px]">Finding ID: {c.finding_id}</span>
                           </div>
                           <div className="text-right">
-                            <span className="text-rose-400 font-bold block">+{c.effective_contribution.toFixed(1)} pts</span>
-                            <span className="text-slate-400 text-[10px]">Confidence Mod: {(c.confidence * 100).toFixed(0)}%</span>
+                            <span className="text-rose-400 font-bold block">+{(c.effective_contribution ?? 0).toFixed(1)} pts</span>
+                            <span className="text-slate-400 text-[10px]">Confidence Mod: {((c.confidence ?? 1.0) * 100).toFixed(0)}%</span>
                           </div>
                         </div>
                       ))}

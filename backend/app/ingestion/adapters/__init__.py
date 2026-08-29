@@ -1,5 +1,12 @@
-from app.ingestion.adapters.base import BaseIngestionAdapter
-from app.ingestion.adapters.csv_adapter import CSVIngestionAdapter
-from app.ingestion.adapters.json_adapter import JSONIngestionAdapter
+from app.ingestion.adapters.base import BaseDatasetAdapter, BaseIngestionAdapter, FieldProvenance, CanonicalRecord, DatasetMetadata
+from app.ingestion.adapters.soc_log_adapter import SOCAlertLogAdapter
 
-__all__ = ["BaseIngestionAdapter", "CSVIngestionAdapter", "JSONIngestionAdapter"]
+__all__ = [
+    "BaseDatasetAdapter",
+    "BaseIngestionAdapter",
+    "FieldProvenance",
+    "CanonicalRecord",
+    "DatasetMetadata",
+    "SOCAlertLogAdapter"
+]
+

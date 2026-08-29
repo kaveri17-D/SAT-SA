@@ -8,6 +8,7 @@ router = APIRouter()
 
 
 @router.get("/{finding_id}", summary="Retrieve Canonical Evidence Package for Finding")
+@router.get("/finding/{finding_id}", summary="Retrieve Canonical Evidence Package for Finding (Alias)")
 def get_evidence_package(finding_id: str, db: Session = Depends(get_db)):
     """Retrieve structured, reproducible evidence package for a confirmed finding."""
     try:

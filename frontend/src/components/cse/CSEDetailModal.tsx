@@ -64,15 +64,15 @@ export const CSEDetailModal: React.FC<CSEModalProps> = ({ cse, isOpen, onClose }
           <div className="space-y-3">
             <h4 className="text-xs font-bold text-cyan-400 uppercase">Risk Contributions Breakdown</h4>
             <div className="space-y-2">
-              {riskDetail.contributions.map((c, i) => (
+              {(riskDetail.contributions || []).map((c, i) => (
                 <div key={i} className="bg-slate-950 p-3 rounded border border-slate-800 flex items-center justify-between">
                   <div>
                     <span className="text-white font-bold block">{c.rule_id} ({c.category})</span>
                     <span className="text-slate-400 text-[10px]">Finding: {c.finding_id}</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-rose-400 font-bold block">+{c.effective_contribution.toFixed(1)} pts</span>
-                    <span className="text-slate-500 text-[10px]">Confidence: {(c.confidence * 100).toFixed(0)}%</span>
+                    <span className="text-rose-400 font-bold block">+{(c.effective_contribution ?? 0).toFixed(1)} pts</span>
+                    <span className="text-slate-500 text-[10px]">Confidence: {((c.confidence ?? 1.0) * 100).toFixed(0)}%</span>
                   </div>
                 </div>
               ))}

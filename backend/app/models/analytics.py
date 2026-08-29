@@ -48,7 +48,10 @@ class Finding(Base, TimestampMixin):
         Index("idx_finding_cse_status", "cse_id", "status"),
         Index("idx_finding_cse_severity", "cse_id", "severity"),
         Index("idx_finding_priority", "supervisory_priority"),
+        Index("idx_finding_run_cse", "analysis_run_id", "cse_id"),
+        Index("idx_finding_run_rule", "analysis_run_id", "rule_id"),
     )
+
 
 
 class Evidence(Base, TimestampMixin):
@@ -166,3 +169,8 @@ class ReviewQueueItem(Base, TimestampMixin):
     finding = relationship("Finding")
     cse = relationship("CSE")
     analysis_run = relationship("AnalysisRun")
+
+    __table_args__ = (
+        Index("idx_review_queue_run_rank", "analysis_run_id", "rank"),
+    )
+
