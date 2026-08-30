@@ -1,3 +1,6 @@
+import os
+os.environ["TESTING"] = "1"
+
 import pytest
 from fastapi.testclient import TestClient
 from app.core.database import Base, engine
@@ -16,3 +19,4 @@ def setup_test_database():
 @pytest.fixture(scope="module")
 def client():
     return TestClient(fastapi_app)
+

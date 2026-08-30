@@ -366,8 +366,16 @@ def test_risk_api_endpoints():
         assert len(d2) == 1
         assert d2[0]["analysis_run_id"] == str(run_id)
 
+        # GET /api/v1/risk/scores/latest
+        r3 = client.get("/api/v1/risk/scores/latest")
+        assert r3.status_code == 200
+        d3 = r3.json()
+        assert len(d3) >= 1
+        assert d3[0]["analysis_run_id"] == str(run_id)
+
     finally:
         db.close()
+
 
 
 def test_risk_engine_benchmark():

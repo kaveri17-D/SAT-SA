@@ -603,7 +603,10 @@ class EvidenceAssembler:
 
     @staticmethod
     def verify_evidence_integrity(db: Session, finding_id: uuid.UUID) -> Dict[str, Any]:
-        """Verify immutable snapshot evidence integrity against active database records."""
+        """Verify immutable snapshot evidence integrity and compute cryptographic SHA-256 hash."""
+        import hashlib
+        import json
+
         finding = db.query(Finding).filter(Finding.id == finding_id).first()
         if not finding:
             return {"status": "FINDING_NOT_FOUND", "is_tampered": True}
@@ -611,7 +614,9 @@ class EvidenceAssembler:
         evidence_records = db.query(Evidence).filter(Evidence.finding_id == finding_id).all()
         tampered_records = []
 
-        for ev in evidence_records:
+        hasher = hashlib.sha256()
+        sorted_evs = sorted(evidence_records, key=lambda x: str(x.id))
+        for ev in sorted_evs:
             # Check source DB table if present
             if ev.source_table == "alerts":
                 obj = db.query(Alert).filter(Alert.id == ev.source_record_id).first()
@@ -622,12 +627,23 @@ class EvidenceAssembler:
                 if not obj:
                     tampered_records.append({"evidence_id": str(ev.id), "reason": "Referenced Asset record deleted from DB"})
 
+            ev_str = f"{ev.id}:{ev.evidence_type}:{ev.source_table}:{ev.source_record_id}:{json.dumps(ev.payload_json or {}, sort_keys=True)}"
+            hasher.update(ev_str.encode("utf-8"))
+
+        package_hash = hasher.hexdigest()
         is_tampered = len(tampered_records) > 0
+
         return {
             "finding_id": str(finding_id),
+            "status": "VERIFIED" if not is_tampered else "INTEGRITY_COMPROMISED",
             "is_tampered": is_tampered,
+            "sha256_hash": package_hash,
             "evidence_count": len(evidence_records),
             "tampered_count": len(tampered_records),
             "tampered_records": tampered_records,
+            "completeness_score": finding.evidence_completeness,
+            "rule_id": finding.rule_id,
+            "rule_version": finding.rule_version,
             "verified_at": datetime.now(timezone.utc).isoformat()
         }
+

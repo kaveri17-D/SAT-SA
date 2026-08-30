@@ -42,9 +42,21 @@ class Settings(BaseSettings):
 
     @property
     def active_database_url(self) -> str:
+        import os
+        if os.environ.get("TESTING") == "1":
+            base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+            abs_db_path = os.path.join(base_dir, "satsa_test.db").replace("\\", "/")
+            return f"sqlite:///{abs_db_path}"
         if self.DATABASE_URL:
+            if self.DATABASE_URL.startswith("sqlite:///./"):
+                rel_path = self.DATABASE_URL.replace("sqlite:///./", "")
+                base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+                abs_db_path = os.path.join(base_dir, rel_path).replace("\\", "/")
+                return f"sqlite:///{abs_db_path}"
             return self.DATABASE_URL
         return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+
+
 
 
 settings = Settings()

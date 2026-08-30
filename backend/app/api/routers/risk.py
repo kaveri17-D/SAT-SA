@@ -75,3 +75,30 @@ def get_analysis_run_risk_scores(analysis_run_id: str, db: Session = Depends(get
         }
         for s in scores
     ]
+
+
+@router.get("/scores/latest", summary="Retrieve Latest Supervisory Risk Scores for All CSEs")
+def get_latest_risk_scores(db: Session = Depends(get_db)):
+    """Retrieve all computed CSE risk scores for the latest AnalysisRun."""
+    run = db.query(AnalysisRun).order_by(AnalysisRun.created_at.desc()).first()
+    if not run:
+        return []
+
+    scores = db.query(RiskScore).filter(RiskScore.analysis_run_id == run.id).all()
+    return [
+        {
+            "risk_score_id": str(s.id),
+            "cse_id": str(s.cse_id),
+            "analysis_run_id": str(s.analysis_run_id),
+            "raw_score": s.raw_score,
+            "normalized_score": s.normalized_score,
+            "risk_band": s.risk_band,
+            "overall_confidence": s.overall_confidence,
+            "component_breakdown": s.component_breakdown,
+            "contributing_finding_ids": s.contributing_finding_ids or [],
+            "explanation": s.explanation_json or {},
+            "computed_at": s.computed_at.isoformat()
+        }
+        for s in scores
+    ]
+

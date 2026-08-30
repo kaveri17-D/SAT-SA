@@ -351,9 +351,15 @@ def test_evidence_api_endpoints():
         assert res_ver.status_code == 200
         ver_data = res_ver.json()
         assert ver_data["is_tampered"] is False
+        assert ver_data["status"] == "VERIFIED"
+        assert "sha256_hash" in ver_data
+        assert len(ver_data["sha256_hash"]) == 64
+        assert ver_data["evidence_count"] == 3
 
     finally:
         db.close()
+
+
 
 
 def test_evidence_assembly_benchmark():
