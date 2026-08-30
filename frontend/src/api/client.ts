@@ -8,8 +8,10 @@ import {
   GraphData,
   GraphPathInfo,
   GraphAnomaly,
-  AuditLogEntry
+  AuditLogEntry,
+  EvidenceIntegrityResult
 } from '../types/api';
+
 
 const API_BASE = '/api/v1';
 
@@ -90,15 +92,39 @@ export async function fetchEvidencePackage(findingId: string): Promise<EvidenceP
   return res.json();
 }
 
+export async function verifyEvidenceIntegrity(findingId: string): Promise<EvidenceIntegrityResult> {
+  const res = await fetch(`${API_BASE}/evidence/${findingId}/verify`);
+  if (!res.ok) throw new Error(`Failed to verify evidence integrity (${res.status})`);
+  return res.json();
+}
+
+
 export async function fetchRiskScore(cseId: string): Promise<RiskScoreDetail> {
   const res = await fetch(`${API_BASE}/risk/cse/${cseId}`);
   if (!res.ok) throw new Error(`Failed to fetch risk score (${res.status})`);
   return res.json();
 }
 
+export async function fetchLatestRiskScores(): Promise<RiskScoreDetail[]> {
+  const res = await fetch(`${API_BASE}/risk/scores/latest`);
+  if (!res.ok) throw new Error(`Failed to fetch latest risk scores (${res.status})`);
+  return res.json();
+}
+
 export async function fetchGraphSummary(analysisRunId = 'latest'): Promise<GraphData> {
   const res = await fetch(`${API_BASE}/graph/summary/${analysisRunId}`);
   if (!res.ok) throw new Error(`Failed to fetch graph summary (${res.status})`);
+  return res.json();
+}
+
+export async function fetchGraphNodeDetail(nodeId: string): Promise<{
+  node: Record<string, any>;
+  neighbors: Array<Record<string, any>>;
+  edges: Array<Record<string, any>>;
+  degree: number;
+}> {
+  const res = await fetch(`${API_BASE}/graph/node/${nodeId}`);
+  if (!res.ok) throw new Error(`Failed to fetch node detail (${res.status})`);
   return res.json();
 }
 
@@ -113,3 +139,4 @@ export async function fetchGraphAnomalies(analysisRunId = 'latest'): Promise<Gra
   if (!res.ok) throw new Error(`Failed to fetch graph anomalies (${res.status})`);
   return res.json();
 }
+

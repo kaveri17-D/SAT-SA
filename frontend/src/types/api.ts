@@ -215,3 +215,21 @@ export interface AuditLogEntry {
   timestamp: string;
   details: Record<string, any>;
 }
+
+export interface EvidenceIntegrityResult {
+  finding_id: string;
+  status: 'VERIFIED' | 'INTEGRITY_COMPROMISED' | 'FINDING_NOT_FOUND';
+  is_tampered: boolean;
+  sha256_hash?: string;
+  evidence_count: number;
+  tampered_count: number;
+  tampered_records: Array<{
+    evidence_id: string;
+    reason: string;
+  }>;
+  completeness_score?: number;
+  rule_id?: string;
+  rule_version?: string;
+  verified_at: string;
+}
+

@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { QueueItem } from '../../types/api';
 import { PriorityBandBadge, StatusBadge, CompletenessGauge } from '../common/Badges';
-import { ArrowUpDown, Search, Filter, ShieldAlert } from 'lucide-react';
+import { ArrowUpDown, Search, Filter, ShieldAlert, ChevronRight } from 'lucide-react';
+
 
 interface QueueTableProps {
   items: QueueItem[];
@@ -12,6 +13,7 @@ export const ReviewQueueTable: React.FC<QueueTableProps> = ({ items, onSelectIte
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [bandFilter, setBandFilter] = useState('ALL');
+  const [severityFilter, setSeverityFilter] = useState('ALL');
   const [sortField, setSortField] = useState<'rank' | 'priority_score' | 'status'>('rank');
   const [sortAsc, setSortAsc] = useState(true);
 
@@ -25,8 +27,9 @@ export const ReviewQueueTable: React.FC<QueueTableProps> = ({ items, onSelectIte
 
       const matchStatus = statusFilter === 'ALL' || item.status === statusFilter;
       const matchBand = bandFilter === 'ALL' || item.priority_band === bandFilter;
+      const matchSeverity = severityFilter === 'ALL' || (item.explanation?.severity || '').toUpperCase() === severityFilter;
 
-      return matchSearch && matchStatus && matchBand;
+      return matchSearch && matchStatus && matchBand && matchSeverity;
     }).sort((a, b) => {
       let valA: any = a[sortField];
       let valB: any = b[sortField];
@@ -38,7 +41,7 @@ export const ReviewQueueTable: React.FC<QueueTableProps> = ({ items, onSelectIte
       if (valA > valB) return sortAsc ? 1 : -1;
       return 0;
     });
-  }, [items, searchTerm, statusFilter, bandFilter, sortField, sortAsc]);
+  }, [items, searchTerm, statusFilter, bandFilter, severityFilter, sortField, sortAsc]);
 
   const toggleSort = (field: 'rank' | 'priority_score' | 'status') => {
     if (sortField === field) {
@@ -50,50 +53,64 @@ export const ReviewQueueTable: React.FC<QueueTableProps> = ({ items, onSelectIte
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-lg p-5 space-y-4">
+    <div className="bg-slate-900 border border-slate-800 rounded-lg p-5 space-y-4 font-mono">
       {/* Header & Controls Bar */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
-          <h3 className="text-sm font-mono font-bold text-white flex items-center gap-2">
+          <h3 className="text-sm font-bold text-white flex items-center gap-2">
             <ShieldAlert className="w-4 h-4 text-cyan-400" />
             Ranked Supervisory Review Queue ({filteredItems.length} Queue Items)
           </h3>
-          <p className="text-xs text-slate-400">Two-pass diversity prioritized queue derived from decomposable risk scores</p>
+          <p className="text-xs text-slate-400 mt-0.5">Two-pass diversity prioritized queue derived from 8-factor supervisory scoring</p>
         </div>
 
-        {/* Filter Controls */}
-        <div className="flex flex-wrap items-center gap-3">
+        {/* Multi-Factor Filter Controls */}
+        <div className="flex flex-wrap items-center gap-2.5">
           <div className="relative">
             <Search className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5" />
             <input
               type="text"
-              placeholder="Search CSE, Finding, Rule..."
+              placeholder="Search Queue..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="bg-slate-950 border border-slate-800 rounded text-xs font-mono text-slate-200 pl-8 pr-3 py-1.5 focus:outline-none focus:border-cyan-500 w-48"
+              className="bg-slate-950 border border-slate-800 rounded text-xs text-slate-200 pl-8 pr-3 py-1.5 focus:outline-none focus:border-cyan-500 w-44"
             />
           </div>
 
-          <div className="flex items-center gap-1 bg-slate-950 border border-slate-800 rounded px-2.5 py-1 text-xs font-mono text-slate-300">
-            <Filter className="w-3.5 h-3.5 text-slate-500" />
+          <div className="flex items-center gap-1 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-slate-300">
+            <Filter className="w-3 h-3 text-slate-500" />
             <select
               value={bandFilter}
               onChange={e => setBandFilter(e.target.value)}
-              className="bg-transparent focus:outline-none text-xs font-mono"
+              className="bg-transparent focus:outline-none text-xs"
             >
-              <option value="ALL" className="bg-slate-900">All Bands</option>
-              <option value="CRITICAL" className="bg-slate-900">CRITICAL Band</option>
-              <option value="HIGH" className="bg-slate-900">HIGH Band</option>
-              <option value="MEDIUM" className="bg-slate-900">MEDIUM Band</option>
-              <option value="LOW" className="bg-slate-900">LOW Band</option>
+              <option value="ALL" className="bg-slate-900">All Risk Bands</option>
+              <option value="CRITICAL" className="bg-slate-900">CRITICAL</option>
+              <option value="HIGH" className="bg-slate-900">HIGH</option>
+              <option value="MEDIUM" className="bg-slate-900">MEDIUM</option>
+              <option value="LOW" className="bg-slate-900">LOW</option>
             </select>
           </div>
 
-          <div className="flex items-center gap-1 bg-slate-950 border border-slate-800 rounded px-2.5 py-1 text-xs font-mono text-slate-300">
+          <div className="flex items-center gap-1 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-slate-300">
+            <select
+              value={severityFilter}
+              onChange={e => setSeverityFilter(e.target.value)}
+              className="bg-transparent focus:outline-none text-xs"
+            >
+              <option value="ALL" className="bg-slate-900">All Severities</option>
+              <option value="CRITICAL" className="bg-slate-900">Critical Severity</option>
+              <option value="HIGH" className="bg-slate-900">High Severity</option>
+              <option value="MEDIUM" className="bg-slate-900">Medium Severity</option>
+              <option value="LOW" className="bg-slate-900">Low Severity</option>
+            </select>
+          </div>
+
+          <div className="flex items-center gap-1 bg-slate-950 border border-slate-800 rounded px-2 py-1 text-xs text-slate-300">
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              className="bg-transparent focus:outline-none text-xs font-mono"
+              className="bg-transparent focus:outline-none text-xs"
             >
               <option value="ALL" className="bg-slate-900">All Statuses</option>
               <option value="NEW" className="bg-slate-900">NEW</option>
@@ -138,20 +155,22 @@ export const ReviewQueueTable: React.FC<QueueTableProps> = ({ items, onSelectIte
                 <tr
                   key={item.queue_item_id}
                   onClick={() => onSelectItem(item)}
-                  className="hover:bg-slate-850/60 cursor-pointer transition"
+                  className="hover:bg-slate-850/60 cursor-pointer transition group"
                 >
                   <td className="py-3.5 px-3 font-bold text-cyan-400">
-                    #{item.rank}
+                    <span className="px-2 py-0.5 bg-cyan-950/80 border border-cyan-800 rounded">
+                      #{item.rank}
+                    </span>
                   </td>
                   <td className="py-3.5 px-3">
-                    <span className="font-bold text-slate-200 block">{item.cse_id.slice(0, 16)}</span>
-                    <span className="text-[10px] text-slate-500">Finding: {item.finding_id.slice(0, 12)}</span>
+                    <span className="font-bold text-slate-200 block truncate max-w-[140px]">{item.cse_id.slice(0, 16)}</span>
+                    <span className="text-[10px] text-slate-500 font-mono">Finding: {item.finding_id.slice(0, 10)}...</span>
                   </td>
                   <td className="py-3.5 px-3">
                     <PriorityBandBadge band={item.priority_band} score={item.priority_score} />
                   </td>
                   <td className="py-3.5 px-3">
-                    <CompletenessGauge score={item.explanation?.evidence_completeness ?? 85} />
+                    <CompletenessGauge score={item.explanation?.evidence_completeness ?? 94} />
                   </td>
                   <td className="py-3.5 px-3 text-slate-300 max-w-xs truncate" title={item.rationale}>
                     {item.rationale}
@@ -165,9 +184,10 @@ export const ReviewQueueTable: React.FC<QueueTableProps> = ({ items, onSelectIte
                         e.stopPropagation();
                         onSelectItem(item);
                       }}
-                      className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 text-[11px] font-bold border border-slate-700"
+                      className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 group-hover:border-cyan-500 text-[11px] font-bold border border-slate-700 inline-flex items-center gap-1 transition"
                     >
-                      Inspect Finding
+                      <span>Inspect</span>
+                      <ChevronRight className="w-3 h-3" />
                     </button>
                   </td>
                 </tr>
@@ -179,3 +199,4 @@ export const ReviewQueueTable: React.FC<QueueTableProps> = ({ items, onSelectIte
     </div>
   );
 };
+
