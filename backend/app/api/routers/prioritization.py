@@ -20,22 +20,32 @@ class StatusUpdateRequest(BaseModel):
 @router.get("/metrics/latest", summary="Retrieve Executive Dashboard Overview Metrics")
 def get_dashboard_metrics(db: Session = Depends(get_db)):
     """Calculate executive dashboard metrics dynamically across canonical database records."""
+    run = db.query(AnalysisRun).order_by(AnalysisRun.created_at.desc()).first()
+    analysis_run_id = str(run.id) if run else None
+    dataset_import_id = str(run.dataset_import_id) if run and run.dataset_import_id else None
+    rule_version = run.rule_version if run and run.rule_version else "1.0.0"
+    run_status = run.status.value if run and hasattr(run.status, 'value') else (str(run.status) if run else "COMPLETED")
+
     total_cses = db.query(CSE).count()
-    risk_scores = db.query(RiskScore).all()
+    risk_scores = db.query(RiskScore).filter(RiskScore.analysis_run_id == run.id).all() if run else db.query(RiskScore).all()
     critical_cses = len([r for r in risk_scores if (r.risk_band in ("CRITICAL", "HIGH")) or (r.normalized_score is not None and r.normalized_score >= 50.0)])
 
-    total_findings = db.query(Finding).count()
-    critical_findings = db.query(Finding).filter(Finding.severity == FindingSeverity.CRITICAL).count()
+    total_findings = db.query(Finding).filter(Finding.analysis_run_id == run.id).count() if run else db.query(Finding).count()
+    critical_findings = db.query(Finding).filter(Finding.analysis_run_id == run.id, Finding.severity == FindingSeverity.CRITICAL).count() if run else db.query(Finding).filter(Finding.severity == FindingSeverity.CRITICAL).count()
 
-    findings = db.query(Finding).all()
+    findings = db.query(Finding).filter(Finding.analysis_run_id == run.id).all() if run else db.query(Finding).all()
     avg_completeness = round(sum(f.evidence_completeness for f in findings if f.evidence_completeness is not None) / len(findings), 1) if findings else 100.0
 
     open_cases = db.query(Case).filter(Case.status == "OPEN").count()
 
-    queue_items = db.query(ReviewQueueItem).all()
+    queue_items = db.query(ReviewQueueItem).filter(ReviewQueueItem.analysis_run_id == run.id).all() if run else db.query(ReviewQueueItem).all()
     high_priority_reviews = len([q for q in queue_items if (q.priority_score is not None and q.priority_score >= 50.0) or q.priority_band in ("CRITICAL", "HIGH")])
 
     return {
+        "analysis_run_id": analysis_run_id,
+        "dataset_import_id": dataset_import_id,
+        "rule_version": rule_version,
+        "status": run_status,
         "total_cses": total_cses,
         "critical_cses": critical_cses,
         "total_findings": total_findings,
@@ -45,6 +55,7 @@ def get_dashboard_metrics(db: Session = Depends(get_db)):
         "open_cases": open_cases,
         "airgap_status": "OFFLINE_ACTIVE"
     }
+
 
 
 @router.get("/cses", summary="Retrieve All CSE Profiles & Risk Summary")

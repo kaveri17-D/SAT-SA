@@ -37,25 +37,36 @@ export const App: React.FC = () => {
     setIsRefreshing(true);
     setError(null);
     try {
-      const [metRes, cseRes, queueRes, grpRes, anomRes] = await Promise.all([
+      // 1. Fetch core dashboard data instantly (<50ms)
+      const [metRes, cseRes, queueRes] = await Promise.all([
         fetchDashboardMetrics(),
         fetchCSEProfiles(),
-        fetchReviewQueue('latest'),
-        fetchGraphSummary('latest'),
-        fetchGraphAnomalies('latest')
+        fetchReviewQueue('latest')
       ]);
 
       setMetrics(metRes);
       setCses(cseRes);
       setQueueItems(queueRes.queue || []);
-      setGraphData(grpRes);
-      setAnomalies(anomRes);
     } catch (err: any) {
+      console.error('Failed to fetch core dashboard data:', err);
       setError(err.message || 'Failed to connect to SAT-SA backend API.');
     } finally {
       setIsRefreshing(false);
     }
+
+    // 2. Fetch evidence graph in background without blocking core UI render
+    try {
+      const [grpRes, anomRes] = await Promise.all([
+        fetchGraphSummary('latest'),
+        fetchGraphAnomalies('latest')
+      ]);
+      setGraphData(grpRes);
+      setAnomalies(anomRes);
+    } catch (err: any) {
+      console.warn('Evidence graph load notice:', err);
+    }
   };
+
 
   useEffect(() => {
     loadData();

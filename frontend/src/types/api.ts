@@ -15,6 +15,10 @@ export interface TokenResponse {
 }
 
 export interface DashboardMetrics {
+  analysis_run_id?: string;
+  dataset_import_id?: string;
+  rule_version?: string;
+  status?: string;
   total_cses: number;
   critical_cses: number;
   total_findings: number;
@@ -24,6 +28,7 @@ export interface DashboardMetrics {
   open_cases: number;
   airgap_status: string;
 }
+
 
 export interface CSEProfile {
   cse_id: string;
@@ -122,11 +127,16 @@ export interface EvidencePackage {
 export interface RiskContribution {
   finding_id: string;
   category: string;
+  component_category?: string;
   rule_id: string;
-  raw_contribution: number;
+  raw_contribution?: number;
+  base_contribution?: number;
   effective_contribution: number;
+  severity?: string;
+  reason?: string;
   confidence: number;
 }
+
 
 export interface RiskScoreDetail {
   cse_id: string;

@@ -43,8 +43,9 @@ def get_cse_risk_score(cse_id: str, db: Session = Depends(get_db)):
         "contributions": contributions,
         "explanation": explanation,
         "provenance": risk_record.provenance_json or {},
-        "computed_at": risk_record.computed_at.isoformat()
+        "computed_at": risk_record.computed_at.isoformat() if risk_record.computed_at else None
     }
+
 
 
 @router.get("/run/{analysis_run_id}", summary="Retrieve All CSE Risk Scores for Analysis Run")
@@ -71,8 +72,9 @@ def get_analysis_run_risk_scores(analysis_run_id: str, db: Session = Depends(get
             "component_breakdown": s.component_breakdown,
             "contributing_finding_ids": s.contributing_finding_ids or [],
             "explanation": s.explanation_json or {},
-            "computed_at": s.computed_at.isoformat()
+            "computed_at": s.computed_at.isoformat() if s.computed_at else None
         }
+
         for s in scores
     ]
 
@@ -97,8 +99,9 @@ def get_latest_risk_scores(db: Session = Depends(get_db)):
             "component_breakdown": s.component_breakdown,
             "contributing_finding_ids": s.contributing_finding_ids or [],
             "explanation": s.explanation_json or {},
-            "computed_at": s.computed_at.isoformat()
+            "computed_at": s.computed_at.isoformat() if s.computed_at else None
         }
+
         for s in scores
     ]
 

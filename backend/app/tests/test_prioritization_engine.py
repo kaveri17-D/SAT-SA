@@ -304,3 +304,64 @@ def test_prioritization_engine_benchmark():
 
     finally:
         db.close()
+
+
+def test_dashboard_metrics_and_cses_regression():
+    """Regression test: verify dashboard metrics and CSE endpoints return real non-zero records and analysis_run_id."""
+    db: Session = SessionLocal()
+    client = TestClient(fastapi_app)
+    try:
+        clear_db(db)
+        run_id = uuid.uuid4()
+        import_id = uuid.uuid4()
+        cse_id = uuid.uuid4()
+
+        run = AnalysisRun(id=run_id, dataset_import_id=import_id, rule_version="1.0.0", model_version="1.0.0", status="COMPLETED")
+        cse = CSE(id=cse_id, name="Regression Energy Corp", sector="ENERGY", entity_type="UTILITY", size_tier="TIER_1")
+        asset = Asset(id=uuid.uuid4(), cse_id=cse_id, name="Substation Alpha", asset_type="SUBSTATION", criticality=AssetCriticality.CRITICAL, status="ACTIVE")
+        db.add_all([run, cse, asset])
+        db.commit()
+
+        finding = Finding(
+            id=uuid.uuid4(), analysis_run_id=run_id, rule_id="GAP-01", cse_id=cse_id, asset_id=asset.id,
+            severity=FindingSeverity.CRITICAL, confidence=1.0, evidence_completeness=95.0,
+            anomaly_score=0.85, risk_score=80.0, supervisory_priority=80.0, reason="Regression gap",
+            expected_behaviour="E", observed_behaviour="O", evidence_refs=[], recommendation="R", status=FindingStatus.NEW
+        )
+        risk_score = RiskScore(
+            id=uuid.uuid4(), cse_id=cse_id, analysis_run_id=run_id, raw_score=65.0,
+            normalized_score=65.0, risk_band="HIGH", overall_confidence=0.95,
+            component_breakdown={"execution_gap": 30.0, "negative_space": 35.0}
+        )
+
+
+        db.add_all([finding, risk_score])
+        db.commit()
+
+        # Generate queue
+        ReviewPrioritizationEngine.generate_review_queue(db, run_id)
+
+        # 1. Test GET /api/v1/prioritization/metrics/latest
+        r_metrics = client.get("/api/v1/prioritization/metrics/latest")
+        assert r_metrics.status_code == 200
+        m = r_metrics.json()
+        assert m["total_cses"] == 1
+        assert m["total_findings"] == 1
+        assert m["critical_findings"] == 1
+        assert m["high_priority_reviews"] == 1
+        assert m["analysis_run_id"] == str(run_id)
+        assert m["dataset_import_id"] == str(import_id)
+
+        # 2. Test GET /api/v1/prioritization/cses
+        r_cses = client.get("/api/v1/prioritization/cses")
+        assert r_cses.status_code == 200
+        cses_data = r_cses.json()
+        assert len(cses_data) == 1
+        assert cses_data[0]["cse_id"] == str(cse_id)
+        assert cses_data[0]["finding_count"] == 1
+        assert cses_data[0]["risk_score"] == 65.0
+        assert cses_data[0]["risk_band"] == "HIGH"
+
+    finally:
+        db.close()
+
