@@ -1,0 +1,77 @@
+{
+  "system": "SAT-SA",
+  "version": "1.0.0",
+  "phase": 19,
+  "release_status": "SIH READY",
+  "release_decision": "SIH READY",
+  "timestamp": "2026-09-01T20:35:00+05:30",
+  "repository": {
+    "branch": "sih26157-continuation",
+    "git_commit": "bdfe21958897ca2655d21cd50c65427c6bfb9074"
+  },
+  "runtime_environment": {
+    "python_version": "3.11.9",
+    "node_version": "v24.19.0",
+    "npm_version": "11.17.0",
+    "os": "win32",
+    "chrome_binary": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "chrome_version": "134.0.6998.88"
+  },
+  "quality_and_regression_metrics": {
+    "backend_tests_total": 174,
+    "backend_tests_passed": 174,
+    "backend_tests_failed": 0,
+    "backend_tests_skipped": 0,
+    "backend_test_duration_seconds": 189.11,
+    "frontend_build_status": "PASS",
+    "frontend_build_duration_seconds": 1.97,
+    "automated_browser_journeys_total": 16,
+    "automated_browser_journeys_passed": 16,
+    "curated_presentation_screenshots": 8
+  },
+  "memory_and_scalability_metrics": {
+    "demonstration_peak_ram_mb": 82.4,
+    "stress_benchmark_peak_ram_gb": 3.67,
+    "stress_benchmark_record_count": 1000000,
+    "risk_calculation_speed_cse_per_sec": 66.69,
+    "review_prioritization_speed_candidates_per_sec": 39.58,
+    "large_scale_20gb_support": "ARCHITECTURAL / ESTIMATED (50 MB streaming chunk iterator)"
+  },
+  "latency_metrics": {
+    "cold_start_launch_latency_seconds": 1.8,
+    "demonstration_pipeline_duration_seconds": 3.01,
+    "interactive_query_latency_ms": "< 250"
+  },
+  "security_and_airgap_metrics": {
+    "airgap_mode": true,
+    "strict_local_only": true,
+    "external_outbound_socket_calls": 0,
+    "security_vulnerabilities_detected": 0,
+    "password_hashing": "Argon2id",
+    "token_signing": "HMAC-SHA256 (HS256)",
+    "tamper_detection_ui": "VERIFIED (Rose warning badge on hash mismatch)",
+    "audit_trail_events_verified": 65
+  },
+  "disaster_recovery_metrics": {
+    "point_in_time_backup": "VERIFIED",
+    "sidecar_checksum_verification": "VERIFIED",
+    "pre_restore_corruption_detection": "VERIFIED",
+    "atomic_restore": "VERIFIED"
+  },
+  "offline_distribution_package": {
+    "package_archive": "dist_offline/satsa_offline_v1.0.0_20260901_150521.zip",
+    "sha256_checksum": "8aaeb24de56795a6e1a3c1d9cdbd8fc18a061791ed4dce9400a54e6246ceafc4",
+    "file_count": 167,
+    "size_mb": 0.34
+  },
+  "deployment_prerequisites": [
+    "Python 3.11.x runtime environment",
+    "Available local port 8000 on 127.0.0.1",
+    "Minimum 500 MB free disk space"
+  ],
+  "known_limitations": [
+    "Initial database creation automatically bootstrapped via FastAPI lifespan handler",
+    "Advanced NLP text extraction safely falls back to deterministic regex/heuristics with 0 cloud dependencies",
+    "Client-side PDF generation utilizes browser native Print-to-PDF functionality"
+  ]
+}

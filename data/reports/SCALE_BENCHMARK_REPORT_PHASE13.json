@@ -1,0 +1,67 @@
+{
+  "title": "SAT-SA Phase 13 Scalability Benchmark Campaign",
+  "date": "2026-09-01",
+  "tiers_evaluated": 5,
+  "results": [
+    {
+      "tier_records": 1000,
+      "total_time_seconds": 0.0289,
+      "parsing_time_seconds": 0.0155,
+      "normalization_time_seconds": 0.0014,
+      "parsing_throughput_rec_per_sec": 64320.3,
+      "normalization_throughput_rec_per_sec": 698665.5,
+      "lookup_5k_time_seconds": 0.0041,
+      "lookup_throughput_lookups_per_sec": 1222254.8,
+      "peak_memory_mb": 0.95,
+      "valid_records": 1000
+    },
+    {
+      "tier_records": 10000,
+      "total_time_seconds": 0.2355,
+      "parsing_time_seconds": 0.1393,
+      "normalization_time_seconds": 0.0158,
+      "parsing_throughput_rec_per_sec": 71771.0,
+      "normalization_throughput_rec_per_sec": 631588.3,
+      "lookup_5k_time_seconds": 0.0052,
+      "lookup_throughput_lookups_per_sec": 961316.6,
+      "peak_memory_mb": 9.42,
+      "valid_records": 10000
+    },
+    {
+      "tier_records": 50000,
+      "total_time_seconds": 1.2507,
+      "parsing_time_seconds": 0.777,
+      "normalization_time_seconds": 0.0827,
+      "parsing_throughput_rec_per_sec": 64350.1,
+      "normalization_throughput_rec_per_sec": 604599.3,
+      "lookup_5k_time_seconds": 0.0038,
+      "lookup_throughput_lookups_per_sec": 1327880.2,
+      "peak_memory_mb": 48.05,
+      "valid_records": 50000
+    },
+    {
+      "tier_records": 100000,
+      "total_time_seconds": 2.5192,
+      "parsing_time_seconds": 1.5634,
+      "normalization_time_seconds": 0.1709,
+      "parsing_throughput_rec_per_sec": 63962.0,
+      "normalization_throughput_rec_per_sec": 585192.6,
+      "lookup_5k_time_seconds": 0.0038,
+      "lookup_throughput_lookups_per_sec": 1322191.7,
+      "peak_memory_mb": 95.94,
+      "valid_records": 100000
+    },
+    {
+      "tier_records": 250000,
+      "total_time_seconds": 6.3852,
+      "parsing_time_seconds": 3.9382,
+      "normalization_time_seconds": 0.4814,
+      "parsing_throughput_rec_per_sec": 63480.3,
+      "normalization_throughput_rec_per_sec": 519360.9,
+      "lookup_5k_time_seconds": 0.0037,
+      "lookup_throughput_lookups_per_sec": 1358215.8,
+      "peak_memory_mb": 238.29,
+      "valid_records": 250000
+    }
+  ]
+}

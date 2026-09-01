@@ -140,3 +140,80 @@ export async function fetchGraphAnomalies(analysisRunId = 'latest'): Promise<Gra
   return res.json();
 }
 
+export async function fetchReports(params?: {
+  assessment_id?: string;
+  cse_id?: string;
+  report_type?: string;
+  limit?: number;
+  offset?: number;
+}): Promise<{ total_count: number; reports: any[] }> {
+  const query = new URLSearchParams();
+  if (params?.assessment_id) query.set('assessment_id', params.assessment_id);
+  if (params?.cse_id) query.set('cse_id', params.cse_id);
+  if (params?.report_type) query.set('report_type', params.report_type);
+  if (params?.limit) query.set('limit', params.limit.toString());
+  if (params?.offset) query.set('offset', params.offset.toString());
+
+  const res = await fetch(`${API_BASE}/reports?${query.toString()}`);
+  if (!res.ok) throw new Error(`Failed to fetch reports (${res.status})`);
+  return res.json();
+}
+
+export async function fetchReportDetail(reportId: string): Promise<any> {
+  const res = await fetch(`${API_BASE}/reports/${reportId}`);
+  if (!res.ok) throw new Error(`Failed to fetch report detail (${res.status})`);
+  return res.json();
+}
+
+export async function generateReport(payload: {
+  assessment_id: string;
+  report_type: string;
+  cse_id?: string;
+  title?: string;
+  description?: string;
+  generated_by?: string;
+}): Promise<any> {
+  const res = await fetch(`${API_BASE}/reports/generate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error(`Failed to generate report (${res.status})`);
+  return res.json();
+}
+
+export function getReportExportUrl(reportId: string, format: 'json' | 'html'): string {
+  return `${API_BASE}/reports/${reportId}/export?format=${format}`;
+}
+
+export async function fetchAuditLogs(params?: {
+  user_id?: string;
+  actor_role?: string;
+  action?: string;
+  entity_type?: string;
+  entity_id?: string;
+  status?: string;
+  limit?: number;
+  offset?: number;
+}): Promise<{ total_count: number; logs: any[] }> {
+  const query = new URLSearchParams();
+  if (params?.user_id) query.set('user_id', params.user_id);
+  if (params?.actor_role) query.set('actor_role', params.actor_role);
+  if (params?.action) query.set('action', params.action);
+  if (params?.entity_type) query.set('entity_type', params.entity_type);
+  if (params?.entity_id) query.set('entity_id', params.entity_id);
+  if (params?.status) query.set('status', params.status);
+  if (params?.limit) query.set('limit', params.limit.toString());
+  if (params?.offset) query.set('offset', params.offset.toString());
+
+  const res = await fetch(`${API_BASE}/audit/logs?${query.toString()}`);
+  if (!res.ok) throw new Error(`Failed to fetch audit logs (${res.status})`);
+  return res.json();
+}
+
+export async function verifyAuditTrail(): Promise<any> {
+  const res = await fetch(`${API_BASE}/audit/verify`);
+  if (!res.ok) throw new Error(`Failed to verify audit trail (${res.status})`);
+  return res.json();
+}
+

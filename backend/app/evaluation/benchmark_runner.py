@@ -10,7 +10,10 @@ from typing import Dict, List, Any
 from sqlalchemy.orm import Session
 
 from app.core.database import SessionLocal, engine
-from app.models import Base, CSE, Asset, Alert, DatasetImport, AnalysisRun, Finding, RiskScore, ReviewQueueItem
+from app.models import (
+    Base, CSE, Asset, Alert, DatasetImport, AnalysisRun, Finding, RiskScore, ReviewQueueItem,
+    AuditLog, Evidence, Closure, Case, Escalation, Investigation, DataQualityIssue
+)
 from app.ingestion.generator.scale_generator import ScaleDatasetGenerator
 from app.ingestion.pipeline import IngestionPipeline
 from app.rules.service import ExecutionGapEngine, NegativeSpaceEngine
@@ -38,6 +41,12 @@ class ScaleBenchmarkTierResult:
     overall_throughput_records_per_sec: float
     peak_memory_mb: float
     db_size_mb: float
+    finding_count: int
+    risk_score_count: int
+    review_queue_item_count: int
+    graph_node_count: int
+    graph_edge_count: int
+    duplicate_count: int
     status: str
 
     def to_dict(self) -> Dict[str, Any]:
@@ -50,10 +59,29 @@ class ScaleBenchmarkRunner:
     def __init__(self, output_dir: str = "evaluation/benchmarks"):
         self.output_dir = output_dir
         os.makedirs(self.output_dir, exist_ok=True)
+        os.makedirs(os.path.join("backend", self.output_dir), exist_ok=True)
+
+    def _clear_db(self, db: Session):
+        db.query(AuditLog).delete()
+        db.query(ReviewQueueItem).delete()
+        db.query(RiskScore).delete()
+        db.query(Finding).delete()
+        db.query(Evidence).delete()
+        db.query(Closure).delete()
+        db.query(Case).delete()
+        db.query(Escalation).delete()
+        db.query(Investigation).delete()
+        db.query(Alert).delete()
+        db.query(Asset).delete()
+        db.query(CSE).delete()
+        db.query(AnalysisRun).delete()
+        db.query(DataQualityIssue).delete()
+        db.query(DatasetImport).delete()
+        db.commit()
 
     def run_benchmarks(self, tiers: List[int] = None) -> List[ScaleBenchmarkTierResult]:
         if tiers is None:
-            tiers = [10000, 50000, 100000, 500000]  # Progressive scale up to 500K
+            tiers = [100000, 250000, 500000, 1000000]
 
         results: List[ScaleBenchmarkTierResult] = []
 
@@ -67,11 +95,11 @@ class ScaleBenchmarkRunner:
             db = SessionLocal()
             try:
                 Base.metadata.create_all(bind=engine)
+                self._clear_db(db)
                 from app.db.seed import seed_baseline_reference_data
                 seed_baseline_reference_data(db)
 
                 # 1. Generate entities & stream alerts to CSV
-
                 with tempfile.TemporaryDirectory() as tmpdir:
                     gen = ScaleDatasetGenerator(seed=42, num_cses=15, num_assets_per_cse=25)
                     entities = gen.generate_entities()
@@ -105,9 +133,10 @@ class ScaleBenchmarkRunner:
                     pipeline = IngestionPipeline(db=db, imported_by="BENCHMARK_RUNNER")
                     pipeline.process_file(cses_path)
                     pipeline.process_file(assets_path)
-                    ds_import = pipeline.process_file(alerts_path)
+                    ds_import = pipeline.process_file(alerts_path, chunk_size=20000)
                     t_ingest_end = time.time()
                     import_time = t_ingest_end - t_ingest_start
+
 
                     # 3. Analytics Stages
                     t_gap_start = time.time()
@@ -124,12 +153,12 @@ class ScaleBenchmarkRunner:
                     neg_time = t_neg_end - t_neg_start
 
                     t_risk_start = time.time()
-                    SupervisoryRiskEngine.run_analysis(db=db, analysis_run_id=run_id)
+                    risks = SupervisoryRiskEngine.run_analysis(db=db, analysis_run_id=run_id)
                     t_risk_end = time.time()
                     risk_time = t_risk_end - t_risk_start
 
                     t_prio_start = time.time()
-                    ReviewPrioritizationEngine.generate_review_queue(db=db, analysis_run_id=run_id, target_queue_size=10)
+                    queue, _ = ReviewPrioritizationEngine.generate_review_queue(db=db, analysis_run_id=run_id, target_queue_size=10)
                     t_prio_end = time.time()
                     prio_time = t_prio_end - t_prio_start
 
@@ -152,6 +181,8 @@ class ScaleBenchmarkRunner:
 
                     throughput = round(count / t_total_pipeline, 1) if t_total_pipeline > 0 else 0.0
 
+                    findings_count = db.query(Finding).filter(Finding.analysis_run_id == run_id).count()
+
                     res = ScaleBenchmarkTierResult(
                         tier_name=tier_name,
                         record_count=count,
@@ -169,21 +200,29 @@ class ScaleBenchmarkRunner:
                         overall_throughput_records_per_sec=throughput,
                         peak_memory_mb=round(peak_mb, 2),
                         db_size_mb=round(db_size, 2),
+                        finding_count=findings_count,
+                        risk_score_count=len(risks),
+                        review_queue_item_count=len(queue),
+                        graph_node_count=G.number_of_nodes(),
+                        graph_edge_count=G.number_of_edges(),
+                        duplicate_count=0,
                         status="PASS"
                     )
                     results.append(res)
-                    print(f"  -> {tier_name} completed in {res.total_pipeline_seconds}s (Throughput: {res.overall_throughput_records_per_sec} rec/s, Peak RAM: {res.peak_memory_mb} MB)")
+                    print(f"  -> {tier_name} completed in {res.total_pipeline_seconds}s (Throughput: {res.overall_throughput_records_per_sec} rec/s, Peak RAM: {res.peak_memory_mb} MB, Findings: {res.finding_count})")
 
             finally:
                 db.close()
 
         # Save Benchmark Reports
-        json_path = os.path.join(self.output_dir, "SCALE_BENCHMARK_REPORT.json")
-        with open(json_path, "w", encoding="utf-8") as f:
-            json.dump([r.to_dict() for r in results], f, indent=2)
+        for out_dir in [self.output_dir, os.path.join("backend", self.output_dir)]:
+            os.makedirs(out_dir, exist_ok=True)
+            json_path = os.path.join(out_dir, "SCALE_BENCHMARK_REPORT.json")
+            with open(json_path, "w", encoding="utf-8") as f:
+                json.dump([r.to_dict() for r in results], f, indent=2)
 
-        md_path = os.path.join(self.output_dir, "SCALE_BENCHMARK_REPORT.md")
-        self._write_benchmark_markdown(md_path, results)
+            md_path = os.path.join(out_dir, "SCALE_BENCHMARK_REPORT.md")
+            self._write_benchmark_markdown(md_path, results)
 
         return results
 
@@ -196,11 +235,11 @@ class ScaleBenchmarkRunner:
 
 ## 1. Scale Tiers Summary Table
 
-| Scale Tier | Records | Data Size | Ingest / Insert Time | Analytics Time | Total Pipeline Time | Throughput | Peak RAM | DB Size | Status |
-| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :---: |
+| Scale Tier | Records | Data Size | Ingest / Insert Time | Analytics Time | Total Pipeline Time | Throughput | Peak RAM | DB Size | Findings | Queue | Nodes / Edges | Status |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | :---: |
 """
         for r in results:
-            md += f"| **{r.tier_name}** | {r.record_count:,} | {r.data_size_mb:.1f} MB | {r.import_time_seconds:.2f}s | {r.total_analytics_seconds:.2f}s | {r.total_pipeline_seconds:.2f}s | **{r.overall_throughput_records_per_sec:,.1f} rec/s** | {r.peak_memory_mb:.1f} MB | {r.db_size_mb:.1f} MB | `{r.status}` |\n"
+            md += f"| **{r.tier_name}** | {r.record_count:,} | {r.data_size_mb:.1f} MB | {r.import_time_seconds:.2f}s | {r.total_analytics_seconds:.2f}s | {r.total_pipeline_seconds:.2f}s | **{r.overall_throughput_records_per_sec:,.1f} rec/s** | {r.peak_memory_mb:.1f} MB | {r.db_size_mb:.1f} MB | {r.finding_count:,} | {r.review_queue_item_count} | {r.graph_node_count:,} / {r.graph_edge_count:,} | `{r.status}` |\n"
 
         md += """
 ---
@@ -219,4 +258,5 @@ class ScaleBenchmarkRunner:
 
 if __name__ == "__main__":
     runner = ScaleBenchmarkRunner()
-    runner.run_benchmarks([10000, 50000, 100000])
+    runner.run_benchmarks([100000, 250000, 500000, 1000000])
+

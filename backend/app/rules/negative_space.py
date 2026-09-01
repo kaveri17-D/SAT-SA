@@ -462,7 +462,8 @@ class NegativeSpaceEvaluators:
         all_assets: List[Asset],
         all_alerts: List[Alert],
         completeness_score: float = 100.0,
-        under_monitored_ratio_threshold: float = 0.20
+        under_monitored_ratio_threshold: float = 0.20,
+        alert_counts_by_asset: Optional[Dict[str, int]] = None
     ) -> RuleEvaluationResult:
         """NEG-04: Critical Asset Under-Monitoring vs Peer Group Baseline.
 
@@ -506,7 +507,27 @@ class NegativeSpaceEvaluators:
                 recommendation="Re-export complete dataset."
             )
 
+        # 2b. Check Decommissioned Status
+        if target_asset.status == "DECOMMISSIONED" or getattr(target_asset, "decommissioned_at", None) is not None:
+            return RuleEvaluationResult(
+                rule_id="NEG-04",
+                rule_version="1.0.0",
+                target_entity_id=str(target_asset.id),
+                target_entity_type="Asset",
+                status=EvaluationStatus.SUPPRESSED,
+                applicability=False,
+                expectation="Peer baseline comparison.",
+                observed_activity=f"Asset {target_asset.name} is decommissioned.",
+                severity=FindingSeverity.LOW,
+                confidence=1.0,
+                risk_contribution=0.0,
+                evidence_refs=[],
+                explanation="Decommissioned asset is excluded from active peer density requirements.",
+                recommendation=""
+            )
+
         # 3. Select Peer Group (Matching asset_type and criticality)
+
         peer_assets = [
             a for a in all_assets
             if a.asset_type == target_asset.asset_type
@@ -534,13 +555,17 @@ class NegativeSpaceEvaluators:
             )
 
         # Calculate alert count for target and peers
-        alerts_by_asset: Dict[str, int] = {}
-        for alt in all_alerts:
-            alerts_by_asset[str(alt.asset_id)] = alerts_by_asset.get(str(alt.asset_id), 0) + 1
+        if alert_counts_by_asset is not None:
+            alerts_by_asset = alert_counts_by_asset
+        else:
+            alerts_by_asset: Dict[str, int] = {}
+            for alt in all_alerts:
+                alerts_by_asset[str(alt.asset_id)] = alerts_by_asset.get(str(alt.asset_id), 0) + 1
 
         target_density = float(alerts_by_asset.get(str(target_asset.id), 0))
         peer_densities = [float(alerts_by_asset.get(str(p.id), 0)) for p in peer_assets]
         peer_median_density = float(np.median(peer_densities))
+
 
         if peer_median_density > 0:
             density_ratio = target_density / peer_median_density
@@ -636,7 +661,27 @@ class NegativeSpaceEvaluators:
                 recommendation="Re-export complete dataset."
             )
 
+        # 1b. Check Decommissioned Status
+        if asset.status == "DECOMMISSIONED" or getattr(asset, "decommissioned_at", None) is not None:
+            return RuleEvaluationResult(
+                rule_id="NEG-05",
+                rule_version="1.0.0",
+                target_entity_id=str(asset.id),
+                target_entity_type="Asset",
+                status=EvaluationStatus.SUPPRESSED,
+                applicability=False,
+                expectation="Maintenance context verification.",
+                observed_activity=f"Asset {asset.name} is decommissioned.",
+                severity=FindingSeverity.LOW,
+                confidence=1.0,
+                risk_contribution=0.0,
+                evidence_refs=[],
+                explanation="Telemetry silence justified by decommissioned status.",
+                recommendation=""
+            )
+
         # 2. Detect Activity Silence Window
+
         asset_alerts = [a for a in recent_alerts if a.asset_id == asset.id]
         last_observed = max([a.created_at for a in asset_alerts]) if asset_alerts else None
         if last_observed and last_observed.tzinfo is None:

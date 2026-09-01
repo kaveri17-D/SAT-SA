@@ -1,0 +1,27 @@
+{
+  "scenario_id": "SCENARIO_01_VULNERABLE_ASSET",
+  "name": "Vulnerable Web Server Ingress",
+  "description": "Active web server hosting vulnerable Apache Log4j component with critical CVSS 9.8.",
+  "category": "VULNERABILITY_EXPOSURE",
+  "source_datasets": [
+    "NIST_NVD_2.0",
+    "MITRE_ATTACK_v15"
+  ],
+  "input_entities": {
+    "asset_type": "WEB_SERVER",
+    "criticality": "HIGH",
+    "alerts_count": 150
+  },
+  "expected_condition": "Vulnerability detected with high CVSS exposure and mapped ATT&CK T1190 behavior.",
+  "expected_detection_status": "FLAGGED_FOR_TRIAGE",
+  "expected_threat_context": {
+    "cve_id": "CVE-2021-44228",
+    "cvss_score": 9.8,
+    "attack_technique": "T1190"
+  },
+  "ground_truth_label": "HIGH_RISK_VULNERABILITY",
+  "provenance": {
+    "dataset": "NVD_CVE_FEED",
+    "retrieval": "2026-08-31"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "scenario_id": "SCENARIO_08_PEER_GROUP_ANOMALY",
+  "name": "Under-Monitored Peer Asset",
+  "description": "Active critical database generating only 3% of the median event density of its peer group.",
+  "category": "PEER_BASELINE_ANOMALY",
+  "source_datasets": [
+    "SAT-SA_SYNTHETIC"
+  ],
+  "input_entities": {
+    "asset_type": "DATABASE",
+    "density_ratio": 0.03,
+    "peer_median": 1200
+  },
+  "expected_condition": "NEG-04 Confirmed finding based on peer density ratio < 0.20.",
+  "expected_detection_status": "CONFIRMED_UNDER_MONITORED",
+  "expected_threat_context": {
+    "technique": "T1190",
+    "justification": "Unmonitored Ingress Point"
+  },
+  "ground_truth_label": "PEER_ANOMALY_TRUE_POSITIVE",
+  "provenance": {
+    "dataset": "SAT-SA_GENERATOR",
+    "retrieval": "2026-08-31"
+  }
+}

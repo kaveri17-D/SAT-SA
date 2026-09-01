@@ -1,0 +1,25 @@
+{
+  "scenario_id": "SCENARIO_07_INCOMPLETE_INVESTIGATION",
+  "name": "High Severity Alert Closed Prematurely",
+  "description": "Critical severity ransomware alert closed within 45s without analyst investigation.",
+  "category": "EXECUTION_GAP_ANOMALY",
+  "source_datasets": [
+    "SAT-SA_SYNTHETIC"
+  ],
+  "input_entities": {
+    "alert_severity": "CRITICAL",
+    "duration_seconds": 45,
+    "investigation": false
+  },
+  "expected_condition": "GAP-01 and GAP-02 rule evaluations confirmed.",
+  "expected_detection_status": "CONFIRMED_EXECUTION_GAP",
+  "expected_threat_context": {
+    "technique": "T1562.001",
+    "justification": "Rapid Dismissal"
+  },
+  "ground_truth_label": "HIGH_SUPERVISORY_RISK",
+  "provenance": {
+    "dataset": "SAT-SA_GENERATOR",
+    "retrieval": "2026-08-31"
+  }
+}

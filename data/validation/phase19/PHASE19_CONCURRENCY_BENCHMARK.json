@@ -1,0 +1,61 @@
+{
+  "benchmark": "MULTI_CLIENT_CONCURRENCY_BENCHMARK",
+  "timestamp": "2026-09-01T15:25:36Z",
+  "tiers": [
+    {
+      "concurrency": 1,
+      "total_requests": 10,
+      "successful_requests": 10,
+      "error_count": 0,
+      "success_rate_pct": 100.0,
+      "duration_seconds": 0.171,
+      "throughput_req_per_sec": 58.5,
+      "avg_latency_ms": 16.9,
+      "p95_latency_ms": 34.94
+    },
+    {
+      "concurrency": 5,
+      "total_requests": 50,
+      "successful_requests": 50,
+      "error_count": 0,
+      "success_rate_pct": 100.0,
+      "duration_seconds": 0.336,
+      "throughput_req_per_sec": 148.8,
+      "avg_latency_ms": 32.22,
+      "p95_latency_ms": 67.52
+    },
+    {
+      "concurrency": 10,
+      "total_requests": 100,
+      "successful_requests": 100,
+      "error_count": 0,
+      "success_rate_pct": 100.0,
+      "duration_seconds": 0.753,
+      "throughput_req_per_sec": 132.8,
+      "avg_latency_ms": 71.6,
+      "p95_latency_ms": 150.22
+    },
+    {
+      "concurrency": 25,
+      "total_requests": 250,
+      "successful_requests": 250,
+      "error_count": 0,
+      "success_rate_pct": 100.0,
+      "duration_seconds": 1.881,
+      "throughput_req_per_sec": 132.9,
+      "avg_latency_ms": 180.17,
+      "p95_latency_ms": 338.15
+    },
+    {
+      "concurrency": 50,
+      "total_requests": 500,
+      "successful_requests": 500,
+      "error_count": 0,
+      "success_rate_pct": 100.0,
+      "duration_seconds": 3.89,
+      "throughput_req_per_sec": 128.5,
+      "avg_latency_ms": 370.35,
+      "p95_latency_ms": 584.37
+    }
+  ]
+}

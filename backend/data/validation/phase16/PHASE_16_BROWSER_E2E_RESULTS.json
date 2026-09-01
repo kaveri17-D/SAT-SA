@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-09-01T12:59:14.874766+00:00",
+  "browser": "Google Chrome (Local Binary)",
+  "browser_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "base_url": "http://127.0.0.1:8888",
+  "journeys": {
+    "journey_1_startup": {
+      "status": "PASS",
+      "load_time_ms": 213.28,
+      "console_errors_count": 1,
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\backend\\data\\validation\\phase16\\screenshots\\01_dashboard.png"
+    },
+    "journey_2_navigation": {
+      "status": "PASS",
+      "views_verified": [
+        "DASHBOARD",
+        "QUEUE",
+        "GRAPH",
+        "REPORTS"
+      ],
+      "screenshots": [
+        "C:\\Users\\LENOVO\\SAT-SA\\backend\\data\\validation\\phase16\\screenshots\\02_queue.png",
+        "C:\\Users\\LENOVO\\SAT-SA\\backend\\data\\validation\\phase16\\screenshots\\03_graph.png",
+        "C:\\Users\\LENOVO\\SAT-SA\\backend\\data\\validation\\phase16\\screenshots\\04_reports.png"
+      ]
+    },
+    "journey_3_report_gen": {
+      "status": "PASS",
+      "report_type": "EXECUTIVE",
+      "interaction_latency_ms": 257.52,
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\backend\\data\\validation\\phase16\\screenshots\\05_report_details.png"
+    },
+    "journey_4_all_report_types": {
+      "status": "PASS",
+      "types_verified": [
+        "EXECUTIVE",
+        "TECHNICAL",
+        "RISK",
+        "ASSET",
+        "VULNERABILITY_THREAT_INTEL"
+      ],
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\backend\\data\\validation\\phase16\\screenshots\\06_all_reports.png"
+    },
+    "journey_5_audit_trail": {
+      "status": "PASS",
+      "verification_latency_ms": 53.55,
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\backend\\data\\validation\\phase16\\screenshots\\07_audit_verified.png"
+    },
+    "journey_6_tamper_detection": {
+      "status": "PASS",
+      "tamper_badge_observed": true,
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\backend\\data\\validation\\phase16\\screenshots\\08_tamper_detected.png"
+    },
+    "journey_7_error_handling": {
+      "status": "PASS"
+    },
+    "journey_8_reload_recovery": {
+      "status": "PASS"
+    },
+    "journey_9_sequential_ops": {
+      "status": "PASS"
+    },
+    "journey_10_concurrency": {
+      "status": "PASS"
+    }
+  }
+}

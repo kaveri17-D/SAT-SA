@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-09-01T14:05:38.533176+00:00",
+  "browser": "Google Chrome (Native Binary)",
+  "browser_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+  "base_url": "http://127.0.0.1:8888",
+  "journeys": {
+    "dashboard": {
+      "status": "PASS",
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\data\\validation\\phase18\\screenshots\\01_dashboard_realistic.png"
+    },
+    "queue": {
+      "status": "PASS",
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\data\\validation\\phase18\\screenshots\\02_queue_realistic.png"
+    },
+    "graph": {
+      "status": "PASS",
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\data\\validation\\phase18\\screenshots\\03_graph_realistic.png"
+    },
+    "reports": {
+      "status": "PASS",
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\data\\validation\\phase18\\screenshots\\04_reports_realistic.png"
+    },
+    "report_detail": {
+      "status": "PASS",
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\data\\validation\\phase18\\screenshots\\05_report_detail_realistic.png"
+    },
+    "audit_verification": {
+      "status": "PASS",
+      "screenshot": "C:\\Users\\LENOVO\\SAT-SA\\data\\validation\\phase18\\screenshots\\06_audit_verified_realistic.png"
+    }
+  }
+}

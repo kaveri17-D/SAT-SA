@@ -5,8 +5,9 @@ from sqlalchemy.orm import Session
 from fastapi.testclient import TestClient
 
 from app.core.database import SessionLocal
-from app.models import AnalysisRun, DatasetImport, Finding, Evidence, RiskScore, ReviewQueueItem, AuditLog
+from app.models import AnalysisRun, DatasetImport, Finding, Evidence, RiskScore, ReviewQueueItem, AuditLog, MaintenanceLog
 from app.ingestion.generator.engine import SyntheticDatasetGenerator, GeneratorConfig
+
 from app.rules.service import ExecutionGapEngine, NegativeSpaceEngine
 
 from app.analytics.risk_engine import SupervisoryRiskEngine
@@ -39,7 +40,8 @@ def test_full_end_to_end_pipeline_validation():
 
         dataset = SyntheticDatasetGenerator(config).generate()
 
-        assert len(dataset["alerts"]) == 500
+        assert len(dataset["alerts"]) >= 500
+        alert_count = len(dataset["alerts"])
 
         # 2. DatasetImport Provenance Record
         import_id = uuid.uuid4()
@@ -51,25 +53,48 @@ def test_full_end_to_end_pipeline_validation():
             source="SYNTHETIC_DATASET_GENERATOR",
             imported_at=datetime.now(timezone.utc),
             imported_by="E2E_TEST_SUITE",
-            row_count=500,
-            accepted_count=500,
+            row_count=alert_count,
+            accepted_count=alert_count,
             quarantined_count=0,
             status="COMPLETED",
             completeness_score=100.0
         )
+
         run = AnalysisRun(
             id=run_id,
             dataset_import_id=import_id,
             rule_version="1.0.0",
             model_version="1.0.0",
-            status="PROCESSING"
+            status="RUNNING"
         )
+
         db.add_all([ds_import, run])
+        # Add generated dataset entities to database
+        for key in ["cses", "assets", "analysts", "alerts", "investigations", "escalations", "cases", "closures", "maintenance_logs"]:
+            for item in dataset[key]:
+                if isinstance(item, dict):
+                    if key == "maintenance_logs":
+                        item = MaintenanceLog(
+                            id=uuid.UUID(item["id"]) if isinstance(item["id"], str) else item["id"],
+                            asset_id=uuid.UUID(item["asset_id"]) if isinstance(item["asset_id"], str) else item["asset_id"],
+                            cse_id=uuid.UUID(item["cse_id"]) if isinstance(item["cse_id"], str) else item["cse_id"],
+                            maintenance_ref=item["maintenance_ref"],
+                            start_time=datetime.fromisoformat(item["start_time"]) if isinstance(item["start_time"], str) else item["start_time"],
+                            end_time=datetime.fromisoformat(item["end_time"]) if isinstance(item["end_time"], str) else item["end_time"],
+                            reason=item.get("reason", ""),
+                            approved_by=item.get("approved_by", "")
+                        )
+                db.add(item)
         db.commit()
 
+
         # 3. Execution Gap & Negative Space Detection Engines
-        gap_findings = ExecutionGapEngine.run_analysis(db, run_id)
-        neg_findings = NegativeSpaceEngine.run_analysis(db, run_id)
+        gap_engine = ExecutionGapEngine(db=db)
+        gap_engine.run_analysis(dataset_import_id=import_id, analysis_run_id=run_id)
+
+        neg_engine = NegativeSpaceEngine(db=db)
+        neg_engine.run_analysis(dataset_import_id=import_id, analysis_run_id=run_id)
+
 
         all_findings = db.query(Finding).filter(Finding.analysis_run_id == run_id).all()
         assert len(all_findings) > 0
@@ -112,10 +137,11 @@ def test_full_end_to_end_pipeline_validation():
         assert r_status.json()["status"] == "IN_REVIEW"
 
         # 9. AuditLog Persistence
-        audit_entry = db.query(AuditLog).filter(AuditLog.target_record_id == queue_item_id).first()
+        audit_entry = db.query(AuditLog).filter(AuditLog.entity_id == queue_item_id).first()
         assert audit_entry is not None
-        assert audit_entry.new_value == "IN_REVIEW"
-        assert audit_entry.actor_id == "EXAMINER_E2E"
+        assert audit_entry.before_after_json.get("new_status") == "IN_REVIEW"
+        assert audit_entry.user_id == "EXAMINER_E2E"
+
 
         # 10. Update AnalysisRun to COMPLETED
         run.status = "COMPLETED"

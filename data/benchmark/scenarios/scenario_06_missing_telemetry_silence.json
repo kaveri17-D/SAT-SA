@@ -1,0 +1,25 @@
+{
+  "scenario_id": "SCENARIO_06_MISSING_TELEMETRY_SILENCE",
+  "name": "Critical Telemetry Blackout",
+  "description": "Active critical payment gateway experiencing 96h telemetry silence without maintenance log.",
+  "category": "NEGATIVE_SPACE_ANOMALY",
+  "source_datasets": [
+    "SAT-SA_SYNTHETIC"
+  ],
+  "input_entities": {
+    "asset_type": "PAYMENT_GATEWAY",
+    "silence_hours": 96,
+    "maintenance": "NONE"
+  },
+  "expected_condition": "NEG-01 Confirmed finding with confidence modifier 1.0.",
+  "expected_detection_status": "CONFIRMED_NEGATIVE_SPACE",
+  "expected_threat_context": {
+    "technique": "T1562.002",
+    "justification": "Event Log Disablement"
+  },
+  "ground_truth_label": "CRITICAL_TELEMETRY_GAP",
+  "provenance": {
+    "dataset": "SAT-SA_GENERATOR",
+    "retrieval": "2026-08-31"
+  }
+}

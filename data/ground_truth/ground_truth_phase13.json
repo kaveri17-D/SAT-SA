@@ -1,0 +1,162 @@
+{
+  "title": "SAT-SA PHASE 13 GROUND TRUTH (STRICTLY ISOLATED)",
+  "dataset_name": "SAT-SA PHASE 13 GROUND TRUTH",
+  "version": "1.0.0",
+  "evaluation_only": true,
+  "total_entries": 10,
+  "entries": [
+    {
+      "scenario_id": "SCENARIO_01_VULNERABLE_ASSET",
+      "entity_type": "Asset",
+      "target_id": "ASSET_WEB_01",
+      "is_anomalous": true,
+      "expected_rules": [
+        "NEG-04",
+        "GAP-01"
+      ],
+      "expected_severity": "CRITICAL",
+      "expected_cve": "CVE-2021-44228",
+      "expected_kev": true,
+      "expected_techniques": [
+        "T1190"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO_02_KEV_EXPOSED_ASSET",
+      "entity_type": "Asset",
+      "target_id": "ASSET_MOVEIT_01",
+      "is_anomalous": true,
+      "expected_rules": [
+        "NEG-01",
+        "GAP-06"
+      ],
+      "expected_severity": "CRITICAL",
+      "expected_cve": "CVE-2023-34362",
+      "expected_kev": true,
+      "expected_techniques": [
+        "T1190",
+        "T1486"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO_03_ATTACK_MAPPED_ACTIVITY",
+      "entity_type": "AlertChain",
+      "target_id": "CHAIN_01",
+      "is_anomalous": true,
+      "expected_rules": [
+        "GAP-01",
+        "GAP-03"
+      ],
+      "expected_severity": "HIGH",
+      "expected_cve": null,
+      "expected_kev": false,
+      "expected_techniques": [
+        "T1190",
+        "T1059",
+        "T1003"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO_04_VULN_UNEXPLOITED",
+      "entity_type": "Asset",
+      "target_id": "ASSET_DB_02",
+      "is_anomalous": false,
+      "expected_rules": [],
+      "expected_severity": "MEDIUM",
+      "expected_cve": "CVE-2022-3602",
+      "expected_kev": false,
+      "expected_techniques": []
+    },
+    {
+      "scenario_id": "SCENARIO_05_EXPLOITED_DOMAIN_CONTROLLER",
+      "entity_type": "Asset",
+      "target_id": "ASSET_DC_01",
+      "is_anomalous": true,
+      "expected_rules": [
+        "NEG-01",
+        "GAP-05"
+      ],
+      "expected_severity": "CRITICAL",
+      "expected_cve": "CVE-2020-1472",
+      "expected_kev": true,
+      "expected_techniques": [
+        "T1068"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO_06_MISSING_TELEMETRY_SILENCE",
+      "entity_type": "Asset",
+      "target_id": "ASSET_PAY_01",
+      "is_anomalous": true,
+      "expected_rules": [
+        "NEG-01"
+      ],
+      "expected_severity": "HIGH",
+      "expected_cve": null,
+      "expected_kev": false,
+      "expected_techniques": [
+        "T1562.002"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO_07_INCOMPLETE_INVESTIGATION",
+      "entity_type": "Alert",
+      "target_id": "ALERT_GAP_01",
+      "is_anomalous": true,
+      "expected_rules": [
+        "GAP-01",
+        "GAP-02"
+      ],
+      "expected_severity": "HIGH",
+      "expected_cve": null,
+      "expected_kev": false,
+      "expected_techniques": [
+        "T1562.001"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO_08_PEER_GROUP_ANOMALY",
+      "entity_type": "Asset",
+      "target_id": "ASSET_PEER_01",
+      "is_anomalous": true,
+      "expected_rules": [
+        "NEG-04"
+      ],
+      "expected_severity": "MEDIUM",
+      "expected_cve": null,
+      "expected_kev": false,
+      "expected_techniques": [
+        "T1190"
+      ]
+    },
+    {
+      "scenario_id": "SCENARIO_09_BENIGN_BASELINE",
+      "entity_type": "Asset",
+      "target_id": "ASSET_WORKSTATION_01",
+      "is_anomalous": false,
+      "expected_rules": [],
+      "expected_severity": "LOW",
+      "expected_cve": null,
+      "expected_kev": false,
+      "expected_techniques": []
+    },
+    {
+      "scenario_id": "SCENARIO_10_MIXED_ENTERPRISE_RISK",
+      "entity_type": "Enterprise",
+      "target_id": "ENTERPRISE_MIXED_01",
+      "is_anomalous": true,
+      "expected_rules": [
+        "GAP-01",
+        "NEG-01",
+        "NEG-04"
+      ],
+      "expected_severity": "HIGH",
+      "expected_cve": "CVE-2023-4966",
+      "expected_kev": true,
+      "expected_techniques": [
+        "T1190",
+        "T1562.002"
+      ]
+    }
+  ]
+}

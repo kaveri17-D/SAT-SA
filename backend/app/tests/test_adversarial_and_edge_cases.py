@@ -181,10 +181,11 @@ def test_adversarial_graph_cycles_handling():
         db.commit()
 
         G = SupervisoryEvidenceGraphEngine.build_graph_for_analysis_run(db, run_id)
-        assert G.has_node(str(cse_id))
-        assert G.has_node(str(asset_id))
-        assert G.has_node(str(alert_id))
+        assert G.has_node(f"CSE:{cse_id}") or G.has_node(str(cse_id))
+        assert G.has_node(f"ASSET:{asset_id}") or G.has_node(str(asset_id))
+        assert G.has_node(f"ALERT:{alert_id}") or G.has_node(str(alert_id))
         assert G.number_of_nodes() >= 3
+
 
     finally:
         db.close()

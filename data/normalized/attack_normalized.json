@@ -1,0 +1,460 @@
+{
+  "spec_version": "2.1",
+  "techniques": {
+    "T1190": {
+      "id": "T1190",
+      "stix_id": "attack-pattern--1190",
+      "name": "Exploit Public-Facing Application",
+      "description": "Adversaries may attempt to take advantage of a weakness in an Internet-facing computer or program.",
+      "tactics": [
+        "initial-access"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "data_sources": [
+        "Application Log",
+        "Network Traffic"
+      ],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1059": {
+      "id": "T1059",
+      "stix_id": "attack-pattern--1059",
+      "name": "Command and Scripting Interpreter",
+      "description": "Adversaries may abuse command and script interpreters.",
+      "tactics": [
+        "execution"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1059.001": {
+      "id": "T1059.001",
+      "stix_id": "attack-pattern--1059-001",
+      "name": "PowerShell",
+      "description": "Adversaries may abuse PowerShell commands and scripts.",
+      "tactics": [
+        "execution"
+      ],
+      "is_subtechnique": true,
+      "platforms": [
+        "Windows"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1078": {
+      "id": "T1078",
+      "stix_id": "attack-pattern--1078",
+      "name": "Valid Accounts",
+      "description": "Adversaries may obtain and abuse credentials of existing accounts.",
+      "tactics": [
+        "defense-evasion",
+        "persistence",
+        "privilege-escalation"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Windows",
+        "Linux",
+        "Cloud"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1562": {
+      "id": "T1562",
+      "stix_id": "attack-pattern--1562",
+      "name": "Impair Defenses",
+      "description": "Adversaries may maliciously modify components of a security environment.",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1562.001": {
+      "id": "T1562.001",
+      "stix_id": "attack-pattern--1562-001",
+      "name": "Disable or Modify Tools",
+      "description": "Adversaries may disable and/or modify security tools.",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "is_subtechnique": true,
+      "platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1562.002": {
+      "id": "T1562.002",
+      "stix_id": "attack-pattern--1562-002",
+      "name": "Disable Windows Event Logging",
+      "description": "Adversaries may disable Windows event logging to blind monitoring.",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "is_subtechnique": true,
+      "platforms": [
+        "Windows"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1070": {
+      "id": "T1070",
+      "stix_id": "attack-pattern--1070",
+      "name": "Indicator Removal on Host",
+      "description": "Adversaries may delete or alter generated artifacts.",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1070.001": {
+      "id": "T1070.001",
+      "stix_id": "attack-pattern--1070-001",
+      "name": "Clear Windows Event Logs",
+      "description": "Adversaries may clear Windows Event Logs to hide activity.",
+      "tactics": [
+        "defense-evasion"
+      ],
+      "is_subtechnique": true,
+      "platforms": [
+        "Windows"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1068": {
+      "id": "T1068",
+      "stix_id": "attack-pattern--1068",
+      "name": "Exploitation for Privilege Escalation",
+      "description": "Adversaries may exploit software vulnerabilities to escalate privileges.",
+      "tactics": [
+        "privilege-escalation"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1003": {
+      "id": "T1003",
+      "stix_id": "attack-pattern--1003",
+      "name": "OS Credential Dumping",
+      "description": "Adversaries may attempt to dump credentials to obtain account login secrets.",
+      "tactics": [
+        "credential-access"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1021": {
+      "id": "T1021",
+      "stix_id": "attack-pattern--1021",
+      "name": "Remote Services",
+      "description": "Adversaries may use Valid Accounts to log into a service specifically designed to accept remote connections.",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1486": {
+      "id": "T1486",
+      "stix_id": "attack-pattern--1486",
+      "name": "Data Encrypted for Impact",
+      "description": "Adversaries may encrypt data on target systems or network shares to disrupt access.",
+      "tactics": [
+        "impact"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1505": {
+      "id": "T1505",
+      "stix_id": "attack-pattern--1505",
+      "name": "Server Software Component",
+      "description": "Adversaries may abuse server software components to establish persistence.",
+      "tactics": [
+        "persistence"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    },
+    "T1110": {
+      "id": "T1110",
+      "stix_id": "attack-pattern--1110",
+      "name": "Brute Force",
+      "description": "Adversaries may use brute force techniques to attempt access to accounts.",
+      "tactics": [
+        "credential-access"
+      ],
+      "is_subtechnique": false,
+      "platforms": [
+        "Windows",
+        "Linux",
+        "Cloud"
+      ],
+      "data_sources": [],
+      "detection_strategy": "",
+      "version": "1.0"
+    }
+  },
+  "tactics": {
+    "initial-access": {
+      "id": "TA0001",
+      "stix_id": "x-mitre-tactic--1",
+      "name": "Initial Access",
+      "shortname": "initial-access",
+      "description": "Techniques to gain an initial foothold in a network.",
+      "version": "1.0"
+    },
+    "execution": {
+      "id": "TA0002",
+      "stix_id": "x-mitre-tactic--2",
+      "name": "Execution",
+      "shortname": "execution",
+      "description": "Techniques that result in execution of adversary code.",
+      "version": "1.0"
+    },
+    "persistence": {
+      "id": "TA0003",
+      "stix_id": "x-mitre-tactic--3",
+      "name": "Persistence",
+      "shortname": "persistence",
+      "description": "Techniques to maintain access across restarts.",
+      "version": "1.0"
+    },
+    "privilege-escalation": {
+      "id": "TA0004",
+      "stix_id": "x-mitre-tactic--4",
+      "name": "Privilege Escalation",
+      "shortname": "privilege-escalation",
+      "description": "Techniques to gain higher-level permissions.",
+      "version": "1.0"
+    },
+    "defense-evasion": {
+      "id": "TA0005",
+      "stix_id": "x-mitre-tactic--5",
+      "name": "Defense Evasion",
+      "shortname": "defense-evasion",
+      "description": "Techniques adversaries use to avoid detection.",
+      "version": "1.0"
+    },
+    "credential-access": {
+      "id": "TA0006",
+      "stix_id": "x-mitre-tactic--6",
+      "name": "Credential Access",
+      "shortname": "credential-access",
+      "description": "Techniques for stealing credentials.",
+      "version": "1.0"
+    },
+    "discovery": {
+      "id": "TA0007",
+      "stix_id": "x-mitre-tactic--7",
+      "name": "Discovery",
+      "shortname": "discovery",
+      "description": "Techniques to gain knowledge about the system and network.",
+      "version": "1.0"
+    },
+    "lateral-movement": {
+      "id": "TA0008",
+      "stix_id": "x-mitre-tactic--8",
+      "name": "Lateral Movement",
+      "shortname": "lateral-movement",
+      "description": "Techniques to enter and control remote systems.",
+      "version": "1.0"
+    },
+    "command-and-control": {
+      "id": "TA0011",
+      "stix_id": "x-mitre-tactic--9",
+      "name": "Command and Control",
+      "shortname": "command-and-control",
+      "description": "Techniques to communicate with controlled systems.",
+      "version": "1.0"
+    },
+    "impact": {
+      "id": "TA0040",
+      "stix_id": "x-mitre-tactic--10",
+      "name": "Impact",
+      "shortname": "impact",
+      "description": "Techniques to disrupt, destroy, or compromise integrity.",
+      "version": "1.0"
+    }
+  },
+  "groups": {
+    "G0016": {
+      "id": "G0016",
+      "name": "APT29",
+      "aliases": [
+        "Cozy Bear",
+        "Nobelium",
+        "Midnight Blizzard"
+      ],
+      "description": "Threat group attributed to Russia's Foreign Intelligence Service (SVR).",
+      "version": "1.0"
+    },
+    "G0046": {
+      "id": "G0046",
+      "name": "FIN7",
+      "aliases": [
+        "Carbanak",
+        "ELBRUS"
+      ],
+      "description": "Financially motivated threat group targeting enterprise retail and financial entities.",
+      "version": "1.0"
+    },
+    "G0102": {
+      "id": "G0102",
+      "name": "Wizard Spider",
+      "aliases": [
+        "UNC1878",
+        "Grim Spider"
+      ],
+      "description": "Russia-based financially motivated cybercrime group operating Ryuk and Conti ransomware.",
+      "version": "1.0"
+    },
+    "G0032": {
+      "id": "G0032",
+      "name": "Lazarus Group",
+      "aliases": [
+        "HIDDEN COBRA",
+        "Guardians of Peace"
+      ],
+      "description": "North Korean state-sponsored cyber threat group.",
+      "version": "1.0"
+    },
+    "G0007": {
+      "id": "G0007",
+      "name": "APT28",
+      "aliases": [
+        "Fancy Bear",
+        "Pawn Storm",
+        "Strontium"
+      ],
+      "description": "Threat group attributed to Russia's Main Intelligence Directorate (GRU).",
+      "version": "1.0"
+    }
+  },
+  "software": {
+    "S0154": {
+      "id": "S0154",
+      "name": "Cobalt Strike",
+      "software_type": "tool",
+      "platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "version": "1.0"
+    },
+    "S0002": {
+      "id": "S0002",
+      "name": "Mimikatz",
+      "software_type": "tool",
+      "platforms": [
+        "Windows"
+      ],
+      "version": "1.0"
+    },
+    "S0644": {
+      "id": "S0644",
+      "name": "LockBit",
+      "software_type": "malware",
+      "platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "version": "1.0"
+    },
+    "S0029": {
+      "id": "S0029",
+      "name": "PsExec",
+      "software_type": "tool",
+      "platforms": [
+        "Windows"
+      ],
+      "version": "1.0"
+    },
+    "S0552": {
+      "id": "S0552",
+      "name": "AdFind",
+      "software_type": "tool",
+      "platforms": [
+        "Windows"
+      ],
+      "version": "1.0"
+    }
+  },
+  "counts": {
+    "tactics": 10,
+    "techniques": 15,
+    "groups": 5,
+    "software": 5,
+    "relationships": 5
+  }
+}

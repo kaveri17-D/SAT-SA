@@ -1,0 +1,15 @@
+{
+  "dataset_name": "MITRE ATT&CK Enterprise STIX 2.1",
+  "source_organization": "MITRE Corporation",
+  "source_url": "https://attack.mitre.org/resources/attack-data-and-tools/",
+  "retrieval_date": "2026-08-31T00:00:00Z",
+  "version": "15.0",
+  "file_name": "attack_enterprise_stix21.json",
+  "file_size_bytes": 20231,
+  "sha256_checksum": "cf0b7555c8a7da3845e5df991320f9a9186320d9a19e30a18e2a54159bc25252",
+  "schema_version": "STIX 2.1",
+  "license": "MITRE Terms of Use (Public Domain/CC-BY)",
+  "record_count": 44,
+  "validation_status": "VALIDATED",
+  "generated_at": "2026-08-31T00:00:00Z"
+}

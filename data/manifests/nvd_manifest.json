@@ -1,0 +1,15 @@
+{
+  "dataset_name": "NIST National Vulnerability Database (NVD 2.0)",
+  "source_organization": "National Institute of Standards and Technology (NIST)",
+  "source_url": "https://nvd.nist.gov/vuln/data-feeds",
+  "retrieval_date": "2026-08-31T00:00:00Z",
+  "version": "2.0",
+  "file_name": "nvd_cve_feed.json",
+  "file_size_bytes": 18553,
+  "sha256_checksum": "ead25c622b5b745a8160a87c5f95a14e78c4ec7b42772fd50dfaff468307ab0f",
+  "schema_version": "2.0",
+  "license": "NIST Public Domain",
+  "record_count": 13,
+  "validation_status": "VALIDATED",
+  "generated_at": "2026-08-31T00:00:00Z"
+}

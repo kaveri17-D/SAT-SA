@@ -1,0 +1,15 @@
+{
+  "dataset_name": "CISA Known Exploited Vulnerabilities Catalog",
+  "source_organization": "Cybersecurity and Infrastructure Security Agency (CISA)",
+  "source_url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+  "retrieval_date": "2026-08-31T00:00:00Z",
+  "version": "2026.08.31",
+  "file_name": "cisa_kev.json",
+  "file_size_bytes": 12470,
+  "sha256_checksum": "ba03f45f47ddbf60c1726e6297872373a633428537edde919fb0dfae428e1cbe",
+  "schema_version": "1.0.3",
+  "license": "U.S. Government Public Domain",
+  "record_count": 20,
+  "validation_status": "VALIDATED",
+  "generated_at": "2026-08-31T00:00:00Z"
+}

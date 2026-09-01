@@ -1,0 +1,25 @@
+{
+  "scenario_id": "SCENARIO_09_BENIGN_BASELINE",
+  "name": "Standard Scheduled Operational Baseline",
+  "description": "Routine healthy asset with regular heartbeat telemetry and standard closed investigations.",
+  "category": "BENIGN_ACTIVITY",
+  "source_datasets": [
+    "SAT-SA_SYNTHETIC"
+  ],
+  "input_entities": {
+    "asset_type": "WORKSTATION",
+    "status": "ACTIVE",
+    "silence_hours": 2
+  },
+  "expected_condition": "Zero supervisory gap or negative space findings produced.",
+  "expected_detection_status": "BENIGN_CLEAN",
+  "expected_threat_context": {
+    "technique": null,
+    "status": "CLEAN"
+  },
+  "ground_truth_label": "BENIGN_TRUE_NEGATIVE",
+  "provenance": {
+    "dataset": "SAT-SA_GENERATOR",
+    "retrieval": "2026-08-31"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "scenario_id": "SCENARIO_03_ATTACK_MAPPED_ACTIVITY",
+  "name": "Multi-Stage Attack Chain Activity",
+  "description": "Alert sequence progressing from public exploit to command execution and credential dumping.",
+  "category": "ATTACK_CHAIN_DETECTION",
+  "source_datasets": [
+    "MITRE_ATTACK_v15"
+  ],
+  "input_entities": {
+    "alerts_count": 45,
+    "tactics": [
+      "Initial Access",
+      "Execution",
+      "Credential Access"
+    ]
+  },
+  "expected_condition": "Correlated ATT&CK technique progression identified in evidence graph.",
+  "expected_detection_status": "CORRELATED_ATTACK_CHAIN",
+  "expected_threat_context": {
+    "techniques": [
+      "T1190",
+      "T1059",
+      "T1003"
+    ]
+  },
+  "ground_truth_label": "ATTACK_CHAIN_TRUE_POSITIVE",
+  "provenance": {
+    "dataset": "MITRE_ATTACK_STIX",
+    "retrieval": "2026-08-31"
+  }
+}

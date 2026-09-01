@@ -1,0 +1,257 @@
+{
+  "WEB_SERVER": {
+    "cve_id": "CVE-2021-44228",
+    "cpe_uri": "cpe:2.3:a:apache:log4j:2.14.1:*:*:*:*:*:*:*",
+    "cvss_base_score": 10.0,
+    "cvss_severity": "CRITICAL",
+    "is_cisa_kev": true,
+    "kev_ransomware_use": "Known",
+    "attack_tactics": [
+      "Initial Access",
+      "Execution",
+      "Defense Evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1190",
+        "name": "Exploit Public-Facing Application"
+      }
+    ],
+    "threat_groups": [
+      "APT29"
+    ],
+    "threat_software": [
+      "Cobalt Strike",
+      "Mimikatz"
+    ],
+    "threat_context_summary": "Asset ASSET_WEB_SERVER (WEB_SERVER) running apache:log4j:2.14.1. Matched cpe:2.3:a:apache:log4j:2.14.1:*:*:*:*:*:*:* -> CVE-2021-44228 (CVSS: 10.0 CRITICAL). Listed in CISA KEV (Active Exploitation, Ransomware: Known).",
+    "threat_score_modifier": 30.0,
+    "provenance_sources": [
+      "NIST_NVD_2.0",
+      "CISA_KEV",
+      "MITRE_ATTACK_v15",
+      "CPE_MATCHER_v2.3"
+    ]
+  },
+  "APPLICATION_GATEWAY": {
+    "cve_id": "CVE-2023-4966",
+    "cpe_uri": "cpe:2.3:a:citrix:netscaler_adc:13.1:*:*:*:*:*:*:*",
+    "cvss_base_score": 7.5,
+    "cvss_severity": "HIGH",
+    "is_cisa_kev": true,
+    "kev_ransomware_use": "Known",
+    "attack_tactics": [
+      "Initial Access",
+      "Execution",
+      "Defense Evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1190",
+        "name": "Exploit Public-Facing Application"
+      }
+    ],
+    "threat_groups": [
+      "FIN7"
+    ],
+    "threat_software": [
+      "Cobalt Strike",
+      "Mimikatz"
+    ],
+    "threat_context_summary": "Asset ASSET_APPLICATION_GATEWAY (APPLICATION_GATEWAY) running citrix:netscaler_adc:13.1. Matched cpe:2.3:a:citrix:netscaler_adc:13.1:*:*:*:*:*:*:* -> CVE-2023-4966 (CVSS: 7.5 HIGH). Listed in CISA KEV (Active Exploitation, Ransomware: Known).",
+    "threat_score_modifier": 25.0,
+    "provenance_sources": [
+      "NIST_NVD_2.0",
+      "CISA_KEV",
+      "MITRE_ATTACK_v15",
+      "CPE_MATCHER_v2.3"
+    ]
+  },
+  "DOMAIN_CONTROLLER": {
+    "cve_id": "CVE-2020-1472",
+    "cpe_uri": "cpe:2.3:o:microsoft:windows_server_2019:*:*:*:*:*:*:*:*",
+    "cvss_base_score": 10.0,
+    "cvss_severity": "CRITICAL",
+    "is_cisa_kev": true,
+    "kev_ransomware_use": "Known",
+    "attack_tactics": [
+      "Initial Access",
+      "Execution",
+      "Defense Evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1190",
+        "name": "Exploit Public-Facing Application"
+      }
+    ],
+    "threat_groups": [
+      "Wizard Spider"
+    ],
+    "threat_software": [
+      "Cobalt Strike",
+      "Mimikatz"
+    ],
+    "threat_context_summary": "Asset ASSET_DOMAIN_CONTROLLER (DOMAIN_CONTROLLER) running microsoft:windows_server_2019:*. Matched cpe:2.3:o:microsoft:windows_server_2019:*:*:*:*:*:*:*:* -> CVE-2020-1472 (CVSS: 10.0 CRITICAL). Listed in CISA KEV (Active Exploitation, Ransomware: Known).",
+    "threat_score_modifier": 30.0,
+    "provenance_sources": [
+      "NIST_NVD_2.0",
+      "CISA_KEV",
+      "MITRE_ATTACK_v15",
+      "CPE_MATCHER_v2.3"
+    ]
+  },
+  "FILE_TRANSFER_SERVER": {
+    "cve_id": "CVE-2023-34362",
+    "cpe_uri": "cpe:2.3:a:progress:moveit_transfer:2023.0.0:*:*:*:*:*:*:*",
+    "cvss_base_score": 9.8,
+    "cvss_severity": "CRITICAL",
+    "is_cisa_kev": true,
+    "kev_ransomware_use": "Known",
+    "attack_tactics": [
+      "Initial Access",
+      "Execution",
+      "Defense Evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1190",
+        "name": "Exploit Public-Facing Application"
+      }
+    ],
+    "threat_groups": [
+      "FIN7"
+    ],
+    "threat_software": [
+      "Cobalt Strike",
+      "Mimikatz"
+    ],
+    "threat_context_summary": "Asset ASSET_FILE_TRANSFER_SERVER (FILE_TRANSFER_SERVER) running progress:moveit_transfer:2023.0.0. Matched cpe:2.3:a:progress:moveit_transfer:2023.0.0:*:*:*:*:*:*:* -> CVE-2023-34362 (CVSS: 9.8 CRITICAL). Listed in CISA KEV (Active Exploitation, Ransomware: Known).",
+    "threat_score_modifier": 30.0,
+    "provenance_sources": [
+      "NIST_NVD_2.0",
+      "CISA_KEV",
+      "MITRE_ATTACK_v15",
+      "CPE_MATCHER_v2.3"
+    ]
+  },
+  "REMOTE_ACCESS_VPN": {
+    "cve_id": "CVE-2024-21887",
+    "cpe_uri": "cpe:2.3:a:ivanti:connect_secure:9.1:*:*:*:*:*:*:*",
+    "cvss_base_score": 9.1,
+    "cvss_severity": "CRITICAL",
+    "is_cisa_kev": true,
+    "kev_ransomware_use": "Known",
+    "attack_tactics": [
+      "Initial Access",
+      "Execution",
+      "Defense Evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1190",
+        "name": "Exploit Public-Facing Application"
+      }
+    ],
+    "threat_groups": [
+      "APT29"
+    ],
+    "threat_software": [
+      "Cobalt Strike",
+      "Mimikatz"
+    ],
+    "threat_context_summary": "Asset ASSET_REMOTE_ACCESS_VPN (REMOTE_ACCESS_VPN) running ivanti:connect_secure:9.1. Matched cpe:2.3:a:ivanti:connect_secure:9.1:*:*:*:*:*:*:* -> CVE-2024-21887 (CVSS: 9.1 CRITICAL). Listed in CISA KEV (Active Exploitation, Ransomware: Known).",
+    "threat_score_modifier": 30.0,
+    "provenance_sources": [
+      "NIST_NVD_2.0",
+      "CISA_KEV",
+      "MITRE_ATTACK_v15",
+      "CPE_MATCHER_v2.3"
+    ]
+  },
+  "EMAIL_GATEWAY": {
+    "cve_id": "CVE-2023-2868",
+    "cpe_uri": "cpe:2.3:a:barracuda:email_security_gateway:*:*:*:*:*:*:*:*",
+    "cvss_base_score": 9.8,
+    "cvss_severity": "CRITICAL",
+    "is_cisa_kev": true,
+    "kev_ransomware_use": "Known",
+    "attack_tactics": [
+      "Initial Access",
+      "Execution",
+      "Defense Evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1190",
+        "name": "Exploit Public-Facing Application"
+      }
+    ],
+    "threat_groups": [
+      "APT28"
+    ],
+    "threat_software": [
+      "Cobalt Strike",
+      "Mimikatz"
+    ],
+    "threat_context_summary": "Asset ASSET_EMAIL_GATEWAY (EMAIL_GATEWAY) running barracuda:email_security_gateway:*. Matched cpe:2.3:a:barracuda:email_security_gateway:*:*:*:*:*:*:*:* -> CVE-2023-2868 (CVSS: 9.8 CRITICAL). Listed in CISA KEV (Active Exploitation, Ransomware: Known).",
+    "threat_score_modifier": 30.0,
+    "provenance_sources": [
+      "NIST_NVD_2.0",
+      "CISA_KEV",
+      "MITRE_ATTACK_v15",
+      "CPE_MATCHER_v2.3"
+    ]
+  },
+  "REMOTE_SUPPORT": {
+    "cve_id": "CVE-2024-1709",
+    "cpe_uri": "cpe:2.3:a:connectwise:screenconnect:23.9.7:*:*:*:*:*:*:*",
+    "cvss_base_score": 10.0,
+    "cvss_severity": "CRITICAL",
+    "is_cisa_kev": true,
+    "kev_ransomware_use": "Known",
+    "attack_tactics": [
+      "Initial Access",
+      "Execution",
+      "Defense Evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1190",
+        "name": "Exploit Public-Facing Application"
+      }
+    ],
+    "threat_groups": [
+      "Lazarus Group"
+    ],
+    "threat_software": [
+      "Cobalt Strike",
+      "Mimikatz"
+    ],
+    "threat_context_summary": "Asset ASSET_REMOTE_SUPPORT (REMOTE_SUPPORT) running connectwise:screenconnect:23.9.7. Matched cpe:2.3:a:connectwise:screenconnect:23.9.7:*:*:*:*:*:*:* -> CVE-2024-1709 (CVSS: 10.0 CRITICAL). Listed in CISA KEV (Active Exploitation, Ransomware: Known).",
+    "threat_score_modifier": 30.0,
+    "provenance_sources": [
+      "NIST_NVD_2.0",
+      "CISA_KEV",
+      "MITRE_ATTACK_v15",
+      "CPE_MATCHER_v2.3"
+    ]
+  },
+  "UNMAPPED_ASSET": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [],
+    "attack_techniques": [],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "UNMAPPED: No known vulnerability profile associated with asset type.",
+    "threat_score_modifier": 0.0,
+    "provenance_sources": [
+      "SAT-SA_STATIC_CATALOG"
+    ]
+  }
+}

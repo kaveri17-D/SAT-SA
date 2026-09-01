@@ -248,3 +248,6 @@ class SupervisoryRiskEngine:
         throughput_cses = round(len(cses) / duration, 2) if duration > 0 else 0.0
         logger.info(f"SupervisoryRiskEngine processed {len(cses)} CSEs in {duration}s ({throughput_cses} CSEs/sec).")
         return risk_scores
+
+    compute_supervisory_risk = run_analysis
+

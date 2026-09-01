@@ -1,13 +1,18 @@
 from typing import List, Union
-from pydantic import AnyHttpUrl, field_validator
+from pydantic import AnyHttpUrl, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "SAT-SA — Smart Assessment Tool for Security Analytics"
+    VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1"
     ENVIRONMENT: str = "development"
     DEBUG: bool = True
+
+    # Air-Gap & Local-Only Guarantees
+    STRICT_LOCAL_ONLY: bool = True
+    IS_AIRGAPPED: bool = True
 
     # Database Settings
     POSTGRES_SERVER: str = "localhost"
@@ -27,11 +32,19 @@ class Settings(BaseSettings):
         "http://localhost:5173",
         "http://localhost:3000",
         "http://127.0.0.1:5173",
+        "http://127.0.0.1:8888",
     ]
 
     # Ingestion & Analytics
     MAX_INGESTION_CHUNK_SIZE_MB: int = 50
     ENABLE_LOCAL_NLP: bool = True
+
+    # Observability & Logging
+    LOG_LEVEL: str = "INFO"
+    LOG_FORMAT: str = "structured"
+
+    # Backup & Recovery
+    BACKUP_DIR: str = "data/backups"
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -39,6 +52,12 @@ class Settings(BaseSettings):
         case_sensitive=True,
         extra="ignore"
     )
+
+    @model_validator(mode="after")
+    def enforce_production_guards(self):
+        if self.ENVIRONMENT.lower() == "production":
+            self.DEBUG = False
+        return self
 
     @property
     def active_database_url(self) -> str:
@@ -55,8 +74,6 @@ class Settings(BaseSettings):
                 return f"sqlite:///{abs_db_path}"
             return self.DATABASE_URL
         return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
-
-
 
 
 settings = Settings()

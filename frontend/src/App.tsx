@@ -3,6 +3,7 @@ import { Header } from './components/common/Header';
 import { SupervisoryDashboard } from './components/dashboard/SupervisoryDashboard';
 import { ReviewQueueTable } from './components/queue/ReviewQueueTable';
 import { EvidenceGraphViewer } from './components/graph/EvidenceGraphViewer';
+import { ReportsDashboard } from './components/reporting/ReportsDashboard';
 import { FindingDetailModal } from './components/findings/FindingDetailModal';
 import { CSEDetailModal } from './components/cse/CSEDetailModal';
 import {
@@ -19,10 +20,10 @@ import {
   GraphData,
   GraphAnomaly
 } from './types/api';
-import { LayoutDashboard, Layers, Network, AlertCircle } from 'lucide-react';
+import { LayoutDashboard, Layers, Network, AlertCircle, FileText } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const [viewMode, setViewMode] = useState<'DASHBOARD' | 'QUEUE' | 'GRAPH'>('DASHBOARD');
+  const [viewMode, setViewMode] = useState<'DASHBOARD' | 'QUEUE' | 'GRAPH' | 'REPORTS'>('DASHBOARD');
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
   const [cses, setCses] = useState<CSEProfile[]>([]);
   const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
@@ -114,6 +115,18 @@ export const App: React.FC = () => {
             <Network className="w-4 h-4" />
             <span>SUPERVISORY EVIDENCE GRAPH</span>
           </button>
+
+          <button
+            onClick={() => setViewMode('REPORTS')}
+            className={`py-3 font-bold flex items-center gap-1.5 border-b-2 transition ${
+              viewMode === 'REPORTS'
+                ? 'border-cyan-400 text-cyan-400'
+                : 'border-transparent text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <FileText className="w-4 h-4" />
+            <span>REPORTS & AUDIT TRAIL</span>
+          </button>
         </div>
 
         <div className="text-[11px] font-mono text-slate-400">
@@ -155,6 +168,13 @@ export const App: React.FC = () => {
           <EvidenceGraphViewer
             graphData={graphData}
             anomalies={anomalies}
+          />
+        )}
+
+        {viewMode === 'REPORTS' && (
+          <ReportsDashboard
+            cses={cses}
+            analysisRunId={metrics?.analysis_run_id}
           />
         )}
       </main>

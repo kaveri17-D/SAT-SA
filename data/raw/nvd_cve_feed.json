@@ -1,0 +1,710 @@
+{
+  "format": "NVD_CVE",
+  "version": "2.0",
+  "timestamp": "2026-08-31T00:00:00Z",
+  "totalResults": 23,
+  "vulnerabilities": [
+    {
+      "cve": {
+        "id": "CVE-2021-44228",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Apache Log4j2 2.0-beta9 through 2.15.0 JNDI features do not protect against attacker controlled LDAP."
+          }
+        ],
+        "published": "2021-12-10T10:15:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 10.0,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-502"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:apache:log4j:2.14.1:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2023-34362",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Progress MOVEit Transfer before 2021.0.6, 2021.1.5, 2022.0.4 SQL injection vulnerability."
+          }
+        ],
+        "published": "2023-06-02T12:00:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-89"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:progress:moveit_transfer:2023.0.0:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-34362"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2023-4966",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Sensitive information disclosure in NetScaler ADC and NetScaler Gateway (Citrix Bleed)."
+          }
+        ],
+        "published": "2023-10-10T15:00:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-119"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:citrix:netscaler_adc:13.1:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-4966"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-21887",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "A command injection vulnerability in web components of Ivanti Connect Secure."
+          }
+        ],
+        "published": "2024-01-12T14:00:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 9.1,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-77"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:ivanti:connect_secure:9.1:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-21887"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2020-1472",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "An elevation of privilege vulnerability exists when an attacker establishes a vulnerable Netlogon channel (Zerologon)."
+          }
+        ],
+        "published": "2020-08-17T19:15:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 10.0,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-311"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:microsoft:windows_server_2019:*:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-1472"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2017-0144",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "The SMBv1 server in Microsoft Windows allows remote attackers to execute arbitrary code via crafted packets (EternalBlue)."
+          }
+        ],
+        "published": "2017-03-17T00:59:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-119"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:microsoft:windows_server_2008:*:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2017-0144"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-1709",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "ConnectWise ScreenConnect 23.9.7 and prior authentication bypass vulnerability."
+          }
+        ],
+        "published": "2024-02-21T18:15:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 10.0,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-288"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:connectwise:screenconnect:23.9.7:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-1709"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2023-2868",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Command injection vulnerability in Barracuda Email Security Gateway."
+          }
+        ],
+        "published": "2023-05-30T17:15:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 9.8,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-78"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:barracuda:email_security_gateway:*:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-2868"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2023-22515",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Broken access control in Atlassian Confluence Data Center allows account creation."
+          }
+        ],
+        "published": "2023-10-04T12:00:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 10.0,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-284"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:atlassian:confluence_data_center:*:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-22515"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2023-20198",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Cisco IOS XE Web UI privilege escalation allows root account creation."
+          }
+        ],
+        "published": "2023-10-16T18:00:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 10.0,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-284"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:cisco:ios_xe:*:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-20198"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2024-3400",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Palo Alto Networks PAN-OS GlobalProtect command injection vulnerability."
+          }
+        ],
+        "published": "2024-04-12T16:00:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                "baseScore": 10.0,
+                "baseSeverity": "CRITICAL"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-77"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-3400"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2022-3602",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "OpenSSL X.509 Email Address 4-byte buffer overrun vulnerability."
+          }
+        ],
+        "published": "2022-11-01T18:00:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "baseScore": 7.5,
+                "baseSeverity": "HIGH"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-120"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:openssl:openssl:3.0.0:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-3602"
+          }
+        ]
+      }
+    },
+    {
+      "cve": {
+        "id": "CVE-2023-99991",
+        "descriptions": [
+          {
+            "lang": "en",
+            "value": "Controlled baseline synthetic unexploited vulnerability with Medium CVSS."
+          }
+        ],
+        "published": "2023-01-01T00:00:00Z",
+        "lastModified": "2026-01-01T00:00:00Z",
+        "metrics": {
+          "cvssMetricV31": [
+            {
+              "cvssData": {
+                "version": "3.1",
+                "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+                "baseScore": 3.3,
+                "baseSeverity": "LOW"
+              }
+            }
+          ]
+        },
+        "weaknesses": [
+          {
+            "description": [
+              {
+                "lang": "en",
+                "value": "CWE-200"
+              }
+            ]
+          }
+        ],
+        "configurations": [
+          {
+            "nodes": [
+              {
+                "cpeMatch": [
+                  {
+                    "vulnerable": true,
+                    "criteria": "cpe:2.3:a:generic:utility:1.0:*:*:*:*:*:*:*"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "references": [
+          {
+            "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-99991"
+          }
+        ]
+      }
+    }
+  ]
+}

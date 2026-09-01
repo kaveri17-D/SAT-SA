@@ -1,0 +1,27 @@
+{
+  "scenario_id": "SCENARIO_02_KEV_EXPOSED_ASSET",
+  "name": "Active CISA KEV Exploited File Transfer",
+  "description": "File transfer server running software actively targeted in ransomware campaigns.",
+  "category": "ACTIVELY_EXPLOITED_KEV",
+  "source_datasets": [
+    "CISA_KEV",
+    "NIST_NVD_2.0"
+  ],
+  "input_entities": {
+    "asset_type": "FILE_TRANSFER_SERVER",
+    "criticality": "CRITICAL",
+    "alerts_count": 320
+  },
+  "expected_condition": "CISA KEV membership confirmed with ransomware campaign linkage.",
+  "expected_detection_status": "CONFIRMED_HIGH_PRIORITY",
+  "expected_threat_context": {
+    "cve_id": "CVE-2023-34362",
+    "is_kev": true,
+    "ransomware": "Known"
+  },
+  "ground_truth_label": "CRITICAL_KEV_EXPOSURE",
+  "provenance": {
+    "dataset": "CISA_KEV_CATALOG",
+    "retrieval": "2026-08-31"
+  }
+}

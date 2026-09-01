@@ -17,16 +17,17 @@ from app.db.seed import seed_baseline_reference_data
 
 
 def test_schema_entities_count():
-    """Verify that all 21 entities exist in SQLAlchemy metadata."""
+    """Verify that all 24 entities exist in SQLAlchemy metadata."""
     Base.metadata.create_all(bind=engine)
     tables = Base.metadata.tables
     expected_tables = {
         "cses", "assets", "alerts", "investigations", "analysts", "escalations",
         "cases", "closures", "maintenance_logs", "dataset_imports", "data_quality_issues", "rule_versions",
         "model_versions", "analysis_runs", "audit_logs", "findings", "evidence",
-        "risk_scores", "peer_groups", "peer_group_memberships", "benchmarks", "review_queue_items"
+        "risk_scores", "peer_groups", "peer_group_memberships", "benchmarks", "review_queue_items",
+        "report_snapshots", "report_evidence_references"
     }
-    assert len(tables) == 22
+    assert len(tables) == 24
     assert set(tables.keys()) == expected_tables
 
 

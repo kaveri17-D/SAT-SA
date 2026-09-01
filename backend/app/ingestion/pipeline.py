@@ -61,6 +61,7 @@ class IngestionPipeline:
         self.db.add(ds_import)
         self.db.commit()
 
+        ds_import_id = ds_import.id
         total_records = 0
         accepted_records = 0
         quarantined_records = 0
@@ -69,6 +70,9 @@ class IngestionPipeline:
 
         try:
             for batch in adapter.stream_batches(chunk_size=chunk_size):
+                valid_objs_to_add: List[Any] = []
+                issues_to_add: List[DataQualityIssue] = []
+
                 for record in batch:
                     total_records += 1
                     
@@ -77,26 +81,44 @@ class IngestionPipeline:
                         continue
 
                     # Validate & Normalize record according to entity type
-                    is_valid, normalized_obj, issue_desc = self._process_record(record, entity_type, ds_import.id)
+                    is_valid, normalized_obj, issue_desc = self._process_record(record, entity_type, ds_import_id)
                     
                     if is_valid and normalized_obj:
-                        # Check idempotency against existing database primary key or unique foreign keys
+                        # Check idempotency for key reference entities
                         if isinstance(normalized_obj, CSE):
                             existing = self.db.query(CSE).filter((CSE.id == normalized_obj.id) | (CSE.name == normalized_obj.name)).first()
+                            if not existing:
+                                valid_objs_to_add.append(normalized_obj)
+                            accepted_records += 1
+                        elif isinstance(normalized_obj, Asset):
+                            existing = self.db.query(Asset).filter_by(id=normalized_obj.id).first()
+                            if not existing:
+                                valid_objs_to_add.append(normalized_obj)
+                            accepted_records += 1
+                        elif isinstance(normalized_obj, Analyst):
+                            existing = self.db.query(Analyst).filter((Analyst.id == normalized_obj.id) | ((Analyst.cse_id == normalized_obj.cse_id) & (Analyst.handle == normalized_obj.handle))).first()
+                            if not existing:
+                                valid_objs_to_add.append(normalized_obj)
+                            accepted_records += 1
                         elif isinstance(normalized_obj, Investigation):
                             existing = self.db.query(Investigation).filter((Investigation.id == normalized_obj.id) | (Investigation.alert_id == normalized_obj.alert_id)).first()
+                            if not existing:
+                                valid_objs_to_add.append(normalized_obj)
+                            accepted_records += 1
                         elif isinstance(normalized_obj, Escalation):
                             existing = self.db.query(Escalation).filter((Escalation.id == normalized_obj.id) | (Escalation.investigation_id == normalized_obj.investigation_id)).first()
+                            if not existing:
+                                valid_objs_to_add.append(normalized_obj)
+                            accepted_records += 1
                         elif isinstance(normalized_obj, Closure):
                             existing = self.db.query(Closure).filter((Closure.id == normalized_obj.id) | (Closure.case_id == normalized_obj.case_id)).first()
-                        else:
-                            existing = self.db.query(type(normalized_obj)).filter_by(id=normalized_obj.id).first()
-                        if not existing:
-                            self.db.add(normalized_obj)
+                            if not existing:
+                                valid_objs_to_add.append(normalized_obj)
                             accepted_records += 1
                         else:
-                            # Already exists in DB - count as duplicate/accepted cleanly
+                            valid_objs_to_add.append(normalized_obj)
                             accepted_records += 1
+
                     else:
                         quarantined_records += 1
                         if issue_desc and "timestamp" in issue_desc.lower():
@@ -107,16 +129,31 @@ class IngestionPipeline:
                         # Never silently drop: Create DataQualityIssue
                         issue = DataQualityIssue(
                             id=uuid.uuid4(),
-                            dataset_import_id=ds_import.id,
+                            dataset_import_id=ds_import_id,
                             issue_type=f"INVALID_{entity_type.upper()}_RECORD",
                             field="record",
                             record_ref=str(record.get("id", f"row_{total_records}")),
                             severity=DataQualitySeverity.HIGH,
                             description=issue_desc or "Record failed validation or required fields missing."
                         )
-                        self.db.add(issue)
+                        issues_to_add.append(issue)
 
+                if valid_objs_to_add:
+                    self.db.add_all(valid_objs_to_add)
+                if issues_to_add:
+                    self.db.add_all(issues_to_add)
                 self.db.commit()
+                for obj in valid_objs_to_add:
+                    try:
+                        self.db.expunge(obj)
+                    except Exception:
+                        pass
+                for iss in issues_to_add:
+                    try:
+                        self.db.expunge(iss)
+                    except Exception:
+                        pass
+
 
             # 3. Compute Data Quality Metrics & Update Provenance Record
             duration = round(time.time() - start_time, 3)
@@ -129,23 +166,32 @@ class IngestionPipeline:
                 duplicate_records=total_records - (accepted_records + quarantined_records)
             )
 
-            ds_import.row_count = total_records
-            ds_import.accepted_count = accepted_records
-            ds_import.quarantined_count = quarantined_records
-            ds_import.completeness_score = metrics.completeness_pct
-            ds_import.processing_duration_seconds = duration
-            ds_import.status = DatasetImportStatus.COMPLETED if quarantined_records == 0 else DatasetImportStatus.QUARANTINED
+            ds_import = self.db.query(DatasetImport).filter_by(id=ds_import_id).first()
+            if ds_import:
+                ds_import.row_count = total_records
+                ds_import.accepted_count = accepted_records
+                ds_import.quarantined_count = quarantined_records
+                ds_import.completeness_score = metrics.completeness_pct
+                ds_import.processing_duration_seconds = duration
+                ds_import.status = DatasetImportStatus.COMPLETED if quarantined_records == 0 else DatasetImportStatus.QUARANTINED
+                self.db.commit()
+                self.db.refresh(ds_import)
             
-            self.db.commit()
             logger.info(f"Ingestion finished for {filename}: {accepted_records}/{total_records} accepted in {duration}s")
             return ds_import
 
         except Exception as e:
             self.db.rollback()
-            ds_import.status = DatasetImportStatus.FAILED
-            self.db.commit()
+            try:
+                ds_import_fail = self.db.query(DatasetImport).filter_by(id=ds_import_id).first()
+                if ds_import_fail:
+                    ds_import_fail.status = DatasetImportStatus.FAILED
+                    self.db.commit()
+            except Exception:
+                pass
             logger.error(f"Ingestion failed for {filename}: {str(e)}")
             raise e
+
 
     def _process_record(self, record: Dict[str, Any], entity_type: str, import_id: uuid.UUID) -> Tuple[bool, Optional[Any], Optional[str]]:
         """Normalize and convert raw dictionary record into canonical ORM model instance."""

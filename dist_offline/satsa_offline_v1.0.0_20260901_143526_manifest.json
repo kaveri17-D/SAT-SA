@@ -1,0 +1,843 @@
+{
+  "package_name": "satsa_offline_v1.0.0_20260901_143526",
+  "version": "1.0.0",
+  "created_at": "2026-09-01T14:35:26.137279+00:00",
+  "mode": "STRICT_LOCAL_ONLY_AIRGAP",
+  "files": [
+    {
+      "path": "backend/app/main.py",
+      "sha256": "8e384726f69cbafd55ecb14e3bdbab06fcb6dc8d2d6ca3cd737b5da9a55a2a75",
+      "size_bytes": 3603
+    },
+    {
+      "path": "backend/app/analytics/benchmark.py",
+      "sha256": "3cae6ce09647539d3a7ea876e30ca64d6db92d0ca3b9cbfc014f0555e0fdb899",
+      "size_bytes": 7876
+    },
+    {
+      "path": "backend/app/analytics/evaluator.py",
+      "sha256": "9fe57001cce43c9b57aeecc6f706697a737b8ed65a2522b6a62a43d3c76751e3",
+      "size_bytes": 9052
+    },
+    {
+      "path": "backend/app/analytics/graph_engine.py",
+      "sha256": "90345992924a0d3c695f04119632c7255f65e8866aea4a922d1d496b83ae72f6",
+      "size_bytes": 25840
+    },
+    {
+      "path": "backend/app/analytics/prioritization_engine.py",
+      "sha256": "8547e065a526da0ae3c1dda4752493babd1b35241b40a5b63b1acc5df69168ea",
+      "size_bytes": 14995
+    },
+    {
+      "path": "backend/app/analytics/risk_engine.py",
+      "sha256": "7e76c91927c3443288e24a8b9701c96f896a530df102c47675570cc8b10e4588",
+      "size_bytes": 11226
+    },
+    {
+      "path": "backend/app/api/deps.py",
+      "sha256": "db2479fe27944ab8be9b3c36e77cb4abfe58af19af481f9c7a28cd365991043c",
+      "size_bytes": 1395
+    },
+    {
+      "path": "backend/app/api/routers/audit.py",
+      "sha256": "7733df8e07d49cc34ff9c32cdfbe12ff76703e81a77f65da91f87ea36c06a39b",
+      "size_bytes": 5391
+    },
+    {
+      "path": "backend/app/api/routers/auth.py",
+      "sha256": "37307e46b562d0815eed47f3ec2019cfab14bdab49732a16ca4182cb9a6fd053",
+      "size_bytes": 1675
+    },
+    {
+      "path": "backend/app/api/routers/evidence.py",
+      "sha256": "f6e2019535b1b953742460c441b0db208602914cb2e533467e7cbecc46b9e482",
+      "size_bytes": 1908
+    },
+    {
+      "path": "backend/app/api/routers/graph.py",
+      "sha256": "d3813a55ed068a6dd37c39e8a97e5c92545df1193c6fe7a3725b08d4f35b9f10",
+      "size_bytes": 2649
+    },
+    {
+      "path": "backend/app/api/routers/health.py",
+      "sha256": "dab643734033144493ea247fb730dae597c76bc4c54e94a8a9d887bfd802247e",
+      "size_bytes": 3274
+    },
+    {
+      "path": "backend/app/api/routers/prioritization.py",
+      "sha256": "b6b00d8afe308629a2ef81fc29298ea98cc4aefd13c876e94fecf73dda5f7f9c",
+      "size_bytes": 10321
+    },
+    {
+      "path": "backend/app/api/routers/reports.py",
+      "sha256": "32d22acb971c5a00150561df81fbbc0d4da9aa22e4cd5cb4e24e7827f79f91c7",
+      "size_bytes": 9601
+    },
+    {
+      "path": "backend/app/api/routers/risk.py",
+      "sha256": "781d492b840794eca9ed5366a60a6745b6908ccc3b272da0d7e002260753be4f",
+      "size_bytes": 4306
+    },
+    {
+      "path": "backend/app/api/routers/__init__.py",
+      "sha256": "a3994797f94c26ae480c178d03c36f36a287ada793cc9824147cb2423065206f",
+      "size_bytes": 38
+    },
+    {
+      "path": "backend/app/audit/service.py",
+      "sha256": "eb88fb1a6d528dff7e472faba2bcc5ac7535755c74c1b6dd8025185b9d663531",
+      "size_bytes": 6346
+    },
+    {
+      "path": "backend/app/audit/__init__.py",
+      "sha256": "3432f21f5c82e365f643bedbcffdee3d9b88959bccd0b955efcfdf55989ba8a8",
+      "size_bytes": 74
+    },
+    {
+      "path": "backend/app/core/backup.py",
+      "sha256": "1a294c1bfd085a6491034b641e53aa60c0b1235dcde47a6dd5cdce21853dd8bd",
+      "size_bytes": 5537
+    },
+    {
+      "path": "backend/app/core/config.py",
+      "sha256": "7282c6c01d96af98f0e51eb9211ff882a392f7b44d4d09aa18c41bcfbffeba85",
+      "size_bytes": 2744
+    },
+    {
+      "path": "backend/app/core/database.py",
+      "sha256": "803783735edcdf780e76235947f09d848266539ec3a2ad6f314156255d60fdc6",
+      "size_bytes": 1108
+    },
+    {
+      "path": "backend/app/core/logging.py",
+      "sha256": "25021d6ecd6b72b1bbe54eebe5e36dbd6eeb177d34e4a07f5863be4925b9f092",
+      "size_bytes": 695
+    },
+    {
+      "path": "backend/app/core/security.py",
+      "sha256": "39b41e2b04837b90936346fae0c4adefff3cedcb0d3685e29c210027fb67b112",
+      "size_bytes": 1318
+    },
+    {
+      "path": "backend/app/db/bootstrap_demo.py",
+      "sha256": "90d5aad16247b0e8c4ba54d9532cb01b0dfda9a8e39ac69ed578ca0fa1f0cf1e",
+      "size_bytes": 8251
+    },
+    {
+      "path": "backend/app/db/seed.py",
+      "sha256": "fc9378589d43fda860601fceb8b0ac6f5f64a3e5da441d85ed7b5ec725f8d15f",
+      "size_bytes": 7574
+    },
+    {
+      "path": "backend/app/evaluation/ablation.py",
+      "sha256": "6528c8898c2be2f8fd817c57952c46ec75908ec7cd2688b1c1cee9938fe82cd5",
+      "size_bytes": 18781
+    },
+    {
+      "path": "backend/app/evaluation/benchmark_runner.py",
+      "sha256": "15211409f611318fc8f5d4032890bc5aa8f6090f263518bde5c82b73a0193349",
+      "size_bytes": 12013
+    },
+    {
+      "path": "backend/app/evaluation/graph_eval.py",
+      "sha256": "e7d10f864c5c39b85dafcdc4a214dda4419f4f30cbbf853dbb26d14b522b8753",
+      "size_bytes": 4266
+    },
+    {
+      "path": "backend/app/evaluation/manifest.py",
+      "sha256": "fb6b00df5721ee3902709452acb333eaa279d1739322cd74efbe102a482c65a3",
+      "size_bytes": 3727
+    },
+    {
+      "path": "backend/app/evaluation/metrics.py",
+      "sha256": "4ad02ad6cd4e40f8a2c69e007f320857258f762a56e4d073ae1ccf5576fa93de",
+      "size_bytes": 15929
+    },
+    {
+      "path": "backend/app/evaluation/phase15_performance_smoke.py",
+      "sha256": "560cd10d9e421330055e268f430bc8fa72d71102d7d2a2948116499efbceef05",
+      "size_bytes": 9489
+    },
+    {
+      "path": "backend/app/evaluation/phase16_browser_e2e_runner.py",
+      "sha256": "2a433d6357b8377deecc4205dc467777e121f72ba61c596976a0202fdea035b8",
+      "size_bytes": 21459
+    },
+    {
+      "path": "backend/app/evaluation/phase18_master_acceptance_runner.py",
+      "sha256": "48872c094f8f065bc22f70572348efb785b0515d681953071c52e37403b44a1d",
+      "size_bytes": 20163
+    },
+    {
+      "path": "backend/app/evaluation/phase18_reproducibility_test.py",
+      "sha256": "f7196c0285d7aa7cfb95956d274fd5ae80e4e7328125b79fc47b2dbcc4be2635",
+      "size_bytes": 6191
+    },
+    {
+      "path": "backend/app/evaluation/phase19_master_runner.py",
+      "sha256": "4566538845b158bba21dd074487ba68f99615ffee5121fb614fa9f572415e713",
+      "size_bytes": 17557
+    },
+    {
+      "path": "backend/app/evaluation/reproducibility.py",
+      "sha256": "b256cfb45ad6366426063b970cfcee7ff1ac1749af5ea8c2cc296243dcc3a60c",
+      "size_bytes": 5520
+    },
+    {
+      "path": "backend/app/evaluation/robustness.py",
+      "sha256": "34a5a4204e639e4278e69322a39f64a4a323c6f0cb5abd4cc82bffb54120da19",
+      "size_bytes": 12849
+    },
+    {
+      "path": "backend/app/evaluation/runner.py",
+      "sha256": "db49ef5edb37bc1add3515a46b094b0a59462405563392f5635cba1ce2ee6e69",
+      "size_bytes": 30823
+    },
+    {
+      "path": "backend/app/evaluation/scenarios.py",
+      "sha256": "93d1d98d5b26fe065a74a47383e71cb484c728d580eb7046b76bb5862012bf9a",
+      "size_bytes": 9845
+    },
+    {
+      "path": "backend/app/evaluation/sensitivity.py",
+      "sha256": "0d6ae4698da50e29dee48d17c59821e9f84c8094bd6b994f7fae69c9f9041585",
+      "size_bytes": 11705
+    },
+    {
+      "path": "backend/app/evaluation/__init__.py",
+      "sha256": "280ffac8ab6c8112630f9f13660e262a962bc18ec688f4daae8fe40edf9013c0",
+      "size_bytes": 231
+    },
+    {
+      "path": "backend/app/evidence/assembler.py",
+      "sha256": "8bfe04928ce1c40420f684e55bfe770e716a0d213c9a09c56a4dcf496172476d",
+      "size_bytes": 32735
+    },
+    {
+      "path": "backend/app/evidence/reconstructor.py",
+      "sha256": "d9f6c04c17e43ff16d0b2d45f0674f0f568c954c1c175b3e873673b162640a46",
+      "size_bytes": 3531
+    },
+    {
+      "path": "backend/app/evidence/schema.py",
+      "sha256": "d7ce6ab35d21d0043224598aa5d8050066884e4c3fca2b3f81852ea0bf84a06f",
+      "size_bytes": 4221
+    },
+    {
+      "path": "backend/app/ingestion/cli.py",
+      "sha256": "a21280cd677386f84d1efb83562bd17189b92232120c8d47a325216f9ed13c09",
+      "size_bytes": 3505
+    },
+    {
+      "path": "backend/app/ingestion/deduplicator.py",
+      "sha256": "85151dc1f147184103e5c4dfb3a500e915083c7fbf9778f47e72b1476be3d097",
+      "size_bytes": 1015
+    },
+    {
+      "path": "backend/app/ingestion/normalizer.py",
+      "sha256": "3e6a0460646e355ca5fa68a2df143888e11096b75c0eb78c330809dbb5955205",
+      "size_bytes": 3351
+    },
+    {
+      "path": "backend/app/ingestion/pipeline.py",
+      "sha256": "99ff0489b2f871876fd2f6c401132a98be9305cf65fc8478c90922bcdaa90485",
+      "size_bytes": 16271
+    },
+    {
+      "path": "backend/app/ingestion/profiler.py",
+      "sha256": "021ea9ff24ad3ed20d39036c0d8db20859d5bb4c3698bb908b78ef83d7b9ebfe",
+      "size_bytes": 5520
+    },
+    {
+      "path": "backend/app/ingestion/quality.py",
+      "sha256": "8194fff35fa9eee0525b43150288364a9d0a74aab35dc85925b2cca216185e8b",
+      "size_bytes": 3415
+    },
+    {
+      "path": "backend/app/ingestion/quality_scoring.py",
+      "sha256": "a25ce0db0a652e59acd89f510125eccc2d924d6f5f918fb10a745506a0b9391b",
+      "size_bytes": 5505
+    },
+    {
+      "path": "backend/app/ingestion/adapters/base.py",
+      "sha256": "b64380c87d87d066943f2c93e93be97308a99da21d24b226cc65c7aa7e113e37",
+      "size_bytes": 2045
+    },
+    {
+      "path": "backend/app/ingestion/adapters/csv_adapter.py",
+      "sha256": "22fb7104df182588dd5111f6979818c635f0234892999e653d61c8ee516e3f3a",
+      "size_bytes": 1936
+    },
+    {
+      "path": "backend/app/ingestion/adapters/json_adapter.py",
+      "sha256": "8e66c7be904f973361c5fcb3dd54b916ea399bead32cf21b21c1694101d4ac62",
+      "size_bytes": 1465
+    },
+    {
+      "path": "backend/app/ingestion/adapters/soc_log_adapter.py",
+      "sha256": "6f68c78d32853e05e654922ccf243df5ecb2d614adb1391d1d8bdf8b65e923db",
+      "size_bytes": 4388
+    },
+    {
+      "path": "backend/app/ingestion/adapters/__init__.py",
+      "sha256": "c5153727e0b574fd9d140c0be61f551c2613784edcc6d5960a61d4890ad72dc9",
+      "size_bytes": 378
+    },
+    {
+      "path": "backend/app/ingestion/generator/config.py",
+      "sha256": "0fd7d2f10817e5225e6084165eb26549aabdda99581a51e8ce27c2359078d5e3",
+      "size_bytes": 1846
+    },
+    {
+      "path": "backend/app/ingestion/generator/engine.py",
+      "sha256": "af5603d7cb58fe0b52e390987a0be4f18fb2cd5264f2132413f75c63a71cfb37",
+      "size_bytes": 25617
+    },
+    {
+      "path": "backend/app/ingestion/generator/exporters.py",
+      "sha256": "a8326a416777a5a93e97ce798900d6d384dd9b1f258c64c0572cd168e5c924d0",
+      "size_bytes": 4334
+    },
+    {
+      "path": "backend/app/ingestion/generator/ground_truth.py",
+      "sha256": "b7af935513b3f358c901c42fa0a71edc7a6f2d898eb95a417a94ec26d08988a4",
+      "size_bytes": 3749
+    },
+    {
+      "path": "backend/app/ingestion/generator/scale_generator.py",
+      "sha256": "f76835daf6eb6029e13f0be68f32efc58591f1efa2c76ab7e0c88118c837035e",
+      "size_bytes": 4118
+    },
+    {
+      "path": "backend/app/ingestion/generator/__init__.py",
+      "sha256": "a1084283f36ed8b9b2a8518c2798de55ac6697fe661c905de627ef9e6b2ec33c",
+      "size_bytes": 54
+    },
+    {
+      "path": "backend/app/intelligence/benchmark_builder.py",
+      "sha256": "4be695ea24bc3625b3674e507360faf7ba8a06fa1e5f71573c7802474f2ff11c",
+      "size_bytes": 17206
+    },
+    {
+      "path": "backend/app/intelligence/config.py",
+      "sha256": "306b5fcd8281f96027183fe89af4ff43af36ebafe97dc0f488a954171d7dfa55",
+      "size_bytes": 563
+    },
+    {
+      "path": "backend/app/intelligence/cpe_matcher.py",
+      "sha256": "80b81665764afb9dda463448450e3d194e98b6946f22c4d0cddf4965ba637fd5",
+      "size_bytes": 6845
+    },
+    {
+      "path": "backend/app/intelligence/cross_source.py",
+      "sha256": "17c1b5c84e23bd99b3f37491dc0e2b5815659b6412128fc262cd3d204a5a58cc",
+      "size_bytes": 2505
+    },
+    {
+      "path": "backend/app/intelligence/enrichment_engine.py",
+      "sha256": "b5e4d327215de15293f837507a70312bcdbba2e1e1444bafd2130b49a5e0de08",
+      "size_bytes": 2527
+    },
+    {
+      "path": "backend/app/intelligence/manifest_manager.py",
+      "sha256": "33cbdc3bc747204b205a65c9b37712ecee9ddc96bf5eded9104df5328f10ed0f",
+      "size_bytes": 2634
+    },
+    {
+      "path": "backend/app/intelligence/mapper.py",
+      "sha256": "e5d1bed1f23000f9579cbf262dd6a8771afd7d7b3b15adaea2b294b22402d63d",
+      "size_bytes": 6522
+    },
+    {
+      "path": "backend/app/intelligence/models.py",
+      "sha256": "211915f6d50e3a19d2d97740e6bbbcc50ece740d90f8f5b5538075696b35c1c5",
+      "size_bytes": 7445
+    },
+    {
+      "path": "backend/app/intelligence/normalizer.py",
+      "sha256": "0a134070ef9653fd9fafdeb23f74ad27eeffa8be1ab1d501234013451568aa83",
+      "size_bytes": 4685
+    },
+    {
+      "path": "backend/app/intelligence/scalability.py",
+      "sha256": "b34d1309bfd35dcfb86e495a3bc1af0fbeb1b70e971e76f5d818f3e57876f24e",
+      "size_bytes": 4570
+    },
+    {
+      "path": "backend/app/intelligence/__init__.py",
+      "sha256": "e2a9b5fa6c5970abca954bd0115c24e18edc2b1172eb3775bcdde16b9762149e",
+      "size_bytes": 1865
+    },
+    {
+      "path": "backend/app/intelligence/parsers/attack_stix_parser.py",
+      "sha256": "e67b8b38baa5dab84dd4d986c84b16439df7e9ff8be5104de4da04b9433687b1",
+      "size_bytes": 8774
+    },
+    {
+      "path": "backend/app/intelligence/parsers/cisa_kev_parser.py",
+      "sha256": "d375cb83af2ae0f9e812a6fcd1ca90ff52d30dec9a58bf89c57f94bfb40343d5",
+      "size_bytes": 3150
+    },
+    {
+      "path": "backend/app/intelligence/parsers/nvd_parser.py",
+      "sha256": "c27675e770c934f8efea77d28fb9afa1894eff1a024cd4d2a1809992774fc489",
+      "size_bytes": 5143
+    },
+    {
+      "path": "backend/app/models/analytics.py",
+      "sha256": "41c61c1b31f02c7121ae0a23131e353beb012351f37b086fc0022dabfa04882a",
+      "size_bytes": 8704
+    },
+    {
+      "path": "backend/app/models/base.py",
+      "sha256": "7c6ce1f522d108924107265714b55f21e3946e702c912e9012f7b56d26045d84",
+      "size_bytes": 1530
+    },
+    {
+      "path": "backend/app/models/domain.py",
+      "sha256": "c310ca449d33deee05872c00827ce0c85405571cceb6f7382c24620ea33a4145",
+      "size_bytes": 8000
+    },
+    {
+      "path": "backend/app/models/enums.py",
+      "sha256": "5bf1f2ba983250924ccc6144b3e66ae2ade3f0d7f1ce9f41a12a3d30627984bc",
+      "size_bytes": 2127
+    },
+    {
+      "path": "backend/app/models/provenance.py",
+      "sha256": "feda89102b4d5fcadf92ace3cba3a91f73ab20593b4016587e59637403c2bab2",
+      "size_bytes": 7340
+    },
+    {
+      "path": "backend/app/models/reporting.py",
+      "sha256": "a2ce73c86ff534d2e113fc0181c62b24ff8603833d604f9e1d31ba727176b142",
+      "size_bytes": 3200
+    },
+    {
+      "path": "backend/app/models/__init__.py",
+      "sha256": "4b27ff13d93029328f4032ab6ab2eb801d011dca083034bfa442e485c713f8e5",
+      "size_bytes": 1786
+    },
+    {
+      "path": "backend/app/reporting/builder.py",
+      "sha256": "e07e6777f084f9bb505fde93d3a72555e829290dd5cf09ef4b86894251728a3b",
+      "size_bytes": 3652
+    },
+    {
+      "path": "backend/app/reporting/schemas.py",
+      "sha256": "2bc832e18cfd5a33f150d95a6a647a0016d1b966b09abddd863faf43bbf909c4",
+      "size_bytes": 3006
+    },
+    {
+      "path": "backend/app/reporting/snapshot.py",
+      "sha256": "2c924d737f2d21e52fdda8d97cddc5d740939769136b02f8211fa51f9ab987de",
+      "size_bytes": 3641
+    },
+    {
+      "path": "backend/app/reporting/__init__.py",
+      "sha256": "1a52c45e2818c55ffc1c1af14399965f3fd7deb01ac6e5e21331cf7a3af5ce3c",
+      "size_bytes": 530
+    },
+    {
+      "path": "backend/app/reporting/exporters/html_exporter.py",
+      "sha256": "8d0de0aa64efa00582d1b902700c5e1d16141e59b006e7252c22e03ecf976bf0",
+      "size_bytes": 4739
+    },
+    {
+      "path": "backend/app/reporting/exporters/json_exporter.py",
+      "sha256": "d2b8abe4e199862207941bd317d46d6f0717bc8971b28dcf664b601f497b9f9a",
+      "size_bytes": 1053
+    },
+    {
+      "path": "backend/app/reporting/generators/asset_generator.py",
+      "sha256": "7a06b18692084dc3d02bfd8d47d53115a28a5bf0ddf5b076017f793e1fef4654",
+      "size_bytes": 3276
+    },
+    {
+      "path": "backend/app/reporting/generators/base.py",
+      "sha256": "1ecc6a4147a94f365d61d90def4680608f59b5b745d694939e7e921c0b99e679",
+      "size_bytes": 3138
+    },
+    {
+      "path": "backend/app/reporting/generators/executive_generator.py",
+      "sha256": "c7fb00828a9f9c5d309f2c04c9ac0bf2e7ef27877a74f639d8ea1de6cad44950",
+      "size_bytes": 5530
+    },
+    {
+      "path": "backend/app/reporting/generators/risk_generator.py",
+      "sha256": "d1554d66cce17a2abf09d08fef28dd9087641e06d16a6d372a8ba13756a8eee1",
+      "size_bytes": 5152
+    },
+    {
+      "path": "backend/app/reporting/generators/technical_generator.py",
+      "sha256": "2860a277eb861cd0b2c6e2ea0bb3a59096f23053eabe2b082ed8db12ea348efc",
+      "size_bytes": 4908
+    },
+    {
+      "path": "backend/app/reporting/generators/threat_intel_generator.py",
+      "sha256": "50c0c85d3c57f7f568033487b9ae758fc4e657a88630a5e1ba407b2a2e1ec5d3",
+      "size_bytes": 3870
+    },
+    {
+      "path": "backend/app/rules/baseline.py",
+      "sha256": "ea50a8c549da8d7f2d54379a75c9bc43cca9d66ddefc2b30e7d66cb316d4d023",
+      "size_bytes": 8844
+    },
+    {
+      "path": "backend/app/rules/evaluator.py",
+      "sha256": "3fad72f616deeb95f44c0c7c733b15023772d19851a27f7fb2bba755ef52d045",
+      "size_bytes": 1733
+    },
+    {
+      "path": "backend/app/rules/matrix.py",
+      "sha256": "73056f5ab8b3576d32cf00ec199aa20449d0b0c4aca0c2494d8f2cd704186d69",
+      "size_bytes": 4810
+    },
+    {
+      "path": "backend/app/rules/negative_space.py",
+      "sha256": "e3d1ccc322b2e601c09919ab11e0c66d5ac154b71049b0c14dfd5e5c01073b53",
+      "size_bytes": 40310
+    },
+    {
+      "path": "backend/app/rules/service.py",
+      "sha256": "35122a8e49b66a7793fe39ddc789e29d2752b205fa778ea8cd5c5576f767985f",
+      "size_bytes": 16532
+    },
+    {
+      "path": "backend/app/tests/conftest.py",
+      "sha256": "b23e202c3038eceb9e79653ac72063c12a805d1c3a1723482d043020083b740e",
+      "size_bytes": 694
+    },
+    {
+      "path": "backend/app/tests/test_adapters_and_profiling.py",
+      "sha256": "362feac8df609bab8988f55245d78dda6fe7345348333b5523ffe27f7be6063f",
+      "size_bytes": 2773
+    },
+    {
+      "path": "backend/app/tests/test_adversarial_and_edge_cases.py",
+      "sha256": "a533571b8ee0e3ab70be3a33e10ee244501ee6d0038705b3852bda184a37e30b",
+      "size_bytes": 9651
+    },
+    {
+      "path": "backend/app/tests/test_audit_service_and_chaining.py",
+      "sha256": "a2dbe236a61cd8a3f0d8c0387a89513bc9df38233cead76b96e29031bbf0441a",
+      "size_bytes": 2350
+    },
+    {
+      "path": "backend/app/tests/test_cpe_matcher.py",
+      "sha256": "cf232d55950b26cc2b98faf6b7b7284ef1235c72da2ef2aa0ea15500ffc00869",
+      "size_bytes": 1475
+    },
+    {
+      "path": "backend/app/tests/test_database_schema.py",
+      "sha256": "905fe28c49e9b4c58d462fc3f299faeba1f69419a1fb91f94b28ac56b8b4e96c",
+      "size_bytes": 6201
+    },
+    {
+      "path": "backend/app/tests/test_dataset_generator.py",
+      "sha256": "4c613b6e177d8b8513901a180e1134d8434fedf50ac38fafb5ae082885e960a9",
+      "size_bytes": 5439
+    },
+    {
+      "path": "backend/app/tests/test_end_to_end_pipeline.py",
+      "sha256": "7e3806c73835aa2348791fde5b0d1c61c9a533477daf454bda7b8d46e36a9dd5",
+      "size_bytes": 6593
+    },
+    {
+      "path": "backend/app/tests/test_evaluation_suite.py",
+      "sha256": "41873aab808b337699bd29e7150cb7b0706ffc14413e62163c0bd47a92189fb0",
+      "size_bytes": 9147
+    },
+    {
+      "path": "backend/app/tests/test_evidence_engine.py",
+      "sha256": "2bb39b91e2ca532d155a3fa8c7f5ccb8cf8fbf0782e87e49cffc582964f078bc",
+      "size_bytes": 18849
+    },
+    {
+      "path": "backend/app/tests/test_execution_gap_engine.py",
+      "sha256": "912222dbd74915edb43e3398021b5e7c8923d4f2a158ed8717b91550d3c416c5",
+      "size_bytes": 5117
+    },
+    {
+      "path": "backend/app/tests/test_graph_engine.py",
+      "sha256": "101bd9a6d49fd3a4973d7cafbff8c0db56178befc18b054305983f581070cf4b",
+      "size_bytes": 15685
+    },
+    {
+      "path": "backend/app/tests/test_health.py",
+      "sha256": "adfa1728c225373f7d4fd55276f6711e9e37833b97b45da2aed600d476d9689c",
+      "size_bytes": 896
+    },
+    {
+      "path": "backend/app/tests/test_ingestion_pipeline.py",
+      "sha256": "f86db231fcff19dd814c4310393441aa5fe904e0d021794077407f68a3008ad2",
+      "size_bytes": 5526
+    },
+    {
+      "path": "backend/app/tests/test_integration_repair.py",
+      "sha256": "5e1d8e109664d8ed3db5912ab6dd7223d0bbf3e30c391bce90b3fefc3b351d8f",
+      "size_bytes": 7451
+    },
+    {
+      "path": "backend/app/tests/test_intelligence_parsers.py",
+      "sha256": "065a0891a1fdf681aa113c7a747031cceb603b48b9f20f921d3b67ff56a382de",
+      "size_bytes": 2571
+    },
+    {
+      "path": "backend/app/tests/test_manifest_tamper_detection.py",
+      "sha256": "db4c53e524d0a3bbfd8b70c4bcd65c8a1e54945d8c027f10c1063310aae62a48",
+      "size_bytes": 1383
+    },
+    {
+      "path": "backend/app/tests/test_negative_space_boundaries.py",
+      "sha256": "b8c87e574f54c0e4b252b6c7cdc28d67b6bc8070a0eb06f5734b4fcf9457c60c",
+      "size_bytes": 9602
+    },
+    {
+      "path": "backend/app/tests/test_negative_space_engine.py",
+      "sha256": "c6a6819c372b243766a031b2e11dc401dd05b01b30897f5562c29ef7d79a1ab7",
+      "size_bytes": 11076
+    },
+    {
+      "path": "backend/app/tests/test_phase13_benchmark_and_scenarios.py",
+      "sha256": "9f8d3a220e0fec3bec36289480f09207e473f3803453cd07169afa2eaa16af12",
+      "size_bytes": 1281
+    },
+    {
+      "path": "backend/app/tests/test_phase13_deterministic_and_airgap.py",
+      "sha256": "73a61f40a00517f332fab2bbd69fd79b840c27e20cb704cd74a3383ef7ec675d",
+      "size_bytes": 2545
+    },
+    {
+      "path": "backend/app/tests/test_phase13_ground_truth_isolation.py",
+      "sha256": "01f40587c9ce0caf7ad603f591d6a69fb36ebdfde0310015f7314e8d5da9ce18",
+      "size_bytes": 1193
+    },
+    {
+      "path": "backend/app/tests/test_phase13_scalability.py",
+      "sha256": "3c671201a50fcfe10c0144cee9a9be4c4b079426e9c6357241918fc58b0e073c",
+      "size_bytes": 599
+    },
+    {
+      "path": "backend/app/tests/test_phase13_security_validation.py",
+      "sha256": "af415da9017023108f99976e303475974e83c04e00bfff67bc1782d2c3293f4b",
+      "size_bytes": 4380
+    },
+    {
+      "path": "backend/app/tests/test_phase14_security_validation.py",
+      "sha256": "36ed7ff6538457ee32be2c24b40b0abdbf16c5dfee2ab84a4edefdc07282d530",
+      "size_bytes": 1285
+    },
+    {
+      "path": "backend/app/tests/test_phase15_api_integration.py",
+      "sha256": "1af5c163d460a746d0022f3f3f5eb8494a5a56ae34f5efcefc13ad3d82c00e0d",
+      "size_bytes": 3074
+    },
+    {
+      "path": "backend/app/tests/test_phase15_audit_e2e.py",
+      "sha256": "73ec8d2b7f4979c237104ed24c4db6d29ea55ec9b0d2761e2bf237a6df44dadf",
+      "size_bytes": 1960
+    },
+    {
+      "path": "backend/app/tests/test_phase15_backend_startup.py",
+      "sha256": "75807f30064b3aeb8dc7bbc5c3fce34c1eabae44a9b6ee0dec689c50b376421f",
+      "size_bytes": 1794
+    },
+    {
+      "path": "backend/app/tests/test_phase15_concurrency.py",
+      "sha256": "0a85ba6bf375e7bade73dd62601147d1fb5a955fda3d3b9500db3a3a9e46e556",
+      "size_bytes": 1821
+    },
+    {
+      "path": "backend/app/tests/test_phase15_database_clean_start.py",
+      "sha256": "765386f819057ff1d859af4651a3e32fb4647828e50463ed85b07c0a1f056769",
+      "size_bytes": 2192
+    },
+    {
+      "path": "backend/app/tests/test_phase15_determinism.py",
+      "sha256": "28c578076bcd92b0128441cf78cce3292b8c730b5e8cb97d46416dfaab5160c9",
+      "size_bytes": 2710
+    },
+    {
+      "path": "backend/app/tests/test_phase15_e2e_assessment.py",
+      "sha256": "675e7a8711f31865f7d11460732bbed79c7322b61bda4f8c3d5fd45e1a498e8f",
+      "size_bytes": 5943
+    },
+    {
+      "path": "backend/app/tests/test_phase15_frontend_integration.py",
+      "sha256": "1e5466f7797053a0291ef81ed4457dc6c0fcf1c261aaf7b56a2428dfa40ae9ad",
+      "size_bytes": 1356
+    },
+    {
+      "path": "backend/app/tests/test_phase15_reporting_e2e.py",
+      "sha256": "74f7093d4168d7bd175a4d678f5887846fb11a1ef36f3d0a144a079590a53c69",
+      "size_bytes": 4524
+    },
+    {
+      "path": "backend/app/tests/test_phase15_restart_recovery.py",
+      "sha256": "15f450c29b9b1401ae62f93c24bf3a7849d3b2966964fc43c6ef42590537bdfd",
+      "size_bytes": 2706
+    },
+    {
+      "path": "backend/app/tests/test_phase15_security_and_airgap.py",
+      "sha256": "cc37c2f7f96e909a317d21e8bd4154708e9a70b7b12953fda80a85c988f6bd2e",
+      "size_bytes": 1626
+    },
+    {
+      "path": "backend/app/tests/test_phase16_browser_e2e.py",
+      "sha256": "6a25db80cec32007e6ff77c14798feb8be277584dfe0371fe385e92980dad5d9",
+      "size_bytes": 6177
+    },
+    {
+      "path": "backend/app/tests/test_phase17_hardening_and_resilience.py",
+      "sha256": "49efdd7c0767fe767c7c4035496ee1ae70f3e523dd7c0efc3b746c053e3aa4a2",
+      "size_bytes": 5997
+    },
+    {
+      "path": "backend/app/tests/test_prioritization_engine.py",
+      "sha256": "a7ebcd074f94c5bfec4241b4cadd935c8673300b461aeed6763ed74904f7beef",
+      "size_bytes": 17255
+    },
+    {
+      "path": "backend/app/tests/test_reporting_apis.py",
+      "sha256": "ec05201ea4c4b2ff69e3f7c8e0f18d0dcdf4d0afe7de9d3d1e8922bbe3d46de7",
+      "size_bytes": 3372
+    },
+    {
+      "path": "backend/app/tests/test_reporting_generators.py",
+      "sha256": "b28eece84a737cb1a41fafb9cd84a1a290b9d6f77ec1f32f2565270363fc74a0",
+      "size_bytes": 5991
+    },
+    {
+      "path": "backend/app/tests/test_report_exporters.py",
+      "sha256": "d81819d32d6e1fe30a7fce8a1142b18094e75e4ab3895aad7d135cb00dbb6cfa",
+      "size_bytes": 1936
+    },
+    {
+      "path": "backend/app/tests/test_report_snapshots_and_immutability.py",
+      "sha256": "56794070f897d30b833c31a8609071c71ea71f97d0ee7ce393539dcb1cfc43d2",
+      "size_bytes": 2417
+    },
+    {
+      "path": "backend/app/tests/test_risk_engine.py",
+      "sha256": "c759c241c8b2eac61373e34b781f63419e9386c60a89a770baf5827a2e3f3588",
+      "size_bytes": 19553
+    },
+    {
+      "path": "backend/app/tests/test_security_and_hardening.py",
+      "sha256": "795e8a88efd4762956d2b15d42c65e016fb3611e31cd155c72fcc9c49754e4ed",
+      "size_bytes": 2035
+    },
+    {
+      "path": "backend/app/tests/test_threat_mapper_and_enrichment.py",
+      "sha256": "e0c8f4f36054032a22cbe6b21cbe4f4d4528a68f3bdeeca5cc0362dd4d1b2def",
+      "size_bytes": 1931
+    },
+    {
+      "path": "backend/app/tests/test_threat_normalizer_and_consistency.py",
+      "sha256": "4bc9d366681216b187cdb6746aaa6d374a1eb91c674fdba0de4e3aa8450576e8",
+      "size_bytes": 1621
+    },
+    {
+      "path": "backend/app/tests/test_unseen_validation.py",
+      "sha256": "9976663ba1403454473433c770753103f39cc698f20c8e3603a126c90ed1eb03",
+      "size_bytes": 4511
+    },
+    {
+      "path": "backend/alembic/env.py",
+      "sha256": "ec6d01bc3d8d143666b3e1b582bdac8064e9cb52ad850319239478b1c963609f",
+      "size_bytes": 1466
+    },
+    {
+      "path": "backend/alembic/script.py.mako",
+      "sha256": "bee43d15e31a799f44e50a6cc953b730eb54c1a087e40ed45a400972eb18f3da",
+      "size_bytes": 659
+    },
+    {
+      "path": "backend/alembic/versions/ca1c2ccc9e79_add_counts_to_datasetimport.py",
+      "sha256": "d305aabbe23fdec279d53c51e63fbe7fdfe4f8c853e6089818f60cb958e5fa25",
+      "size_bytes": 1249
+    },
+    {
+      "path": "backend/alembic/versions/e571e428df19_complete_schema_for_all_entities.py",
+      "sha256": "b00d883454db0283f611498dbf281330ae6683e988b1cfa9202f981e937872a4",
+      "size_bytes": 7896
+    },
+    {
+      "path": "backend/alembic/versions/f436ed47faec_initial_20_entities_migration.py",
+      "sha256": "c7299d869decce95d8339d37e5ee932e7fc189d1bfc1aa8e015bcc6cd863ecac",
+      "size_bytes": 34608
+    },
+    {
+      "path": "backend/alembic.ini",
+      "sha256": "7a85382e692784ad33260dd15babccaa911e97aa529e9a7590d9a7d393c58301",
+      "size_bytes": 632
+    },
+    {
+      "path": "backend/requirements.txt",
+      "sha256": "c44088bab00ae5e2cdf387f9aeee88c7d6ec5f515c8ecf467a9414c19ee7b4ac",
+      "size_bytes": 355
+    },
+    {
+      "path": "backend/Dockerfile",
+      "sha256": "c3b91f4dd91e2f79b9764fdcaf9004a7071719651df2fd4df333722bb87e11e2",
+      "size_bytes": 420
+    },
+    {
+      "path": "frontend/dist/index.html",
+      "sha256": "6d7ed17107645db17d684245c3eaa60d178a01d52ca3e27dd352a93d575cfa97",
+      "size_bytes": 621
+    },
+    {
+      "path": "frontend/dist/assets/index-DMebmSbK.js",
+      "sha256": "880cc623836a54744078dc12f877a7563742cab4dca475daa4c96be05773c3f0",
+      "size_bytes": 253713
+    },
+    {
+      "path": "frontend/dist/assets/index-DsXA6dhN.css",
+      "sha256": "a05be7c494abe26b9f65104d123760409f7f8e7f013492033c92dce0f7d43caf",
+      "size_bytes": 31526
+    },
+    {
+      "path": "scripts/backup_db.py",
+      "sha256": "f65616ba55723923f986af44cb1a6eaa5e7bc3187451096c3628edda87986265",
+      "size_bytes": 923
+    },
+    {
+      "path": "scripts/health_check.py",
+      "sha256": "67f1f799b4e618fd2df3d85a338cfcc678ca45a515e3ce99fa482b9ddcfb7a45",
+      "size_bytes": 1166
+    },
+    {
+      "path": "scripts/restore_db.py",
+      "sha256": "3d34f4bad67d9c491a27bc103425f5847c12e12f724a3a4ec85e86be1e8abe40",
+      "size_bytes": 1150
+    },
+    {
+      "path": "scripts/start_offline_satsa.bat",
+      "sha256": "07d48a9b3ca60e5fc3c2168903618e303acc0dfa992100650b99e497559316a3",
+      "size_bytes": 962
+    },
+    {
+      "path": "scripts/start_offline_satsa.sh",
+      "sha256": "f77936b9edc0c47a6f85d307df303218aae6f7d16d2093a102405e42c2ac3bdf",
+      "size_bytes": 917
+    },
+    {
+      "path": "docker-compose.yml",
+      "sha256": "38ba35e9b3241f990483e591eab04090a4017d847d75666398b8e7163153750e",
+      "size_bytes": 1654
+    },
+    {
+      "path": ".env.example",
+      "sha256": "bb3a9b94fa986ec6df3133c89623c1e30b580f25c2ca8003d67cb6e1e8422f24",
+      "size_bytes": 901
+    },
+    {
+      "path": "README.md",
+      "sha256": "65dc28c9d4cae5a10ac43f9d4a23dc2ec1f28b41e80b570c44bbeb5f47464566",
+      "size_bytes": 2292
+    }
+  ]
+}

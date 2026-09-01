@@ -76,3 +76,25 @@ class DispositionType(str, enum.Enum):
     BENIGN_POSITIVE = "BENIGN_POSITIVE"
     INCONCLUSIVE = "INCONCLUSIVE"
     DUPLICATE = "DUPLICATE"
+
+
+class ReportType(str, enum.Enum):
+    EXECUTIVE = "EXECUTIVE"
+    TECHNICAL = "TECHNICAL"
+    RISK = "RISK"
+    ASSET = "ASSET"
+    VULNERABILITY_THREAT_INTEL = "VULNERABILITY_THREAT_INTEL"
+
+
+class ReportStatus(str, enum.Enum):
+    PENDING = "PENDING"
+    GENERATING = "GENERATING"
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"
+    ARCHIVED = "ARCHIVED"
+
+
+class ExportFormat(str, enum.Enum):
+    JSON = "JSON"
+    HTML = "HTML"
+    PDF = "PDF"

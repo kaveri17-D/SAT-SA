@@ -1,0 +1,44 @@
+{
+  "total_nvd_records": 13,
+  "total_kev_records": 20,
+  "total_attack_techniques": 15,
+  "overlap_cve_count": 11,
+  "overlap_cves_count": 11,
+  "matching_cves": [
+    "CVE-2017-0144",
+    "CVE-2020-1472",
+    "CVE-2021-44228",
+    "CVE-2023-20198",
+    "CVE-2023-22515",
+    "CVE-2023-2868",
+    "CVE-2023-34362",
+    "CVE-2023-4966",
+    "CVE-2024-1709",
+    "CVE-2024-21887",
+    "CVE-2024-3400"
+  ],
+  "nvd_only_cves": [
+    "CVE-2022-3602",
+    "CVE-2023-99991"
+  ],
+  "kev_only_cves": [
+    "CVE-2021-26855",
+    "CVE-2021-34527",
+    "CVE-2022-22965",
+    "CVE-2022-30190",
+    "CVE-2022-3786",
+    "CVE-2022-41082",
+    "CVE-2023-27997",
+    "CVE-2023-38606",
+    "CVE-2023-46805"
+  ],
+  "consistent_overlap_count": 10,
+  "conflict_count": 1,
+  "conflicts": [
+    {
+      "cve_id": "CVE-2020-1472",
+      "issue_type": "PRODUCT_NAME_DIVERGENCE",
+      "details": "Product 'Windows Server Netlogon' from KEV not explicitly referenced in NVD description."
+    }
+  ]
+}

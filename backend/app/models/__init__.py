@@ -10,6 +10,9 @@ from app.models.enums import (
     VersionStatus,
     DataQualitySeverity,
     DispositionType,
+    ReportType,
+    ReportStatus,
+    ExportFormat,
 )
 from app.models.domain import (
     CSE,
@@ -39,6 +42,10 @@ from app.models.analytics import (
     Benchmark,
     ReviewQueueItem,
 )
+from app.models.reporting import (
+    ReportSnapshot,
+    ReportEvidenceReference,
+)
 
 __all__ = [
     "Base",
@@ -53,6 +60,9 @@ __all__ = [
     "VersionStatus",
     "DataQualitySeverity",
     "DispositionType",
+    "ReportType",
+    "ReportStatus",
+    "ExportFormat",
     "CSE",
     "Asset",
     "Analyst",
@@ -76,4 +86,6 @@ __all__ = [
     "Benchmark",
     "QueueItemStatus",
     "ReviewQueueItem",
+    "ReportSnapshot",
+    "ReportEvidenceReference",
 ]

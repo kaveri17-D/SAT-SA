@@ -1,0 +1,294 @@
+{
+  "feed_type": "NIST_NVD_2.0",
+  "vulnerabilities": {
+    "CVE-2021-44228": {
+      "cve_id": "CVE-2021-44228",
+      "description": "Apache Log4j2 2.0-beta9 through 2.15.0 JNDI features do not protect against attacker controlled LDAP.",
+      "published_date": "2021-12-10T10:15:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 10.0,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-502"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:a:apache:log4j:2.14.1:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"
+      ]
+    },
+    "CVE-2023-34362": {
+      "cve_id": "CVE-2023-34362",
+      "description": "Progress MOVEit Transfer before 2021.0.6, 2021.1.5, 2022.0.4 SQL injection vulnerability.",
+      "published_date": "2023-06-02T12:00:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 9.8,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-89"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:a:progress:moveit_transfer:2023.0.0:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-34362"
+      ]
+    },
+    "CVE-2023-4966": {
+      "cve_id": "CVE-2023-4966",
+      "description": "Sensitive information disclosure in NetScaler ADC and NetScaler Gateway (Citrix Bleed).",
+      "published_date": "2023-10-10T15:00:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 7.5,
+      "cvss_v3_severity": "HIGH",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-119"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:a:citrix:netscaler_adc:13.1:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-4966"
+      ]
+    },
+    "CVE-2024-21887": {
+      "cve_id": "CVE-2024-21887",
+      "description": "A command injection vulnerability in web components of Ivanti Connect Secure.",
+      "published_date": "2024-01-12T14:00:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 9.1,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-77"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:a:ivanti:connect_secure:9.1:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-21887"
+      ]
+    },
+    "CVE-2020-1472": {
+      "cve_id": "CVE-2020-1472",
+      "description": "An elevation of privilege vulnerability exists when an attacker establishes a vulnerable Netlogon channel (Zerologon).",
+      "published_date": "2020-08-17T19:15:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 10.0,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-311"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:o:microsoft:windows_server_2019:*:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2020-1472"
+      ]
+    },
+    "CVE-2017-0144": {
+      "cve_id": "CVE-2017-0144",
+      "description": "The SMBv1 server in Microsoft Windows allows remote attackers to execute arbitrary code via crafted packets (EternalBlue).",
+      "published_date": "2017-03-17T00:59:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 9.8,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-119"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:o:microsoft:windows_server_2008:*:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2017-0144"
+      ]
+    },
+    "CVE-2024-1709": {
+      "cve_id": "CVE-2024-1709",
+      "description": "ConnectWise ScreenConnect 23.9.7 and prior authentication bypass vulnerability.",
+      "published_date": "2024-02-21T18:15:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 10.0,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-288"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:a:connectwise:screenconnect:23.9.7:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-1709"
+      ]
+    },
+    "CVE-2023-2868": {
+      "cve_id": "CVE-2023-2868",
+      "description": "Command injection vulnerability in Barracuda Email Security Gateway.",
+      "published_date": "2023-05-30T17:15:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 9.8,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-78"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:a:barracuda:email_security_gateway:*:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-2868"
+      ]
+    },
+    "CVE-2023-22515": {
+      "cve_id": "CVE-2023-22515",
+      "description": "Broken access control in Atlassian Confluence Data Center allows account creation.",
+      "published_date": "2023-10-04T12:00:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 10.0,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-284"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:a:atlassian:confluence_data_center:*:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-22515"
+      ]
+    },
+    "CVE-2023-20198": {
+      "cve_id": "CVE-2023-20198",
+      "description": "Cisco IOS XE Web UI privilege escalation allows root account creation.",
+      "published_date": "2023-10-16T18:00:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 10.0,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-284"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:o:cisco:ios_xe:*:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-20198"
+      ]
+    },
+    "CVE-2024-3400": {
+      "cve_id": "CVE-2024-3400",
+      "description": "Palo Alto Networks PAN-OS GlobalProtect command injection vulnerability.",
+      "published_date": "2024-04-12T16:00:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 10.0,
+      "cvss_v3_severity": "CRITICAL",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-77"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-3400"
+      ]
+    },
+    "CVE-2022-3602": {
+      "cve_id": "CVE-2022-3602",
+      "description": "OpenSSL X.509 Email Address 4-byte buffer overrun vulnerability.",
+      "published_date": "2022-11-01T18:00:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 7.5,
+      "cvss_v3_severity": "HIGH",
+      "cvss_v3_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-120"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:a:openssl:openssl:3.0.0:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2022-3602"
+      ]
+    },
+    "CVE-2023-99991": {
+      "cve_id": "CVE-2023-99991",
+      "description": "Controlled baseline synthetic unexploited vulnerability with Medium CVSS.",
+      "published_date": "2023-01-01T00:00:00Z",
+      "last_modified_date": "2026-01-01T00:00:00Z",
+      "cvss_v3_base_score": 3.3,
+      "cvss_v3_severity": "LOW",
+      "cvss_v3_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+      "cvss_v2_base_score": null,
+      "cwe_ids": [
+        "CWE-200"
+      ],
+      "cpe_match_criteria": [
+        "cpe:2.3:a:generic:utility:1.0:*:*:*:*:*:*:*"
+      ],
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2023-99991"
+      ]
+    }
+  },
+  "cpe_index": {
+    "cpe:2.3:a:apache:log4j:2.14.1:*:*:*:*:*:*:*": [
+      "CVE-2021-44228"
+    ],
+    "cpe:2.3:a:progress:moveit_transfer:2023.0.0:*:*:*:*:*:*:*": [
+      "CVE-2023-34362"
+    ],
+    "cpe:2.3:a:citrix:netscaler_adc:13.1:*:*:*:*:*:*:*": [
+      "CVE-2023-4966"
+    ],
+    "cpe:2.3:a:ivanti:connect_secure:9.1:*:*:*:*:*:*:*": [
+      "CVE-2024-21887"
+    ],
+    "cpe:2.3:o:microsoft:windows_server_2019:*:*:*:*:*:*:*:*": [
+      "CVE-2020-1472"
+    ],
+    "cpe:2.3:o:microsoft:windows_server_2008:*:*:*:*:*:*:*:*": [
+      "CVE-2017-0144"
+    ],
+    "cpe:2.3:a:connectwise:screenconnect:23.9.7:*:*:*:*:*:*:*": [
+      "CVE-2024-1709"
+    ],
+    "cpe:2.3:a:barracuda:email_security_gateway:*:*:*:*:*:*:*:*": [
+      "CVE-2023-2868"
+    ],
+    "cpe:2.3:a:atlassian:confluence_data_center:*:*:*:*:*:*:*:*": [
+      "CVE-2023-22515"
+    ],
+    "cpe:2.3:o:cisco:ios_xe:*:*:*:*:*:*:*:*": [
+      "CVE-2023-20198"
+    ],
+    "cpe:2.3:o:paloaltonetworks:pan-os:*:*:*:*:*:*:*:*": [
+      "CVE-2024-3400"
+    ],
+    "cpe:2.3:a:openssl:openssl:3.0.0:*:*:*:*:*:*:*": [
+      "CVE-2022-3602"
+    ],
+    "cpe:2.3:a:generic:utility:1.0:*:*:*:*:*:*:*": [
+      "CVE-2023-99991"
+    ]
+  },
+  "total_count": 13
+}

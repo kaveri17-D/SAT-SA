@@ -1,0 +1,47 @@
+{
+  "benchmark": "PROGRESSIVE_STREAMING_SCALE_BENCHMARK",
+  "timestamp": "2026-09-01T15:18:29.659524+00:00",
+  "chunk_size": 5000,
+  "tiers": [
+    {
+      "tier_name": "Tier 1 (5k alerts)",
+      "record_count": 5000,
+      "file_size_mb": 1.52,
+      "ingest_duration_seconds": 3.751,
+      "throughput_records_per_sec": 1333.0,
+      "peak_memory_mb": 27.64,
+      "accepted_count": 5000,
+      "quarantined_count": 0
+    },
+    {
+      "tier_name": "Tier 2 (25k alerts)",
+      "record_count": 25000,
+      "file_size_mb": 7.62,
+      "ingest_duration_seconds": 18.809,
+      "throughput_records_per_sec": 1329.2,
+      "peak_memory_mb": 53.86,
+      "accepted_count": 25000,
+      "quarantined_count": 0
+    },
+    {
+      "tier_name": "Tier 3 (50k alerts)",
+      "record_count": 50000,
+      "file_size_mb": 15.25,
+      "ingest_duration_seconds": 37.208,
+      "throughput_records_per_sec": 1343.8,
+      "peak_memory_mb": 84.96,
+      "accepted_count": 50000,
+      "quarantined_count": 0
+    },
+    {
+      "tier_name": "Tier 4 (100k alerts)",
+      "record_count": 100000,
+      "file_size_mb": 30.5,
+      "ingest_duration_seconds": 84.771,
+      "throughput_records_per_sec": 1179.6,
+      "peak_memory_mb": 149.08,
+      "accepted_count": 100000,
+      "quarantined_count": 0
+    }
+  ]
+}

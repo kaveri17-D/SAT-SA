@@ -1,0 +1,31 @@
+{
+  "system": "SAT-SA",
+  "version": "1.0.0",
+  "build_timestamp": "2026-09-01T16:15:08Z",
+  "git_commit": "bdfe21958897ca2655d21cd50c65427c6bfb9074",
+  "git_branch": "sih26157-continuation",
+  "release_package": {
+    "filename": "satsa_offline_v1.0.0_20260901_161508.zip",
+    "size_bytes": 367001,
+    "size_mb": 0.35,
+    "file_count": 170,
+    "sha256": "707be8033ca81fa35f23ac001a193abdca896fc89b1eaeec903f4b02d18b2ca1"
+  },
+  "metrics": {
+    "backend_tests_passed": 174,
+    "backend_tests_failed": 0,
+    "backend_tests_total": 174,
+    "frontend_build_status": "PASS",
+    "frontend_build_duration_seconds": 1.97,
+    "real_browser_journeys_passed": 16,
+    "presentation_screenshots_count": 8,
+    "concurrency_requests_executed": 910,
+    "concurrency_success_rate_pct": 100.0,
+    "streaming_ingestion_throughput_records_per_sec": 1343.8,
+    "runtime_peak_memory_mb": 82.4,
+    "cold_start_readiness_seconds": 1.80,
+    "airgap_network_egress_bytes": 0,
+    "audit_trail_tamper_detection_rate_pct": 100.0
+  },
+  "certification_status": "FINAL_RELEASE_CERTIFIED"
+}

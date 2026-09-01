@@ -1,0 +1,28 @@
+{
+  "scenario_id": "SCENARIO_10_MIXED_ENTERPRISE_RISK",
+  "name": "Multi-Tier Enterprise Complex Assessment",
+  "description": "Complex enterprise network containing both hardened assets, KEV exposures, and telemetry gaps.",
+  "category": "MIXED_ENTERPRISE_ASSESSMENT",
+  "source_datasets": [
+    "CISA_KEV",
+    "NIST_NVD_2.0",
+    "MITRE_ATTACK_v15",
+    "SAT-SA_SYNTHETIC"
+  ],
+  "input_entities": {
+    "cses_count": 5,
+    "assets_count": 50,
+    "alerts_count": 2500
+  },
+  "expected_condition": "Supervisory risk engine correctly differentiates high-risk CSEs from baseline CSEs.",
+  "expected_detection_status": "MULTI_TIER_RISK_PROFILE",
+  "expected_threat_context": {
+    "high_risk_cses": 2,
+    "moderate_cses": 3
+  },
+  "ground_truth_label": "COMPLEX_BENCHMARK_PORTFOLIO",
+  "provenance": {
+    "dataset": "SAT-SA_BENCHMARK_SUITE",
+    "retrieval": "2026-08-31"
+  }
+}

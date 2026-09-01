@@ -1,0 +1,299 @@
+{
+  "GAP-01": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "defense-evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1562",
+        "name": "Impair Defenses"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule GAP-01 mapped to ATT&CK T1562 (Impair Defenses) via SUPPORTED_INFERENCE [Confidence: 0.85]: Uninvestigated alert relates to defense evasion / process suppression.",
+    "threat_score_modifier": 2.5,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "GAP-02": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "defense-evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1562.001",
+        "name": "Disable or Modify Tools"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule GAP-02 mapped to ATT&CK T1562.001 (Disable or Modify Tools) via SUPPORTED_INFERENCE [Confidence: 0.8]: Premature case closure aligns with rapid triage dismissal of defense alerts.",
+    "threat_score_modifier": 2.5,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "GAP-03": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "defense-evasion",
+      "persistence",
+      "privilege-escalation"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1078",
+        "name": "Valid Accounts"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule GAP-03 mapped to ATT&CK T1078 (Valid Accounts) via SUPPORTED_INFERENCE [Confidence: 0.75]: Unassigned critical alerts relate to unreviewed privileged account activity.",
+    "threat_score_modifier": 2.5,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "GAP-04": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "defense-evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1070",
+        "name": "Indicator Removal on Host"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule GAP-04 mapped to ATT&CK T1070 (Indicator Removal on Host) via SUPPORTED_INFERENCE [Confidence: 0.75]: Excessive triage delay aligns with indicator aging / triage starvation.",
+    "threat_score_modifier": 2.5,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "GAP-05": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "privilege-escalation"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1068",
+        "name": "Exploitation for Privilege Escalation"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule GAP-05 mapped to ATT&CK T1068 (Exploitation for Privilege Escalation) via SUPPORTED_INFERENCE [Confidence: 0.8]: Unreviewed escalation relates to unaddressed privilege escalation activity.",
+    "threat_score_modifier": 2.5,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "GAP-06": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "impact"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1486",
+        "name": "Data Encrypted for Impact"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule GAP-06 mapped to ATT&CK T1486 (Data Encrypted for Impact) via SUPPORTED_INFERENCE [Confidence: 0.9]: High severity escalation abandonment aligns with uninhibited ransomware impact.",
+    "threat_score_modifier": 2.5,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "NEG-01": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "defense-evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1562.002",
+        "name": "Disable Windows Event Logging"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule NEG-01 mapped to ATT&CK T1562.002 (Disable Windows Event Logging) via DIRECT [Confidence: 1.0]: Telemetry absence on active critical asset directly matches disabling Windows Event Logs / audit blinding.",
+    "threat_score_modifier": 5.0,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "NEG-02": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "defense-evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1562",
+        "name": "Impair Defenses"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule NEG-02 mapped to ATT&CK T1562 (Impair Defenses) via SUPPORTED_INFERENCE [Confidence: 0.85]: Sudden telemetry drop aligns with network/system impairment of security sensors.",
+    "threat_score_modifier": 2.5,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "NEG-03": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "defense-evasion"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1070.001",
+        "name": "Clear Windows Event Logs"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule NEG-03 mapped to ATT&CK T1070.001 (Clear Windows Event Logs) via DIRECT [Confidence: 1.0]: Missing critical category matches targeted clearing of specific security event channels.",
+    "threat_score_modifier": 5.0,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "NEG-04": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "initial-access"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1190",
+        "name": "Exploit Public-Facing Application"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule NEG-04 mapped to ATT&CK T1190 (Exploit Public-Facing Application) via SUPPORTED_INFERENCE [Confidence: 0.8]: Under-monitored critical asset relates to unmonitored public-facing ingress points.",
+    "threat_score_modifier": 2.5,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "NEG-05": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [
+      "defense-evasion",
+      "persistence",
+      "privilege-escalation"
+    ],
+    "attack_techniques": [
+      {
+        "id": "T1078",
+        "name": "Valid Accounts"
+      }
+    ],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule NEG-05 mapped to ATT&CK T1078 (Valid Accounts) via SUPPORTED_INFERENCE [Confidence: 0.75]: Unexplained maintenance silence relates to abuse of maintenance credentials / covert silence.",
+    "threat_score_modifier": 2.5,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  },
+  "UNKNOWN_RULE": {
+    "cve_id": null,
+    "cpe_uri": null,
+    "cvss_base_score": null,
+    "cvss_severity": null,
+    "is_cisa_kev": false,
+    "kev_ransomware_use": null,
+    "attack_tactics": [],
+    "attack_techniques": [],
+    "threat_groups": [],
+    "threat_software": [],
+    "threat_context_summary": "Rule UNKNOWN_RULE mapped to ATT&CK None (Unknown) via UNMAPPED [Confidence: 0.0]: No defensible ATT&CK technique relationship identified.",
+    "threat_score_modifier": 0.0,
+    "provenance_sources": [
+      "MITRE_ATTACK_v15",
+      "SAT-SA_THREAT_MAPPER"
+    ]
+  }
+}

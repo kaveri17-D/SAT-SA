@@ -1,0 +1,15 @@
+{
+  "dataset_name": "SAT-SA BENCHMARK DATASET \u2014 PHASE 13",
+  "source_organization": "SAT-SA Cyber Supervisory Intelligence",
+  "source_url": "internal://data/benchmark/satsa_phase13_benchmark_dataset.json",
+  "retrieval_date": "2026-08-31T00:00:00Z",
+  "version": "1.0.0",
+  "file_name": "satsa_phase13_benchmark_dataset.json",
+  "file_size_bytes": 9699,
+  "sha256_checksum": "56d30b5abf9defffbaea0a3bb32e64cc5956e65d01ac0406529c4c48cff8f017",
+  "schema_version": "1.0.0",
+  "license": "Proprietary / Evaluative",
+  "record_count": 10,
+  "validation_status": "VALIDATED",
+  "generated_at": "2026-08-31T00:00:00Z"
+}

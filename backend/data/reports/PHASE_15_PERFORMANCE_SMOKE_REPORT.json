@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-09-01T12:28:05.229833+00:00",
+  "measurements": {
+    "testclient_init_latency_ms": 0.18,
+    "health_endpoint_avg_latency_ms": 5.39,
+    "health_endpoint_p95_latency_ms": 23.21,
+    "assessment_persistence_latency_ms": 93.62,
+    "report_generation_latencies_ms": {
+      "EXECUTIVE": 37.95,
+      "TECHNICAL": 19.8,
+      "RISK": 20.01,
+      "ASSET": 17.05,
+      "VULNERABILITY_THREAT_INTEL": 15.95
+    },
+    "report_generation_avg_ms": 22.15,
+    "snapshot_integrity_verification_latency_ms": 0.59,
+    "json_export_latency_ms": 0.19,
+    "json_export_size_bytes": 4569,
+    "html_export_latency_ms": 0.03,
+    "html_export_size_bytes": 4219,
+    "audit_verification_latency_ms": 1.49,
+    "audit_total_events_verified": 10
+  }
+}

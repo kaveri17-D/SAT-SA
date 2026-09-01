@@ -55,11 +55,18 @@ class ExecutionGapEngine:
 
         try:
             # 3. Fetch Canonical Alerts using joinedload to eliminate N+1 queries
+            self.db.query(Finding).filter(
+                Finding.analysis_run_id == analysis_run.id,
+                Finding.rule_id.like("GAP-%")
+            ).delete()
+            self.db.commit()
+
             alerts = self.db.query(Alert).options(
                 joinedload(Alert.asset),
                 joinedload(Alert.cse),
                 joinedload(Alert.investigation).joinedload(Investigation.escalation)
             ).all()
+
 
             workflow_nodes = WorkflowReconstructor.reconstruct_for_alerts(alerts)
 
@@ -165,8 +172,15 @@ class NegativeSpaceEngine:
 
         try:
             # 3. Fetch Canonical Entities from DB
+            self.db.query(Finding).filter(
+                Finding.analysis_run_id == analysis_run.id,
+                Finding.rule_id.like("NEG-%")
+            ).delete()
+            self.db.commit()
+
             alerts = self.db.query(Alert).all()
             assets = self.db.query(Asset).all()
+
             asset_map = {asset.id: asset for asset in assets}
             cses = self.db.query(CSE).all()
             cse_map = {cse.id: cse for cse in cses}
@@ -175,11 +189,21 @@ class NegativeSpaceEngine:
             eval_results: List[RuleEvaluationResult] = []
             findings_created: List[Finding] = []
 
+            from collections import defaultdict
+            alerts_by_asset = defaultdict(list)
+            alerts_by_cse = defaultdict(list)
+            alert_counts_by_asset: Dict[str, int] = defaultdict(int)
+            for a in alerts:
+                alerts_by_asset[a.asset_id].append(a)
+                alert_counts_by_asset[str(a.asset_id)] += 1
+                alerts_by_cse[a.cse_id].append(a)
+
             # 4. Evaluate Asset-Level Rules (NEG-01, NEG-04, NEG-05)
             for asset in assets:
+                asset_recent_alerts = alerts_by_asset.get(asset.id, [])
                 res_neg01 = NegativeSpaceEvaluators.evaluate_neg01_missing_telemetry(
                     asset=asset,
-                    recent_alerts=alerts,
+                    recent_alerts=asset_recent_alerts,
                     maintenance_logs=[m for m in maint_logs if str(m.asset_id) == str(asset.id)],
                     matrix=self.matrix,
                     completeness_score=completeness_score
@@ -188,11 +212,12 @@ class NegativeSpaceEngine:
                     target_asset=asset,
                     all_assets=assets,
                     all_alerts=alerts,
-                    completeness_score=completeness_score
+                    completeness_score=completeness_score,
+                    alert_counts_by_asset=alert_counts_by_asset
                 )
                 res_neg05 = NegativeSpaceEvaluators.evaluate_neg05_unexplained_maintenance_silence(
                     asset=asset,
-                    recent_alerts=alerts,
+                    recent_alerts=asset_recent_alerts,
                     maintenance_logs=maint_logs,
                     completeness_score=completeness_score
                 )
@@ -201,9 +226,10 @@ class NegativeSpaceEngine:
 
             # 5. Evaluate CSE-Level Rules (NEG-02, NEG-03)
             for cse in cses:
+                cse_alerts = alerts_by_cse.get(cse.id, [])
                 res_neg02 = NegativeSpaceEvaluators.evaluate_neg02_telemetry_drop(
                     cse=cse,
-                    alerts=alerts,
+                    alerts=cse_alerts,
                     maintenance_logs=[m for m in maint_logs if str(m.cse_id) == str(cse.id)],
                     completeness_score=completeness_score
                 )
@@ -213,12 +239,13 @@ class NegativeSpaceEngine:
                 for cat in expected_categories:
                     res_neg03 = NegativeSpaceEvaluators.evaluate_neg03_missing_category(
                         cse=cse,
-                        alerts=alerts,
+                        alerts=cse_alerts,
                         expected_category=cat,
                         matrix=self.matrix,
                         completeness_score=completeness_score
                     )
                     eval_results.append(res_neg03)
+
 
             # 6. Generate Findings ONLY for CONFIRMED evaluation state (or FAIL for backward compatibility)
             for res in eval_results:

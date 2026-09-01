@@ -1,0 +1,740 @@
+{
+  "type": "bundle",
+  "id": "bundle--7a066a50-60b6-4554-b593-9c8cbb819c99",
+  "spec_version": "2.1",
+  "objects": [
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--1",
+      "name": "Initial Access",
+      "x_mitre_shortname": "initial-access",
+      "description": "Techniques to gain an initial foothold in a network.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0001"
+        }
+      ]
+    },
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--2",
+      "name": "Execution",
+      "x_mitre_shortname": "execution",
+      "description": "Techniques that result in execution of adversary code.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0002"
+        }
+      ]
+    },
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--3",
+      "name": "Persistence",
+      "x_mitre_shortname": "persistence",
+      "description": "Techniques to maintain access across restarts.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0003"
+        }
+      ]
+    },
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--4",
+      "name": "Privilege Escalation",
+      "x_mitre_shortname": "privilege-escalation",
+      "description": "Techniques to gain higher-level permissions.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0004"
+        }
+      ]
+    },
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--5",
+      "name": "Defense Evasion",
+      "x_mitre_shortname": "defense-evasion",
+      "description": "Techniques adversaries use to avoid detection.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0005"
+        }
+      ]
+    },
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--6",
+      "name": "Credential Access",
+      "x_mitre_shortname": "credential-access",
+      "description": "Techniques for stealing credentials.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0006"
+        }
+      ]
+    },
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--7",
+      "name": "Discovery",
+      "x_mitre_shortname": "discovery",
+      "description": "Techniques to gain knowledge about the system and network.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0007"
+        }
+      ]
+    },
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--8",
+      "name": "Lateral Movement",
+      "x_mitre_shortname": "lateral-movement",
+      "description": "Techniques to enter and control remote systems.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0008"
+        }
+      ]
+    },
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--9",
+      "name": "Command and Control",
+      "x_mitre_shortname": "command-and-control",
+      "description": "Techniques to communicate with controlled systems.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0011"
+        }
+      ]
+    },
+    {
+      "type": "x-mitre-tactic",
+      "id": "x-mitre-tactic--10",
+      "name": "Impact",
+      "x_mitre_shortname": "impact",
+      "description": "Techniques to disrupt, destroy, or compromise integrity.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "TA0040"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1190",
+      "name": "Exploit Public-Facing Application",
+      "description": "Adversaries may attempt to take advantage of a weakness in an Internet-facing computer or program.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "initial-access"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "x_mitre_data_sources": [
+        "Application Log",
+        "Network Traffic"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1190"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1059",
+      "name": "Command and Scripting Interpreter",
+      "description": "Adversaries may abuse command and script interpreters.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1059-001",
+      "name": "PowerShell",
+      "description": "Adversaries may abuse PowerShell commands and scripts.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ],
+      "x_mitre_is_subtechnique": true,
+      "x_mitre_platforms": [
+        "Windows"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.001"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1078",
+      "name": "Valid Accounts",
+      "description": "Adversaries may obtain and abuse credentials of existing accounts.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        },
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        },
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux",
+        "Cloud"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1078"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1562",
+      "name": "Impair Defenses",
+      "description": "Adversaries may maliciously modify components of a security environment.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1562"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1562-001",
+      "name": "Disable or Modify Tools",
+      "description": "Adversaries may disable and/or modify security tools.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ],
+      "x_mitre_is_subtechnique": true,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1562.001"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1562-002",
+      "name": "Disable Windows Event Logging",
+      "description": "Adversaries may disable Windows event logging to blind monitoring.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ],
+      "x_mitre_is_subtechnique": true,
+      "x_mitre_platforms": [
+        "Windows"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1562.002"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1070",
+      "name": "Indicator Removal on Host",
+      "description": "Adversaries may delete or alter generated artifacts.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1070"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1070-001",
+      "name": "Clear Windows Event Logs",
+      "description": "Adversaries may clear Windows Event Logs to hide activity.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ],
+      "x_mitre_is_subtechnique": true,
+      "x_mitre_platforms": [
+        "Windows"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1070.001"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1068",
+      "name": "Exploitation for Privilege Escalation",
+      "description": "Adversaries may exploit software vulnerabilities to escalate privileges.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1068"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1003",
+      "name": "OS Credential Dumping",
+      "description": "Adversaries may attempt to dump credentials to obtain account login secrets.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "credential-access"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1003"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1021",
+      "name": "Remote Services",
+      "description": "Adversaries may use Valid Accounts to log into a service specifically designed to accept remote connections.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "lateral-movement"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1021"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1486",
+      "name": "Data Encrypted for Impact",
+      "description": "Adversaries may encrypt data on target systems or network shares to disrupt access.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "impact"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux",
+        "macOS"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1486"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1505",
+      "name": "Server Software Component",
+      "description": "Adversaries may abuse server software components to establish persistence.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Linux",
+        "Windows"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1505"
+        }
+      ]
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--1110",
+      "name": "Brute Force",
+      "description": "Adversaries may use brute force techniques to attempt access to accounts.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "credential-access"
+        }
+      ],
+      "x_mitre_is_subtechnique": false,
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux",
+        "Cloud"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1110"
+        }
+      ]
+    },
+    {
+      "type": "intrusion-set",
+      "id": "intrusion-set--apt29",
+      "name": "APT29",
+      "aliases": [
+        "Cozy Bear",
+        "Nobelium",
+        "Midnight Blizzard"
+      ],
+      "description": "Threat group attributed to Russia's Foreign Intelligence Service (SVR).",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "G0016"
+        }
+      ]
+    },
+    {
+      "type": "intrusion-set",
+      "id": "intrusion-set--fin7",
+      "name": "FIN7",
+      "aliases": [
+        "Carbanak",
+        "ELBRUS"
+      ],
+      "description": "Financially motivated threat group targeting enterprise retail and financial entities.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "G0046"
+        }
+      ]
+    },
+    {
+      "type": "intrusion-set",
+      "id": "intrusion-set--wizard-spider",
+      "name": "Wizard Spider",
+      "aliases": [
+        "UNC1878",
+        "Grim Spider"
+      ],
+      "description": "Russia-based financially motivated cybercrime group operating Ryuk and Conti ransomware.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "G0102"
+        }
+      ]
+    },
+    {
+      "type": "intrusion-set",
+      "id": "intrusion-set--lazarus",
+      "name": "Lazarus Group",
+      "aliases": [
+        "HIDDEN COBRA",
+        "Guardians of Peace"
+      ],
+      "description": "North Korean state-sponsored cyber threat group.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "G0032"
+        }
+      ]
+    },
+    {
+      "type": "intrusion-set",
+      "id": "intrusion-set--apt28",
+      "name": "APT28",
+      "aliases": [
+        "Fancy Bear",
+        "Pawn Storm",
+        "Strontium"
+      ],
+      "description": "Threat group attributed to Russia's Main Intelligence Directorate (GRU).",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "G0007"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "id": "tool--cobalt-strike",
+      "name": "Cobalt Strike",
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "S0154"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "id": "tool--mimikatz",
+      "name": "Mimikatz",
+      "x_mitre_platforms": [
+        "Windows"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "S0002"
+        }
+      ]
+    },
+    {
+      "type": "malware",
+      "id": "malware--lockbit",
+      "name": "LockBit",
+      "x_mitre_platforms": [
+        "Windows",
+        "Linux"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "S0644"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "id": "tool--psexec",
+      "name": "PsExec",
+      "x_mitre_platforms": [
+        "Windows"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "S0029"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "id": "tool--adfind",
+      "name": "AdFind",
+      "x_mitre_platforms": [
+        "Windows"
+      ],
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "S0552"
+        }
+      ]
+    },
+    {
+      "type": "course-of-action",
+      "id": "course-of-action--m1042",
+      "name": "Disable or Remove Feature or Program",
+      "description": "Remove or disable unneeded software components.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "M1042"
+        }
+      ]
+    },
+    {
+      "type": "course-of-action",
+      "id": "course-of-action--m1051",
+      "name": "Update Software",
+      "description": "Perform regular software updates to mitigate vulnerability exploitation.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "M1051"
+        }
+      ]
+    },
+    {
+      "type": "course-of-action",
+      "id": "course-of-action--m1047",
+      "name": "Audit",
+      "description": "Perform audit logging and review of security events.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "M1047"
+        }
+      ]
+    },
+    {
+      "type": "relationship",
+      "id": "relationship--1",
+      "source_ref": "intrusion-set--apt29",
+      "target_ref": "attack-pattern--1190",
+      "relationship_type": "uses",
+      "description": "APT29 has exploited public facing applications."
+    },
+    {
+      "type": "relationship",
+      "id": "relationship--2",
+      "source_ref": "intrusion-set--fin7",
+      "target_ref": "attack-pattern--1190",
+      "relationship_type": "uses",
+      "description": "FIN7 has exploited public facing applications."
+    },
+    {
+      "type": "relationship",
+      "id": "relationship--3",
+      "source_ref": "intrusion-set--wizard-spider",
+      "target_ref": "attack-pattern--1486",
+      "relationship_type": "uses",
+      "description": "Wizard Spider uses ransomware to encrypt data for impact."
+    },
+    {
+      "type": "relationship",
+      "id": "relationship--4",
+      "source_ref": "tool--cobalt-strike",
+      "target_ref": "attack-pattern--1059-001",
+      "relationship_type": "uses",
+      "description": "Cobalt Strike can leverage PowerShell commands."
+    },
+    {
+      "type": "relationship",
+      "id": "relationship--5",
+      "source_ref": "tool--mimikatz",
+      "target_ref": "attack-pattern--1003",
+      "relationship_type": "uses",
+      "description": "Mimikatz dumps credentials from LSASS memory."
+    },
+    {
+      "type": "attack-pattern",
+      "id": "attack-pattern--deprecated-1",
+      "name": "Deprecated Technique",
+      "revoked": true,
+      "description": "Revoked object for validation testing.",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T9999"
+        }
+      ]
+    }
+  ]
+}

@@ -243,3 +243,69 @@ export interface EvidenceIntegrityResult {
   verified_at: string;
 }
 
+export type ReportType = 'EXECUTIVE' | 'TECHNICAL' | 'RISK' | 'ASSET' | 'VULNERABILITY_THREAT_INTEL';
+export type ReportStatus = 'PENDING' | 'GENERATING' | 'COMPLETED' | 'FAILED' | 'ARCHIVED';
+
+export interface ReportSummary {
+  id: string;
+  report_number: string;
+  report_type: ReportType;
+  status: ReportStatus;
+  title: string;
+  assessment_id: string;
+  cse_id?: string;
+  cse_name?: string;
+  generated_at: string;
+  generated_by: string;
+  sha256_checksum: string;
+  is_tampered: boolean;
+  summary: Record<string, any>;
+}
+
+export interface ReportDetail extends ReportSummary {
+  description?: string;
+  schema_version: string;
+  system_version: string;
+  data_foundation_version: string;
+  content: Record<string, any>;
+  metadata: Record<string, any>;
+  evidence_references: Array<{
+    id: string;
+    finding_id?: string;
+    evidence_id?: string;
+    evidence_type: string;
+    source_table: string;
+    source_record_id: string;
+    relevance: string;
+    description: string;
+    provenance?: Record<string, any>;
+  }>;
+  tamper_verified: boolean;
+  tamper_message?: string;
+}
+
+export interface AuditLogItem {
+  id: string;
+  user_id: string;
+  actor_role: string;
+  action: string;
+  entity_type: string;
+  entity_id: string;
+  timestamp: string;
+  status: string;
+  correlation_id?: string;
+  before_after?: Record<string, any>;
+  metadata?: Record<string, any>;
+  integrity_hash?: string;
+  previous_hash?: string;
+}
+
+export interface AuditVerificationResult {
+  is_valid: boolean;
+  total_events: number;
+  verified_events: number;
+  tampered_event_id?: string;
+  details: string;
+}
+
+

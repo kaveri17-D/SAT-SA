@@ -115,11 +115,20 @@ class AuditLog(Base, TimestampMixin):
 
     id = Column(GUID, primary_key=True, default=uuid.uuid4)
     user_id = Column(String(100), nullable=False, index=True)
+    actor_role = Column(String(50), nullable=False, default="EXAMINER", index=True)
     action = Column(String(100), nullable=False, index=True)
     entity_type = Column(String(100), nullable=False, index=True)
     entity_id = Column(String(255), nullable=False, index=True)
     timestamp = Column(DateTime(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc), index=True)
+    status = Column(String(50), nullable=False, default="SUCCESS", index=True)
+    
+    correlation_id = Column(String(100), nullable=True, index=True)
     before_after_json = Column(JSON, nullable=True)
+    metadata_json = Column(JSON, nullable=True)
+    
+    # Cryptographic append-only chaining
+    integrity_hash = Column(String(64), nullable=True, index=True)
+    previous_hash = Column(String(64), nullable=True)
     
     dataset_import_id = Column(GUID, ForeignKey("dataset_imports.id", ondelete="SET NULL"), nullable=True, index=True)
     analysis_run_id = Column(GUID, ForeignKey("analysis_runs.id", ondelete="SET NULL"), nullable=True, index=True)

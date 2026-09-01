@@ -16,7 +16,20 @@ def setup_test_database():
     Base.metadata.drop_all(bind=engine)
 
 
+from app.core.database import SessionLocal
+
+
+@pytest.fixture
+def db():
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()
+
+
 @pytest.fixture(scope="module")
 def client():
     return TestClient(fastapi_app)
+
 
