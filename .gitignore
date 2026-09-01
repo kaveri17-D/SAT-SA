@@ -49,3 +49,6 @@ Thumbs.db
 .env
 *.sqlite3
 *.db
+
+satsa_dev.db-shm
+satsa_dev.db-wal
