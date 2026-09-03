@@ -2,7 +2,7 @@
 import uuid
 from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.core.database import get_db
 from app.models import ReportSnapshot, ReportEvidenceReference, ReportType, ReportStatus
@@ -51,7 +51,7 @@ def list_reports(
     db: Session = Depends(get_db)
 ):
     """List historical report snapshots with filtering and pagination."""
-    query = db.query(ReportSnapshot)
+    query = db.query(ReportSnapshot).options(joinedload(ReportSnapshot.cse))
 
     if assessment_id:
         try:
@@ -155,18 +155,25 @@ def get_report_detail(report_id: str, db: Session = Depends(get_db)):
 @router.get("/{report_id}/export", summary="Export Report Snapshot as JSON or HTML")
 def export_report(
     report_id: str,
-    format: str = Query("json", pattern="^(json|html|pdf)$"),
+    format: str = Query("json", pattern="^(?i)(json|html|pdf)$"),
     db: Session = Depends(get_db)
 ):
-    """Export report snapshot into JSON, HTML, or PDF formats."""
+    """Export report snapshot into JSON, HTML, or PDF formats with download headers."""
     try:
         r_uuid = uuid.UUID(report_id)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid report_id UUID format.")
 
-    snapshot = db.query(ReportSnapshot).filter(ReportSnapshot.id == r_uuid).first()
+    snapshot = db.query(ReportSnapshot).options(joinedload(ReportSnapshot.cse)).filter(ReportSnapshot.id == r_uuid).first()
     if not snapshot:
         raise HTTPException(status_code=404, detail=f"Report snapshot '{report_id}' not found.")
+
+    fmt = format.lower()
+    ext = "html" if fmt in ("html", "pdf") else "json"
+    filename = f"{snapshot.report_number}.{ext}"
+    headers = {
+        "Content-Disposition": f'attachment; filename="{filename}"'
+    }
 
     # Audit event
     AuditService.log_event(
@@ -175,15 +182,15 @@ def export_report(
         action="REPORT_EXPORTED",
         entity_type="REPORT_SNAPSHOT",
         entity_id=str(snapshot.id),
-        metadata={"format": format.upper(), "report_number": snapshot.report_number}
+        metadata={"format": fmt.upper(), "report_number": snapshot.report_number}
     )
 
-    if format.lower() == "html" or format.lower() == "pdf":
+    if fmt in ("html", "pdf"):
         html_content = HTMLReportExporter.export(snapshot)
-        return Response(content=html_content, media_type="text/html")
+        return Response(content=html_content, media_type="text/html", headers=headers)
     else:
         json_content = JSONReportExporter.export(snapshot)
-        return Response(content=json_content, media_type="application/json")
+        return Response(content=json_content, media_type="application/json", headers=headers)
 
 
 @router.get("/{report_id}/evidence", summary="Retrieve Evidence References Supporting Report")

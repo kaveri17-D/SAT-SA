@@ -27,3 +27,188 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
+
+/* ------------------------------------------------------------- */
+/* DAYLIGHT / PRESENTATION THEME STYLES                          */
+/* ------------------------------------------------------------- */
+body.theme-light,
+.theme-light {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+/* Header, Navigation & Bars */
+.theme-light header {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-bottom-color: #cbd5e1 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
+}
+
+.theme-light header .text-white {
+  color: #0f172a !important;
+}
+
+.theme-light nav,
+.theme-light div.border-b.border-slate-800 {
+  border-bottom-color: #cbd5e1 !important;
+  background-color: #e2e8f0 !important;
+}
+
+/* Cards, Panels, Modals and Surface Elements */
+.theme-light .bg-slate-900,
+.theme-light .bg-slate-950,
+.theme-light .bg-slate-900\/90,
+.theme-light .bg-slate-900\/60,
+.theme-light .bg-slate-950\/80,
+.theme-light .bg-slate-950\/40 {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Borders */
+.theme-light .border-slate-800,
+.theme-light .border-slate-700,
+.theme-light .border-slate-900,
+.theme-light .border-slate-800\/80 {
+  border-color: #cbd5e1 !important;
+}
+
+/* Text Hierarchy */
+.theme-light .text-white,
+.theme-light .text-slate-100,
+.theme-light .text-slate-200,
+.theme-light .text-slate-300 {
+  color: #0f172a !important;
+}
+
+.theme-light .text-slate-400,
+.theme-light .text-slate-500 {
+  color: #475569 !important;
+}
+
+/* Tables */
+.theme-light table {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.theme-light thead,
+.theme-light thead tr,
+.theme-light thead th {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+  border-bottom-color: #cbd5e1 !important;
+}
+
+.theme-light tbody tr {
+  border-bottom-color: #e2e8f0 !important;
+}
+
+.theme-light tbody tr:hover {
+  background-color: #f8fafc !important;
+}
+
+.theme-light tbody td {
+  color: #1e293b !important;
+  border-bottom-color: #e2e8f0 !important;
+}
+
+/* Form Controls: Inputs, Selects, Textareas */
+.theme-light input,
+.theme-light select,
+.theme-light textarea {
+  background-color: #ffffff !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+.theme-light input:focus,
+.theme-light select:focus,
+.theme-light textarea:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 1px #0284c7 !important;
+}
+
+/* Action Buttons */
+.theme-light button.bg-slate-800 {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+.theme-light button.bg-slate-800:hover {
+  background-color: #cbd5e1 !important;
+}
+
+.theme-light button.bg-slate-950 {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Status Cards & Badges in Daylight */
+.theme-light .bg-slate-950.border-rose-900\/60,
+.theme-light .bg-rose-950,
+.theme-light .bg-rose-950\/30,
+.theme-light .bg-rose-950\/40 {
+  background-color: #fff1f2 !important;
+  border-color: #fecdd3 !important;
+}
+.theme-light .text-rose-400 {
+  color: #be123c !important;
+}
+
+.theme-light .bg-slate-950.border-amber-900\/60,
+.theme-light .bg-amber-950,
+.theme-light .bg-amber-950\/30 {
+  background-color: #fffbeb !important;
+  border-color: #fde68a !important;
+}
+.theme-light .text-amber-400 {
+  color: #b45309 !important;
+}
+
+.theme-light .bg-slate-950.border-sky-900\/60,
+.theme-light .bg-sky-950,
+.theme-light .bg-sky-950\/30 {
+  background-color: #f0f9ff !important;
+  border-color: #bae6fd !important;
+}
+.theme-light .text-sky-400,
+.theme-light .text-cyan-400 {
+  color: #0369a1 !important;
+}
+
+.theme-light .bg-slate-950.border-emerald-900\/60,
+.theme-light .bg-emerald-950,
+.theme-light .bg-emerald-950\/30 {
+  background-color: #f0fdf4 !important;
+  border-color: #bbf7d0 !important;
+}
+.theme-light .text-emerald-400 {
+  color: #15803d !important;
+}
+
+/* Evidence Graph Containers in Daylight */
+.theme-light .bg-\[\#050811\] {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+.theme-light svg line {
+  stroke: #94a3b8 !important;
+}
+
+/* Modals & Backdrop */
+.theme-light .fixed.inset-0.bg-slate-950\/80,
+.theme-light .fixed.inset-0.bg-black\/80 {
+  background-color: rgba(15, 23, 42, 0.45) !important;
+}
+
+/* Footer */
+.theme-light footer {
+  background-color: #ffffff !important;
+  border-top-color: #cbd5e1 !important;
+  color: #475569 !important;
+}

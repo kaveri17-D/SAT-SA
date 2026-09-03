@@ -144,6 +144,7 @@ export interface RiskScoreDetail {
   normalized_score: number;
   risk_band: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
   overall_confidence: number;
+  component_breakdown?: Record<string, number>;
   contributions: RiskContribution[];
   explanation: Record<string, any>;
   provenance: Record<string, any>;
@@ -185,6 +186,57 @@ export interface GraphData {
   };
   nodes: GraphNode[];
   edges: GraphEdge[];
+}
+
+export interface SimpleWorkflowStage {
+  stage: 'CSE' | 'ASSET' | 'ALERT' | 'INVESTIGATION' | 'ESCALATION' | 'CASE' | 'CLOSURE';
+  label: string;
+  status: 'COMPLETED' | 'ANOMALOUS' | 'MISSING' | 'NOT_APPLICABLE';
+  node_id: string;
+  entity_type: string;
+  canonical_record_id: string | null;
+  name: string;
+  details: string;
+  entity_data: Record<string, any>;
+}
+
+export interface SimpleWorkflowData {
+  analysis_run_id: string;
+  target_scope: {
+    cse_id: string | null;
+    cse_name: string;
+    finding_id: string | null;
+    finding_rule_id?: string | null;
+    finding_reason?: string | null;
+    finding_severity?: string | null;
+    alert_id: string | null;
+  };
+  stages: SimpleWorkflowStage[];
+  nodes: Array<{
+    id: string;
+    entity_type: string;
+    stage: string;
+    label: string;
+    name: string;
+    status: string;
+    canonical_record_id: string | null;
+    details: string;
+    entity_data: Record<string, any>;
+  }>;
+  edges: Array<{
+    source: string;
+    target: string;
+    relationship: string;
+    status: string;
+  }>;
+  metrics: {
+    node_count: number;
+    edge_count: number;
+    completed_stages: number;
+    anomalous_stages: number;
+    missing_stages: number;
+    not_applicable_stages: number;
+  };
 }
 
 export interface MissingTransition {

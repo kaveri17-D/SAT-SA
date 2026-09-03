@@ -8,6 +8,7 @@ import {
   GraphData,
   GraphPathInfo,
   GraphAnomaly,
+  SimpleWorkflowData,
   AuditLogEntry,
   EvidenceIntegrityResult
 } from '../types/api';
@@ -27,8 +28,9 @@ export async function fetchDashboardMetrics(): Promise<DashboardMetrics> {
   return res.json();
 }
 
-export async function fetchCSEProfiles(): Promise<CSEProfile[]> {
-  const res = await fetch(`${API_BASE}/prioritization/cses`);
+export async function fetchCSEProfiles(analysisRunId?: string): Promise<CSEProfile[]> {
+  const query = analysisRunId && analysisRunId !== 'latest' ? `?analysis_run_id=${analysisRunId}` : '';
+  const res = await fetch(`${API_BASE}/prioritization/cses${query}`);
   if (!res.ok) throw new Error(`Failed to fetch CSE profiles (${res.status})`);
   return res.json();
 }
@@ -111,9 +113,38 @@ export async function fetchLatestRiskScores(): Promise<RiskScoreDetail[]> {
   return res.json();
 }
 
+export async function fetchRiskScoresForRun(analysisRunId = 'latest'): Promise<RiskScoreDetail[]> {
+  const url = analysisRunId === 'latest'
+    ? `${API_BASE}/risk/scores/latest`
+    : `${API_BASE}/risk/run/${analysisRunId}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch risk scores for run (${res.status})`);
+  return res.json();
+}
+
+export async function fetchSimpleWorkflow(
+  analysisRunId = 'latest',
+  params?: { cseId?: string; findingId?: string; alertId?: string }
+): Promise<SimpleWorkflowData> {
+  const query = new URLSearchParams();
+  if (params?.cseId) query.set('cse_id', params.cseId);
+  if (params?.findingId) query.set('finding_id', params.findingId);
+  if (params?.alertId) query.set('alert_id', params.alertId);
+  const qStr = query.toString() ? `?${query.toString()}` : '';
+  const res = await fetch(`${API_BASE}/graph/simple/${analysisRunId}${qStr}`);
+  if (!res.ok) throw new Error(`Failed to fetch simple workflow (${res.status})`);
+  return res.json();
+}
+
 export async function fetchGraphSummary(analysisRunId = 'latest'): Promise<GraphData> {
   const res = await fetch(`${API_BASE}/graph/summary/${analysisRunId}`);
   if (!res.ok) throw new Error(`Failed to fetch graph summary (${res.status})`);
+  return res.json();
+}
+
+export async function fetchFullGraph(analysisRunId = 'latest', maxNodes = 1000): Promise<GraphData> {
+  const res = await fetch(`${API_BASE}/graph/full/${analysisRunId}?max_nodes=${maxNodes}`);
+  if (!res.ok) throw new Error(`Failed to fetch full graph (${res.status})`);
   return res.json();
 }
 

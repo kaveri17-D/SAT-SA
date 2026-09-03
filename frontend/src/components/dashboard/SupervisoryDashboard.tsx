@@ -63,11 +63,11 @@ export const SupervisoryDashboard: React.FC<DashboardProps> = ({
             <div className="flex items-center gap-2">
               <span className="font-bold text-cyan-300">ACTIVE ANALYSIS RUN:</span>
               <span className="text-white font-mono bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
-                {metrics?.analysis_run_id || '3052411c-0af5-49f6-8667-f55dcbf03b4b'}
+                {metrics?.analysis_run_id ?? "—"}
               </span>
             </div>
             <div className="text-[11px] text-slate-400 mt-0.5 flex items-center gap-4">
-              <span>Dataset Import: <strong className="text-slate-200">{metrics?.dataset_import_id ? metrics.dataset_import_id.slice(0, 18) : '52abc9cf-6a48-4c74'} (seed=42)</strong></span>
+              <span>Dataset Import: <strong className="text-slate-200">{metrics?.dataset_import_id ? metrics.dataset_import_id.slice(0, 18) : "—"}</strong></span>
               <span>Rule Version: <strong className="text-emerald-400">v{metrics?.rule_version || '1.0.0'}</strong></span>
               <span>Engine Status: <strong className="text-emerald-400">{metrics?.status || 'COMPLETED'}</strong></span>
             </div>

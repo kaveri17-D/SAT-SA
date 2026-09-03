@@ -3,7 +3,7 @@ from typing import Dict, Any, Optional
 from datetime import datetime, timezone
 import uuid
 from sqlalchemy.orm import Session
-from app.models import AnalysisRun, CSE, ReportType
+from app.models import AnalysisRun, CSE, ReportType, AnalysisRunStatus
 from app.reporting.schemas import ReportGenerateRequest
 from app.reporting.generators.executive_generator import ExecutiveReportGenerator
 from app.reporting.generators.technical_generator import TechnicalReportGenerator
@@ -22,20 +22,28 @@ class ReportBuilder:
         run = None
         if request.assessment_id and request.assessment_id.lower() != "latest":
             try:
-                run_uuid = uuid.UUID(request.assessment_id)
+                run_uuid = uuid.UUID(request.assessment_id.strip())
                 run = db.query(AnalysisRun).filter(AnalysisRun.id == run_uuid).first()
             except ValueError:
                 pass
+        if not run:
+            run = (
+                db.query(AnalysisRun)
+                .filter(AnalysisRun.status == AnalysisRunStatus.COMPLETED, AnalysisRun.findings_generated > 0)
+                .order_by(AnalysisRun.created_at.desc())
+                .first()
+            )
         if not run:
             run = db.query(AnalysisRun).order_by(AnalysisRun.created_at.desc()).first()
         if not run:
             raise ValueError("No AnalysisRun available for report generation.")
 
         cse = None
-        if request.cse_id:
-            cse = db.query(CSE).filter(CSE.id == uuid.UUID(request.cse_id)).first()
-        else:
-            cse = db.query(CSE).first()
+        if request.cse_id and request.cse_id.strip():
+            try:
+                cse = db.query(CSE).filter(CSE.id == uuid.UUID(request.cse_id.strip())).first()
+            except ValueError:
+                cse = None
 
         # Select generator
         if request.report_type == ReportType.EXECUTIVE:

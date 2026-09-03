@@ -13,7 +13,7 @@ from app.main import app as fastapi_app
 from app.core.database import SessionLocal, engine, Base
 from app.models import (
     CSE, Asset, Alert, Investigation, Finding, Evidence, RiskScore,
-    ReviewQueueItem, AnalysisRun, DatasetImport, AssetCriticality,
+    ReviewQueueItem, AnalysisRun, AnalysisRunStatus, DatasetImport, AssetCriticality,
     AlertSeverity, FindingSeverity, FindingStatus, QueueItemStatus, ReportType,
     ReportSnapshot
 )
@@ -69,7 +69,8 @@ def seed_operational_e2e_data(db):
         records_processed=150,
         findings_generated=5,
         rule_version="1.0.0",
-        model_version="1.0.0"
+        model_version="1.0.0",
+        status=AnalysisRunStatus.COMPLETED
     )
     db.add(run)
     db.flush()

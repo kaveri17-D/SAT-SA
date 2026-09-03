@@ -17,13 +17,16 @@ class SupervisoryEvidenceGraphEngine:
     """Analytical graph and provenance engine representing supervisory workflow relationships using NetworkX."""
 
     @staticmethod
-    def build_graph_for_analysis_run(db: Session, analysis_run_id: uuid.UUID) -> nx.DiGraph:
+    def build_graph_for_analysis_run(db: Session, analysis_run_id: uuid.UUID, alert_limit: Optional[int] = 2000) -> nx.DiGraph:
         """Construct deterministic NetworkX directed graph (nx.DiGraph) from canonical DB entities."""
         G = nx.DiGraph(analysis_run_id=str(analysis_run_id), created_at=datetime.now(timezone.utc).isoformat())
 
         cses = db.query(CSE).all()
         assets = db.query(Asset).all()
-        alerts = db.query(Alert).all()
+        if alert_limit:
+            alerts = db.query(Alert).order_by(Alert.created_at.desc()).limit(alert_limit).all()
+        else:
+            alerts = db.query(Alert).all()
         investigations = db.query(Investigation).all()
         analysts = db.query(Analyst).all()
         escalations = db.query(Escalation).all()
@@ -492,10 +495,333 @@ class SupervisoryEvidenceGraphEngine:
         }
 
     @staticmethod
-    def export_graph_json(G: nx.DiGraph) -> Dict[str, Any]:
-        """Export machine-readable JSON representation of NetworkX graph."""
+    def build_simple_workflow_path(
+        db: Session,
+        analysis_run_id: uuid.UUID,
+        cse_id: Optional[uuid.UUID] = None,
+        finding_id: Optional[uuid.UUID] = None,
+        alert_id: Optional[uuid.UUID] = None
+    ) -> Dict[str, Any]:
+        """Build scoped 7-stage linear workflow path (CSE -> Asset -> Alert -> Investigation -> Escalation -> Case -> Closure)."""
+        finding = None
+        cse = None
+        asset = None
+        alert = None
+        inv = None
+        esc = None
+        case = None
+        clo = None
+
+        # 1. Resolve Finding / CSE / Alert
+        if finding_id:
+            finding = db.query(Finding).filter(Finding.id == finding_id).first()
+            if finding:
+                cse_id = finding.cse_id
+                asset = finding.asset
+
+        if cse_id:
+            cse = db.query(CSE).filter(CSE.id == cse_id).first()
+        elif not finding:
+            # Fallback to top priority finding in run
+            finding = (
+                db.query(Finding)
+                .filter(Finding.analysis_run_id == analysis_run_id)
+                .order_by(Finding.supervisory_priority.desc())
+                .first()
+            )
+            if finding:
+                cse_id = finding.cse_id
+                cse = finding.cse
+                asset = finding.asset
+            else:
+                cse = db.query(CSE).first()
+
+        if cse and not asset:
+            asset = db.query(Asset).filter(Asset.cse_id == cse.id).first()
+
+        # Resolve Alert
+        if alert_id:
+            alert = db.query(Alert).filter(Alert.id == alert_id).first()
+        elif finding and finding.evidence_records:
+            # Look for linked alert in evidence
+            for ev in finding.evidence_records:
+                if ev.source_table == "alerts" and ev.source_record_id:
+                    try:
+                        alert = db.query(Alert).filter(Alert.id == uuid.UUID(ev.source_record_id)).first()
+                        if alert:
+                            break
+                    except ValueError:
+                        pass
+        if not alert and asset:
+            alert = db.query(Alert).filter(Alert.asset_id == asset.id).order_by(Alert.created_at.desc()).first()
+        if not alert and cse:
+            alert = db.query(Alert).filter(Alert.cse_id == cse.id).order_by(Alert.created_at.desc()).first()
+
+        # Resolve Investigation
+        if alert:
+            inv = db.query(Investigation).filter(Investigation.alert_id == alert.id).first()
+
+        # Resolve Escalation
+        if inv:
+            esc = db.query(Escalation).filter(Escalation.investigation_id == inv.id).first()
+
+        # Resolve Case
+        if esc:
+            case = db.query(Case).filter(Case.escalation_id == esc.id).first()
+        elif inv:
+            case = db.query(Case).filter(Case.investigation_id == inv.id).first()
+
+        # Resolve Closure
+        if case:
+            clo = db.query(Closure).filter(Closure.case_id == case.id).first()
+
+        # 2. Evaluate stage statuses and anomalies
+        # CSE Stage
+        cse_status = "COMPLETED" if cse else "MISSING"
+        # Asset Stage
+        asset_status = "COMPLETED" if asset else "MISSING"
+
+        # Alert Stage
+        if alert:
+            if not inv and getattr(alert.severity, "value", str(alert.severity)) in ("CRITICAL", "HIGH"):
+                alert_status = "ANOMALOUS"
+            else:
+                alert_status = "COMPLETED"
+        else:
+            alert_status = "MISSING" if (asset and getattr(asset.criticality, "value", str(asset.criticality)) == "CRITICAL") else "NOT_APPLICABLE"
+
+        # Investigation Stage
+        if inv:
+            if alert and inv.started_at and alert.created_at and inv.started_at < alert.created_at:
+                inv_status = "ANOMALOUS"
+            elif inv.duration_seconds and inv.duration_seconds > 86400:
+                inv_status = "ANOMALOUS"
+            else:
+                inv_status = "COMPLETED"
+        else:
+            inv_status = "MISSING" if (alert and getattr(alert.severity, "value", str(alert.severity)) in ("CRITICAL", "HIGH")) else "NOT_APPLICABLE"
+
+        # Escalation Stage
+        if esc:
+            esc_status = "COMPLETED"
+        else:
+            if alert and getattr(alert.severity, "value", str(alert.severity)) == "CRITICAL" and inv:
+                esc_status = "MISSING"
+            else:
+                esc_status = "NOT_APPLICABLE"
+
+        # Case Stage
+        if case:
+            if case.status == "OPEN" and case.opened_at and (datetime.now(timezone.utc) - case.opened_at.replace(tzinfo=timezone.utc if case.opened_at.tzinfo is None else None)).days > 30:
+                case_status = "ANOMALOUS"
+            else:
+                case_status = "COMPLETED"
+        else:
+            case_status = "MISSING" if esc else "NOT_APPLICABLE"
+
+        # Closure Stage
+        if clo:
+            clo_status = "COMPLETED"
+        else:
+            if case and case.status == "CLOSED":
+                clo_status = "MISSING"
+            elif case:
+                clo_status = "MISSING"
+            else:
+                clo_status = "NOT_APPLICABLE"
+
+        stages = [
+            {
+                "stage": "CSE",
+                "label": "Critical Sector Entity",
+                "status": cse_status,
+                "node_id": f"CSE:{cse.id}" if cse else "CSE:MISSING",
+                "entity_type": "CSE",
+                "canonical_record_id": str(cse.id) if cse else None,
+                "name": cse.name if cse else "Unresolved Entity",
+                "details": f"Sector: {cse.sector} | Tier: {cse.size_tier}" if cse else "Missing entity record",
+                "entity_data": {
+                    "cse_id": str(cse.id) if cse else None,
+                    "name": cse.name if cse else None,
+                    "sector": cse.sector if cse else None,
+                    "entity_type": cse.entity_type if cse else None,
+                    "size_tier": cse.size_tier if cse else None
+                } if cse else {}
+            },
+            {
+                "stage": "ASSET",
+                "label": "Supervised Asset",
+                "status": asset_status,
+                "node_id": f"ASSET:{asset.id}" if asset else "ASSET:MISSING",
+                "entity_type": "ASSET",
+                "canonical_record_id": str(asset.id) if asset else None,
+                "name": asset.name if asset else "Missing Asset Record",
+                "details": f"Type: {asset.asset_type} | Criticality: {getattr(asset.criticality, 'value', str(asset.criticality))}" if asset else "Missing asset context",
+                "entity_data": {
+                    "asset_id": str(asset.id) if asset else None,
+                    "name": asset.name if asset else None,
+                    "asset_type": asset.asset_type if asset else None,
+                    "criticality": getattr(asset.criticality, 'value', str(asset.criticality)) if asset else None,
+                    "status": asset.status if asset else None
+                } if asset else {}
+            },
+            {
+                "stage": "ALERT",
+                "label": "Operational Alert",
+                "status": alert_status,
+                "node_id": f"ALERT:{alert.id}" if alert else "ALERT:MISSING",
+                "entity_type": "ALERT",
+                "canonical_record_id": str(alert.id) if alert else None,
+                "name": alert.category if alert else "No Active Alert Telemetry",
+                "details": f"Severity: {getattr(alert.severity, 'value', str(alert.severity))} | Source: {alert.source_system}" if alert else "Missing expected security telemetry",
+                "entity_data": {
+                    "alert_id": str(alert.id) if alert else None,
+                    "category": alert.category if alert else None,
+                    "severity": getattr(alert.severity, 'value', str(alert.severity)) if alert else None,
+                    "source_system": alert.source_system if alert else None,
+                    "status": alert.status if alert else None,
+                    "created_at": alert.created_at.isoformat() if alert and alert.created_at else None
+                } if alert else {}
+            },
+            {
+                "stage": "INVESTIGATION",
+                "label": "SOC Investigation",
+                "status": inv_status,
+                "node_id": f"INVESTIGATION:{inv.id}" if inv else "INVESTIGATION:MISSING",
+                "entity_type": "INVESTIGATION",
+                "canonical_record_id": str(inv.id) if inv else None,
+                "name": f"Investigation #{str(inv.id)[:8]}" if inv else ("Missing Investigation" if inv_status == "MISSING" else "Investigation Not Required"),
+                "details": f"Duration: {inv.duration_seconds}s | Outcome: {inv.outcome or 'In Progress'}" if inv else ("Critical alert was not investigated" if inv_status == "MISSING" else "Low-severity alert triage"),
+                "entity_data": {
+                    "investigation_id": str(inv.id) if inv else None,
+                    "started_at": inv.started_at.isoformat() if inv and inv.started_at else None,
+                    "ended_at": inv.ended_at.isoformat() if inv and inv.ended_at else None,
+                    "duration_seconds": inv.duration_seconds if inv else None,
+                    "outcome": inv.outcome if inv else None,
+                    "analyst_id": str(inv.analyst_id) if inv and inv.analyst_id else None
+                } if inv else {}
+            },
+            {
+                "stage": "ESCALATION",
+                "label": "Tier-2/3 Escalation",
+                "status": esc_status,
+                "node_id": f"ESCALATION:{esc.id}" if esc else "ESCALATION:MISSING",
+                "entity_type": "ESCALATION",
+                "canonical_record_id": str(esc.id) if esc else None,
+                "name": f"Escalation #{str(esc.id)[:8]}" if esc else ("Missing Critical Escalation" if esc_status == "MISSING" else "Escalation Not Triggered"),
+                "details": f"Escalated To: {esc.escalated_to} | Reason: {esc.reason or 'Policy trigger'}" if esc else ("Critical severity finding bypassed mandatory escalation" if esc_status == "MISSING" else "Routine operational workflow"),
+                "entity_data": {
+                    "escalation_id": str(esc.id) if esc else None,
+                    "escalated_at": esc.escalated_at.isoformat() if esc and esc.escalated_at else None,
+                    "escalated_to": esc.escalated_to if esc else None,
+                    "reason": esc.reason if esc else None
+                } if esc else {}
+            },
+            {
+                "stage": "CASE",
+                "label": "Supervisory Case",
+                "status": case_status,
+                "node_id": f"CASE:{case.id}" if case else "CASE:MISSING",
+                "entity_type": "CASE",
+                "canonical_record_id": str(case.id) if case else None,
+                "name": f"Case #{str(case.id)[:8]}" if case else ("Missing Incident Case" if case_status == "MISSING" else "Case Not Required"),
+                "details": f"Status: {case.status} | Opened: {case.opened_at.strftime('%Y-%m-%d') if case and case.opened_at else '—'}" if case else ("Escalated security incident has no tracked case" if case_status == "MISSING" else "Informational monitoring"),
+                "entity_data": {
+                    "case_id": str(case.id) if case else None,
+                    "status": case.status if case else None,
+                    "opened_at": case.opened_at.isoformat() if case and case.opened_at else None,
+                    "closed_at": case.closed_at.isoformat() if case and case.closed_at else None
+                } if case else {}
+            },
+            {
+                "stage": "CLOSURE",
+                "label": "Formal Case Closure",
+                "status": clo_status,
+                "node_id": f"CLOSURE:{clo.id}" if clo else "CLOSURE:MISSING",
+                "entity_type": "CLOSURE",
+                "canonical_record_id": str(clo.id) if clo else None,
+                "name": f"Disposition: {getattr(clo.disposition_type, 'value', str(clo.disposition_type))}" if clo else ("Pending Case Closure" if clo_status == "MISSING" else "Not Applicable"),
+                "details": f"Closed By: {clo.closed_by} | Justification: {clo.justification or 'Standard closure'}" if clo else ("Incident case remains unresolved without disposition" if clo_status == "MISSING" else "No case to close"),
+                "entity_data": {
+                    "closure_id": str(clo.id) if clo else None,
+                    "disposition_type": getattr(clo.disposition_type, 'value', str(clo.disposition_type)) if clo else None,
+                    "closed_at": clo.closed_at.isoformat() if clo and clo.closed_at else None,
+                    "closed_by": clo.closed_by if clo else None,
+                    "justification": clo.justification if clo else None
+                } if clo else {}
+            }
+        ]
+
+        # Edges connecting sequential stages
         nodes = []
-        for n, d in G.nodes(data=True):
+        edges = []
+        for i, st in enumerate(stages):
+            nodes.append({
+                "id": st["node_id"],
+                "entity_type": st["entity_type"],
+                "stage": st["stage"],
+                "label": st["label"],
+                "name": st["name"],
+                "status": st["status"],
+                "canonical_record_id": st["canonical_record_id"],
+                "details": st["details"],
+                "entity_data": st["entity_data"]
+            })
+            if i > 0:
+                prev_st = stages[i - 1]
+                edges.append({
+                    "source": prev_st["node_id"],
+                    "target": st["node_id"],
+                    "relationship": f"{prev_st['stage']}_TO_{st['stage']}",
+                    "status": "VALID" if (prev_st["status"] in ("COMPLETED", "ANOMALOUS") and st["status"] in ("COMPLETED", "ANOMALOUS")) else "BROKEN"
+                })
+
+        return {
+            "analysis_run_id": str(analysis_run_id),
+            "target_scope": {
+                "cse_id": str(cse.id) if cse else None,
+                "cse_name": cse.name if cse else "Enterprise Portfolio",
+                "finding_id": str(finding.id) if finding else None,
+                "finding_rule_id": finding.rule_id if finding else None,
+                "finding_reason": finding.reason if finding else None,
+                "finding_severity": getattr(finding.severity, "value", str(finding.severity)) if finding else None,
+                "alert_id": str(alert.id) if alert else None
+            },
+            "stages": stages,
+            "nodes": nodes,
+            "edges": edges,
+            "metrics": {
+                "node_count": len(nodes),
+                "edge_count": len(edges),
+                "completed_stages": sum(1 for s in stages if s["status"] == "COMPLETED"),
+                "anomalous_stages": sum(1 for s in stages if s["status"] == "ANOMALOUS"),
+                "missing_stages": sum(1 for s in stages if s["status"] == "MISSING"),
+                "not_applicable_stages": sum(1 for s in stages if s["status"] == "NOT_APPLICABLE")
+            }
+        }
+
+    @staticmethod
+    def export_graph_json(G: nx.DiGraph, max_nodes: Optional[int] = 250) -> Dict[str, Any]:
+        """Export machine-readable JSON representation of NetworkX graph."""
+        metrics = SupervisoryEvidenceGraphEngine.calculate_graph_metrics(G)
+
+        nodes = []
+        node_items = list(G.nodes(data=True))
+        if max_nodes and len(node_items) > max_nodes:
+            priority_types = {"CSE", "MISSING_EXPECTED", "ALERT", "INVESTIGATION"}
+            selected = [n for n, d in node_items if d.get("entity_type") in priority_types][:max_nodes]
+            selected_set = set(selected)
+            if len(selected) < max_nodes:
+                for n, d in node_items:
+                    if n not in selected_set:
+                        selected.append(n)
+                        selected_set.add(n)
+                        if len(selected) >= max_nodes:
+                            break
+            node_items = [(n, G.nodes[n]) for n in selected]
+
+        selected_ids = {n for n, d in node_items}
+        for n, d in node_items:
             nodes.append({
                 "id": n,
                 "entity_type": d.get("entity_type"),
@@ -508,15 +834,16 @@ class SupervisoryEvidenceGraphEngine:
 
         edges = []
         for u, v, d in G.edges(data=True):
-            edges.append({
-                "source": u,
-                "target": v,
-                "relationship": d.get("relationship"),
-                "timestamp": d.get("timestamp"),
-                "cse_id": d.get("cse_id")
-            })
-
-        metrics = SupervisoryEvidenceGraphEngine.calculate_graph_metrics(G)
+            if u in selected_ids and v in selected_ids:
+                edges.append({
+                    "source": u,
+                    "target": v,
+                    "relationship": d.get("relationship"),
+                    "timestamp": d.get("timestamp"),
+                    "cse_id": d.get("cse_id")
+                })
+                if max_nodes and len(edges) >= max_nodes * 2:
+                    break
 
         return {
             "graph_metadata": {

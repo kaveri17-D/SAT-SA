@@ -1,11 +1,15 @@
 import uuid
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
-from typing import List, Dict, Any
+from sqlalchemy import func
+from typing import List, Dict, Any, Optional
 from pydantic import BaseModel
 
 from app.core.database import get_db
-from app.models import ReviewQueueItem, AuditLog, QueueItemStatus, AnalysisRun, CSE, Finding, Asset, RiskScore, Case, FindingSeverity
+from app.models import (
+    ReviewQueueItem, AuditLog, QueueItemStatus, AnalysisRun, CSE,
+    Finding, Asset, RiskScore, Case, FindingSeverity, AnalysisRunStatus
+)
 from app.analytics.prioritization_engine import ReviewPrioritizationEngine
 
 router = APIRouter()
@@ -20,7 +24,16 @@ class StatusUpdateRequest(BaseModel):
 @router.get("/metrics/latest", summary="Retrieve Executive Dashboard Overview Metrics")
 def get_dashboard_metrics(db: Session = Depends(get_db)):
     """Calculate executive dashboard metrics dynamically across canonical database records."""
-    run = db.query(AnalysisRun).order_by(AnalysisRun.created_at.desc()).first()
+    # Prioritize active completed AnalysisRun
+    run = (
+        db.query(AnalysisRun)
+        .filter(AnalysisRun.status == AnalysisRunStatus.COMPLETED, AnalysisRun.findings_generated > 0)
+        .order_by(AnalysisRun.created_at.desc())
+        .first()
+    )
+    if not run:
+        run = db.query(AnalysisRun).order_by(AnalysisRun.created_at.desc()).first()
+
     analysis_run_id = str(run.id) if run else None
     dataset_import_id = str(run.dataset_import_id) if run and run.dataset_import_id else None
     rule_version = run.rule_version if run and run.rule_version else "1.0.0"
@@ -33,8 +46,8 @@ def get_dashboard_metrics(db: Session = Depends(get_db)):
     total_findings = db.query(Finding).filter(Finding.analysis_run_id == run.id).count() if run else db.query(Finding).count()
     critical_findings = db.query(Finding).filter(Finding.analysis_run_id == run.id, Finding.severity == FindingSeverity.CRITICAL).count() if run else db.query(Finding).filter(Finding.severity == FindingSeverity.CRITICAL).count()
 
-    findings = db.query(Finding).filter(Finding.analysis_run_id == run.id).all() if run else db.query(Finding).all()
-    avg_completeness = round(sum(f.evidence_completeness for f in findings if f.evidence_completeness is not None) / len(findings), 1) if findings else 100.0
+    avg_comp_scalar = db.query(func.avg(Finding.evidence_completeness)).filter(Finding.analysis_run_id == run.id).scalar() if run else None
+    avg_completeness = round(float(avg_comp_scalar), 1) if avg_comp_scalar is not None else 100.0
 
     open_cases = db.query(Case).filter(Case.status == "OPEN").count()
 
@@ -57,16 +70,49 @@ def get_dashboard_metrics(db: Session = Depends(get_db)):
     }
 
 
-
 @router.get("/cses", summary="Retrieve All CSE Profiles & Risk Summary")
-def get_cse_profiles(db: Session = Depends(get_db)):
+def get_cse_profiles(analysis_run_id: Optional[str] = Query(None), db: Session = Depends(get_db)):
     """Retrieve list of all CSEs with risk score, priority band, and asset/finding breakdown."""
     cses = db.query(CSE).all()
+    if not cses:
+        return []
+
+    # Batch queries to avoid N+1 overhead
+    run_uuid = None
+    if analysis_run_id:
+        try:
+            run_uuid = uuid.UUID(analysis_run_id)
+        except ValueError:
+            pass
+
+    # 1. Asset counts grouped by cse_id
+    asset_counts = dict(
+        db.query(Asset.cse_id, func.count(Asset.id))
+        .group_by(Asset.cse_id)
+        .all()
+    )
+
+    # 2. Finding counts grouped by cse_id
+    finding_query = db.query(Finding.cse_id, func.count(Finding.id))
+    if run_uuid:
+        finding_query = finding_query.filter(Finding.analysis_run_id == run_uuid)
+    finding_counts = dict(finding_query.group_by(Finding.cse_id).all())
+
+    # 3. Latest RiskScores
+    risk_query = db.query(RiskScore)
+    if run_uuid:
+        risk_query = risk_query.filter(RiskScore.analysis_run_id == run_uuid)
+    all_risk_scores = risk_query.order_by(RiskScore.computed_at.desc()).all()
+    risk_map = {}
+    for r in all_risk_scores:
+        if r.cse_id not in risk_map:
+            risk_map[r.cse_id] = r
+
     result = []
     for c in cses:
-        rs = db.query(RiskScore).filter(RiskScore.cse_id == c.id).order_by(RiskScore.computed_at.desc()).first()
-        f_count = db.query(Finding).filter(Finding.cse_id == c.id).count()
-        a_count = db.query(Asset).filter(Asset.cse_id == c.id).count()
+        rs = risk_map.get(c.id)
+        f_count = finding_counts.get(c.id, 0)
+        a_count = asset_counts.get(c.id, 0)
 
         result.append({
             "cse_id": str(c.id),
@@ -92,9 +138,15 @@ def get_review_queue(
 ):
     """Retrieve or generate ranked supervisory review queue with diversity statistics."""
     if analysis_run_id.lower() == "latest":
-        run = db.query(AnalysisRun).order_by(AnalysisRun.created_at.desc()).first()
+        run = (
+            db.query(AnalysisRun)
+            .filter(AnalysisRun.status == AnalysisRunStatus.COMPLETED, AnalysisRun.findings_generated > 0)
+            .order_by(AnalysisRun.created_at.desc())
+            .first()
+        )
         if not run:
-            # Create a default analysis run for the active dataset
+            run = db.query(AnalysisRun).order_by(AnalysisRun.created_at.desc()).first()
+        if not run:
             run = AnalysisRun(id=uuid.uuid4(), status="COMPLETED")
             db.add(run)
             db.commit()
